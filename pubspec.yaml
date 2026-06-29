@@ -1,0 +1,35 @@
+name: vvk_ui_kit
+description: >-
+  A Flutter UI kit with Material 3 theming, reusable widgets, utilities,
+  shimmer loading, SVG icons, and light/dark theme support.
+version: 0.0.2
+homepage: https://github.com/VVK027/vvk_ui_kit
+repository: https://github.com/VVK027/vvk_ui_kit
+issue_tracker: https://github.com/VVK027/vvk_ui_kit/issues
+license: MIT
+
+topics:
+  - ui
+  - widgets
+  - material
+  - theme
+  - flutter-ui
+
+environment:
+  sdk: ^3.8.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.20.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  assets:
+    - assets/icons/social/
+    - test/assets/
