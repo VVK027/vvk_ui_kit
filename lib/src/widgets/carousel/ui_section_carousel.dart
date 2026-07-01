@@ -107,44 +107,56 @@ class _SectionCarouselState extends State<UISectionCarousel> {
     setState(() => _currentPage = index);
   }
 
+  /// Matches [UICarouselNavButton] height plus the gap above controls.
+  static const _controlsFooterHeight = 44.0 + 20.0;
+
   @override
   Widget build(BuildContext context) {
     if (widget.pageCount == 0) {
       return const SizedBox.shrink();
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: widget.pageHeight,
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: widget.pageCount,
-            onPageChanged: _onPageChanged,
-            padEnds: false,
-            itemBuilder: widget.pageBuilder,
-          ),
-        ),
-        const SizedBox(height: 20),
-        UICarouselControls(
-          pageCount: widget.pageCount,
-          currentPage: _currentPage,
-          loop: widget.autoPlay,
-          colors: widget.controlsColors,
-          onPrevious: () {
-            final prev = _currentPage == 0
-                ? widget.pageCount - 1
-                : _currentPage - 1;
-            _goToPage(prev);
-          },
-          onNext: () {
-            final next = (_currentPage + 1) % widget.pageCount;
-            _goToPage(next);
-          },
-          onPageSelected: _goToPage,
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxHeight = constraints.maxHeight;
+        final pageHeight = maxHeight.isFinite
+            ? (maxHeight - _controlsFooterHeight).clamp(0.0, widget.pageHeight)
+            : widget.pageHeight;
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: pageHeight,
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: widget.pageCount,
+                onPageChanged: _onPageChanged,
+                padEnds: false,
+                itemBuilder: widget.pageBuilder,
+              ),
+            ),
+            const SizedBox(height: 20),
+            UICarouselControls(
+              pageCount: widget.pageCount,
+              currentPage: _currentPage,
+              loop: widget.autoPlay,
+              colors: widget.controlsColors,
+              onPrevious: () {
+                final prev = _currentPage == 0
+                    ? widget.pageCount - 1
+                    : _currentPage - 1;
+                _goToPage(prev);
+              },
+              onNext: () {
+                final next = (_currentPage + 1) % widget.pageCount;
+                _goToPage(next);
+              },
+              onPageSelected: _goToPage,
+            ),
+          ],
+        );
+      },
     );
   }
 }

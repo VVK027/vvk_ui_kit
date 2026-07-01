@@ -89,6 +89,26 @@ void main() {
 
       expect(find.text('Page 1'), findsOneWidget);
     });
+
+    testWidgets('fits within a height equal to pageHeight', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              height: 120,
+              child: UISectionCarousel(
+                pageCount: 2,
+                pageHeight: 120,
+                pageBuilder: (context, index) => Text('Page $index'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(find.text('Page 0'), findsOneWidget);
+    });
   });
 
   group('UICarouselControls', () {

@@ -103,19 +103,16 @@ class _CarouselShowcaseState extends State<CarouselShowcase> {
           ),
           ShowcaseTile(
             name: 'UISectionCarousel',
-            child: SizedBox(
-              height: 120,
-              child: UISectionCarousel(
-                pageCount: items.length,
-                pageHeight: 120,
-                pageBuilder: (context, index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: colors.secondaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(child: Text('Page ${items[index]}')),
+            child: UISectionCarousel(
+              pageCount: items.length,
+              pageHeight: 120,
+              pageBuilder: (context, index) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  color: colors.secondaryContainer,
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: Center(child: Text('Page ${items[index]}')),
               ),
             ),
           ),

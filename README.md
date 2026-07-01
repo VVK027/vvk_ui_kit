@@ -235,7 +235,7 @@ Import only what you need:
 | `package:vvk_ui_kit/widgets.dart` | Cards, carousel, display, glass, text, rating |
 | `package:vvk_ui_kit/core.dart` | Extensions, JSON/navigation/translation utils |
 
-See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance and [doc/MIGRATION.md](doc/MIGRATION.md) for upgrade notes. Track planned work in [doc/BACKLOG.md](doc/BACKLOG.md).
+See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance and [doc/MIGRATION.md](doc/MIGRATION.md) for upgrade notes.
 
 ## License
 
