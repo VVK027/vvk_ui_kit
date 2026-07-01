@@ -328,7 +328,8 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           tooltip:
-              backTooltip ?? MaterialLocalizations.of(context).backButtonTooltip,
+              backTooltip ??
+              MaterialLocalizations.of(context).backButtonTooltip,
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: onBar, size: 20),
           onPressed:
               onBack ?? onBackPressed ?? () => Navigator.of(context).pop(),

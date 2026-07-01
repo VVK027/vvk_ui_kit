@@ -94,10 +94,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UISvgAssetIcon(
-              assetPath: kTestSvgAsset,
-              size: 32,
-            ),
+            body: UISvgAssetIcon(assetPath: kTestSvgAsset, size: 32),
           ),
         ),
       );

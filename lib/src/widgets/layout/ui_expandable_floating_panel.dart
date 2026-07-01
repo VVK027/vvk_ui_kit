@@ -102,7 +102,8 @@ class _UIExpandableFloatingPanelState extends State<UIExpandableFloatingPanel> {
   @override
   Widget build(BuildContext context) {
     final background =
-        widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHigh;
+        widget.backgroundColor ??
+        Theme.of(context).colorScheme.surfaceContainerHigh;
 
     return Material(
       color: background,
@@ -117,7 +118,9 @@ class _UIExpandableFloatingPanelState extends State<UIExpandableFloatingPanel> {
             duration: widget.animationDuration,
             curve: Curves.easeInOutCubic,
             alignment: Alignment.topRight,
-            child: _isExpanded ? _expandedBody(context) : const SizedBox.shrink(),
+            child: _isExpanded
+                ? _expandedBody(context)
+                : const SizedBox.shrink(),
           ),
           IconButton(
             key: const Key('ui_expandable_floating_panel_toggle'),

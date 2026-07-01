@@ -53,8 +53,7 @@ Future<T?> showUIAdaptiveAlertDialog<T>({
           actions: [
             for (final action in actions)
               CupertinoDialogAction(
-                onPressed: () =>
-                    Navigator.of(dialogContext).pop(action.value),
+                onPressed: () => Navigator.of(dialogContext).pop(action.value),
                 isDefaultAction: action.isDefault,
                 isDestructiveAction: action.isDestructive,
                 child: Text(action.label),
@@ -70,8 +69,7 @@ Future<T?> showUIAdaptiveAlertDialog<T>({
         actions: [
           for (final action in actions)
             TextButton(
-              onPressed: () =>
-                  Navigator.of(dialogContext).pop(action.value),
+              onPressed: () => Navigator.of(dialogContext).pop(action.value),
               style: action.isDestructive
                   ? TextButton.styleFrom(
                       foregroundColor: theme.colorScheme.error,
@@ -84,4 +82,3 @@ Future<T?> showUIAdaptiveAlertDialog<T>({
     },
   );
 }
-

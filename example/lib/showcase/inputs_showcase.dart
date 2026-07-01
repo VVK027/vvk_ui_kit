@@ -36,14 +36,8 @@ class _InputsShowcaseState extends State<InputsShowcase> {
       title: 'Inputs',
       child: Column(
         children: [
-          ShowcaseTile(
-            name: 'UISearchBar',
-            child: _SearchBarDemo(),
-          ),
-          ShowcaseTile(
-            name: 'UITagInput',
-            child: _TagInputDemo(),
-          ),
+          ShowcaseTile(name: 'UISearchBar', child: _SearchBarDemo()),
+          ShowcaseTile(name: 'UITagInput', child: _TagInputDemo()),
           ShowcaseTile(
             name: 'UITextFormField',
             child: UITextFormField(

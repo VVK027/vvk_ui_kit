@@ -154,8 +154,7 @@ class _UISearchBarState extends State<UISearchBar>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final fillColor =
-        widget.backgroundColor ?? scheme.surfaceContainerHighest;
+    final fillColor = widget.backgroundColor ?? scheme.surfaceContainerHighest;
     final borderColor = scheme.outlineVariant;
 
     return SizedBox(
@@ -218,9 +217,10 @@ class _UISearchBarState extends State<UISearchBar>
           if (widget.onSortDirectionChanged != null) ...[
             const SizedBox(width: 4),
             RotationTransition(
-              turns: Tween<double>(begin: 0, end: 1).animate(
-                _sortRotationController,
-              ),
+              turns: Tween<double>(
+                begin: 0,
+                end: 1,
+              ).animate(_sortRotationController),
               child: IconButton(
                 key: const Key('ui_search_bar_sort'),
                 tooltip: _sortAscending
@@ -239,10 +239,7 @@ class _UISearchBarState extends State<UISearchBar>
               key: const Key('ui_search_bar_filter'),
               tooltip: widget.filterTooltip,
               onPressed: widget.enabled ? widget.onFilterTap : null,
-              icon: Icon(
-                Icons.tune_rounded,
-                color: scheme.onSurfaceVariant,
-              ),
+              icon: Icon(Icons.tune_rounded, color: scheme.onSurfaceVariant),
             ),
           ],
         ],

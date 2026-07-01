@@ -265,16 +265,8 @@ class _PickerThumb extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
-          border: Border.all(
-            color: Colors.white,
-            width: 2,
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x66000000),
-              blurRadius: 2,
-            ),
-          ],
+          border: Border.all(color: Colors.white, width: 2),
+          boxShadow: const [BoxShadow(color: Color(0x66000000), blurRadius: 2)],
         ),
       ),
     );
@@ -385,9 +377,9 @@ class _HueBarPainter extends CustomPainter {
       Color(0xFFFF0000),
     ];
     final paint = Paint()
-      ..shader = const LinearGradient(colors: colors).createShader(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-      );
+      ..shader = const LinearGradient(
+        colors: colors,
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),

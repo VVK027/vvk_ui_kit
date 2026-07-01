@@ -34,8 +34,8 @@ class UIGlassBottomNavBar extends StatelessWidget {
     this.borderRadius = 16,
     this.activeColor,
     this.inactiveColor,
-  })  : assert(items.length >= 2),
-        assert(currentIndex >= 0 && currentIndex < items.length);
+  }) : assert(items.length >= 2),
+       assert(currentIndex >= 0 && currentIndex < items.length);
 
   final List<UIGlassBottomNavBarItem> items;
   final int currentIndex;
@@ -86,7 +86,8 @@ class UIGlassBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedActive = activeColor ?? Theme.of(context).colorScheme.onSurface;
+    final resolvedActive =
+        activeColor ?? Theme.of(context).colorScheme.onSurface;
     final resolvedInactive =
         inactiveColor ?? resolvedActive.withValues(alpha: 0.6);
 
@@ -127,11 +128,8 @@ class UIGlassBottomNavBar extends StatelessWidget {
                           item.label!,
                           maxLines: 1,
                           textOverflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: color,
-                                    fontSize: 11,
-                                  ),
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(color: color, fontSize: 11),
                         ),
                       ],
                     ],

@@ -259,9 +259,9 @@ class DialogsShowcase extends StatelessWidget {
                   ],
                 );
                 if (context.mounted && result != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Selected: $result')),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('Selected: $result')));
                 }
               },
             ),
@@ -288,9 +288,9 @@ class DialogsShowcase extends StatelessWidget {
                   ],
                 );
                 if (context.mounted && result != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Selected: $result')),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('Selected: $result')));
                 }
               },
             ),

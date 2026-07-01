@@ -153,29 +153,20 @@ class DisplayShowcase extends StatelessWidget {
               child: UICommandBar.fromTheme(
                 context,
                 items: [
-                UICommandBarItem(
-                  label: 'New',
-                  icon: Icons.add,
-                ),
-                UICommandBarItem(
-                  label: 'Edit',
-                  icon: Icons.edit_outlined,
-                ),
-                UICommandBarItem(
-                  label: 'Share',
-                  icon: Icons.share_outlined,
-                ),
-                UICommandBarItem(
-                  label: 'Archive',
-                  icon: Icons.archive_outlined,
-                ),
-              ],
-              secondaryItems: [
-                UICommandBarItem(
-                  label: 'Delete',
-                  icon: Icons.delete_outline,
-                  destructive: true,
-                ),
+                  UICommandBarItem(label: 'New', icon: Icons.add),
+                  UICommandBarItem(label: 'Edit', icon: Icons.edit_outlined),
+                  UICommandBarItem(label: 'Share', icon: Icons.share_outlined),
+                  UICommandBarItem(
+                    label: 'Archive',
+                    icon: Icons.archive_outlined,
+                  ),
+                ],
+                secondaryItems: [
+                  UICommandBarItem(
+                    label: 'Delete',
+                    icon: Icons.delete_outline,
+                    destructive: true,
+                  ),
                 ],
               ),
             ),

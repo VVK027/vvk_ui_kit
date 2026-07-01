@@ -235,9 +235,6 @@ class _UIBottomNavyBarTile extends StatelessWidget {
           color: activeColor,
           fontWeight: FontWeight.w700,
         ) ??
-        TextStyle(
-          color: activeColor,
-          fontWeight: FontWeight.w700,
-        );
+        TextStyle(color: activeColor, fontWeight: FontWeight.w700);
   }
 }

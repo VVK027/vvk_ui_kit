@@ -65,7 +65,8 @@ class UIGlassScaffold extends StatelessWidget {
       extendBody: extendBody,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      backgroundGradient: backgroundGradient ??
+      backgroundGradient:
+          backgroundGradient ??
           LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -89,9 +90,7 @@ class UIGlassScaffold extends StatelessWidget {
     }
 
     return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: backgroundGradient,
-      ),
+      decoration: BoxDecoration(gradient: backgroundGradient),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: appBar,

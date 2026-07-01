@@ -201,11 +201,7 @@ class _UISpotlightPulsePainter extends CustomPainter {
 
     switch (shape) {
       case UISpotlightShape.circle:
-        canvas.drawCircle(
-          expanded.center,
-          expanded.shortestSide / 2,
-          paint,
-        );
+        canvas.drawCircle(expanded.center, expanded.shortestSide / 2, paint);
       case UISpotlightShape.pill:
         canvas.drawRRect(
           RRect.fromRectAndRadius(

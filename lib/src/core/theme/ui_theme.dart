@@ -403,6 +403,7 @@ ThemeData buildUIKitTheme({
       UIAlertTheme.standard,
       UICardTheme.standard,
       UINavigationTheme.standard,
+      UIGlassMetrics.standard,
     ],
   );
 

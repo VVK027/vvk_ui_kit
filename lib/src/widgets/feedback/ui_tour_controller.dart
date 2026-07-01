@@ -90,10 +90,9 @@ class UITourController {
   int get currentStepIndex => _currentStepIndex;
   int get totalSteps => steps.length;
   bool get isRunning => _isRunning;
-  UITourStep? get currentStep =>
-      _isRunning && _currentStepIndex < steps.length
-          ? steps[_currentStepIndex]
-          : null;
+  UITourStep? get currentStep => _isRunning && _currentStepIndex < steps.length
+      ? steps[_currentStepIndex]
+      : null;
 
   Future<void> start() async {
     if (steps.isEmpty) return;

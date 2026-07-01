@@ -131,9 +131,9 @@ class _UIGlassButtonState extends State<UIGlassButton>
     final scheme = Theme.of(context).colorScheme;
     final accent = widget.color ?? scheme.primary;
     final textStyle = Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: accent,
-          fontWeight: FontWeight.w600,
-        );
+      color: accent,
+      fontWeight: FontWeight.w600,
+    );
 
     final button = UIGlassSurface(
       blur: widget.blur,
@@ -145,8 +145,9 @@ class _UIGlassButtonState extends State<UIGlassButton>
       height: widget.height,
       padding: widget.padding,
       child: Row(
-        mainAxisSize:
-            widget.width != null ? MainAxisSize.max : MainAxisSize.min,
+        mainAxisSize: widget.width != null
+            ? MainAxisSize.max
+            : MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (widget.icon != null) ...[

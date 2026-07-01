@@ -185,7 +185,8 @@ class _UIPopoverState extends State<UIPopover> {
 
     _scrimEntry ??= OverlayEntry(
       builder: (context) {
-        final color = widget.scrimColor ??
+        final color =
+            widget.scrimColor ??
             Theme.of(context).colorScheme.scrim.withValues(alpha: 0.45);
         return Positioned.fill(
           child: GestureDetector(
@@ -326,25 +327,16 @@ class _UIPopoverPanel extends StatelessWidget {
           children: [bubble, arrow],
         );
       case UIPopoverDirection.left:
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [bubble, arrow],
-        );
+        return Row(mainAxisSize: MainAxisSize.min, children: [bubble, arrow]);
       case UIPopoverDirection.right:
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [arrow, bubble],
-        );
+        return Row(mainAxisSize: MainAxisSize.min, children: [arrow, bubble]);
     }
   }
 
   Widget _buildBubble(BuildContext context) {
     final content = ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth),
-      child: Padding(
-        padding: padding,
-        child: child,
-      ),
+      child: Padding(padding: padding, child: child),
     );
 
     final body = showCloseButton
@@ -365,7 +357,10 @@ class _UIPopoverPanel extends StatelessWidget {
                       MaterialLocalizations.of(context).closeButtonTooltip,
                   visualDensity: VisualDensity.compact,
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints.tightFor(width: 28, height: 28),
+                  constraints: const BoxConstraints.tightFor(
+                    width: 28,
+                    height: 28,
+                  ),
                   icon: Icon(
                     Icons.close,
                     size: 16,
@@ -404,10 +399,10 @@ class _UIPopoverArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = switch (direction) {
-      UIPopoverDirection.above || UIPopoverDirection.below =>
-        Size(width, height),
-      UIPopoverDirection.left || UIPopoverDirection.right =>
-        Size(height, width),
+      UIPopoverDirection.above ||
+      UIPopoverDirection.below => Size(width, height),
+      UIPopoverDirection.left ||
+      UIPopoverDirection.right => Size(height, width),
     };
 
     return CustomPaint(
@@ -418,10 +413,7 @@ class _UIPopoverArrow extends StatelessWidget {
 }
 
 class _UIPopoverArrowPainter extends CustomPainter {
-  const _UIPopoverArrowPainter({
-    required this.color,
-    required this.direction,
-  });
+  const _UIPopoverArrowPainter({required this.color, required this.direction});
 
   final Color color;
   final UIPopoverDirection direction;

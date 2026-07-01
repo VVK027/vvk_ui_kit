@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/clips/ui_ticket_clip.dart' show UITicketClip;
+import 'package:vvk_ui_kit/src/widgets/clips/ui_ticket_clip.dart'
+    show UITicketClip;
 
 import 'ui_coupon_clipper.dart';
 import 'ui_coupon_decoration_painter.dart';
@@ -68,8 +69,7 @@ class UICouponCard extends StatelessWidget {
       curvePosition: curvePosition,
       curveAxis: curveAxis,
       clockwise: clockwise,
-      backgroundColor:
-          backgroundColor ?? Theme.of(context).colorScheme.surface,
+      backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
       decoration: decoration,
       shadow: shadow,
       border: border,

@@ -104,9 +104,7 @@ void main() {
   group('UIShimmerPageLoading', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIShimmerPageLoading()),
-        ),
+        const MaterialApp(home: Scaffold(body: UIShimmerPageLoading())),
       );
 
       expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -116,9 +114,7 @@ void main() {
   group('UIListViewShimmerLoading', () {
     testWidgets('renders default items', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIListViewShimmerLoading()),
-        ),
+        const MaterialApp(home: Scaffold(body: UIListViewShimmerLoading())),
       );
 
       expect(find.byType(ListView), findsOneWidget);
@@ -128,9 +124,7 @@ void main() {
   group('UIGripShimmerLoading', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIGripShimmerLoading()),
-        ),
+        const MaterialApp(home: Scaffold(body: UIGripShimmerLoading())),
       );
 
       expect(find.byType(GridView), findsOneWidget);
@@ -183,9 +177,7 @@ void main() {
     testWidgets('image placeholder renders sized box', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: UIShimmerBase.image(width: 100, height: 60),
-          ),
+          home: Scaffold(body: UIShimmerBase.image(width: 100, height: 60)),
         ),
       );
 
@@ -194,11 +186,7 @@ void main() {
 
     testWidgets('atv placeholder renders circle', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UIShimmerBase.atv(size: 48),
-          ),
-        ),
+        MaterialApp(home: Scaffold(body: UIShimmerBase.atv(size: 48))),
       );
 
       final container = tester.widget<Container>(find.byType(Container));

@@ -164,8 +164,7 @@ class _UITreeViewState extends State<UITreeView> {
   }
 
   void _toggleSelection(UITreeNode node) {
-    if (widget.selectionMode == UITreeViewSelectionMode.none ||
-        !node.enabled) {
+    if (widget.selectionMode == UITreeViewSelectionMode.none || !node.enabled) {
       return;
     }
 
@@ -213,8 +212,9 @@ class _UITreeViewState extends State<UITreeView> {
       return _selectedKeys.contains(node.key);
     }
 
-    final selectedCount =
-        descendants.where((key) => _selectedKeys.contains(key)).length;
+    final selectedCount = descendants
+        .where((key) => _selectedKeys.contains(key))
+        .length;
     if (selectedCount == 0 && !_selectedKeys.contains(node.key)) {
       return false;
     }
@@ -234,9 +234,7 @@ class _UITreeViewState extends State<UITreeView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Material(
-          color: isSelected
-              ? widget.selectedColor
-              : widget.backgroundColor,
+          color: isSelected ? widget.selectedColor : widget.backgroundColor,
           child: InkWell(
             onTap: () => _handleTap(node),
             child: SizedBox(
@@ -291,8 +289,9 @@ class _UITreeViewState extends State<UITreeView> {
                         style: widget.textStyle?.copyWith(
                           color: node.enabled
                               ? widget.textStyle?.color
-                              : widget.textStyle?.color
-                                    ?.withValues(alpha: 0.38),
+                              : widget.textStyle?.color?.withValues(
+                                  alpha: 0.38,
+                                ),
                         ),
                         maxLines: 1,
                         textOverflow: TextOverflow.ellipsis,

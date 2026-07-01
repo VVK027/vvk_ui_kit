@@ -1,11 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vvk_ui_kit/src/core/utils/adaptive_platform_util.dart';
 
 /// A customizable pill-shaped toggle switch with optional ON/OFF labels.
+///
+/// Set [adaptive] to render a native [CupertinoSwitch] on iOS/macOS while
+/// keeping the custom pill design on other platforms.
 class UIPillSwitch extends StatefulWidget {
   const UIPillSwitch({
     super.key,
     required this.value,
     required this.onChanged,
+    this.adaptive = false,
+    this.forceCupertino = false,
+    this.forceMaterial = false,
     this.activeColor,
     this.inactiveColor,
     this.activeTextColor,
@@ -58,6 +66,9 @@ class UIPillSwitch extends StatefulWidget {
     String? activeText,
     String? inactiveText,
     bool disabled = false,
+    bool adaptive = false,
+    bool forceCupertino = false,
+    bool forceMaterial = false,
   }) {
     return UIPillSwitch(
       key: key,
@@ -69,11 +80,23 @@ class UIPillSwitch extends StatefulWidget {
       activeText: activeText,
       inactiveText: inactiveText,
       disabled: disabled,
+      adaptive: adaptive,
+      forceCupertino: forceCupertino,
+      forceMaterial: forceMaterial,
     );
   }
 
   final bool value;
   final ValueChanged<bool> onChanged;
+
+  /// When true, renders a native [CupertinoSwitch] on Apple platforms.
+  final bool adaptive;
+
+  /// Forces the Cupertino variant regardless of platform when [adaptive].
+  final bool forceCupertino;
+
+  /// Forces the Material pill variant regardless of platform when [adaptive].
+  final bool forceMaterial;
   final Color? activeColor;
   final Color? inactiveColor;
   final Color? activeTextColor;
@@ -150,6 +173,18 @@ class _UIPillSwitchState extends State<UIPillSwitch>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+
+    if (widget.adaptive &&
+        useAdaptiveCupertino(
+          forceCupertino: widget.forceCupertino,
+          forceMaterial: widget.forceMaterial,
+        )) {
+      return CupertinoSwitch(
+        value: widget.value,
+        onChanged: widget.disabled ? null : widget.onChanged,
+        activeTrackColor: widget.activeColor ?? scheme.primary,
+      );
+    }
 
     final activeColor = widget.activeColor ?? scheme.primary;
     final inactiveColor =

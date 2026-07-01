@@ -58,7 +58,8 @@ class UIGlassAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final foreground =
-        theme?.foregroundColor ?? UIGlassTheme.fromTheme(context).foregroundColor;
+        theme?.foregroundColor ??
+        UIGlassTheme.fromTheme(context).foregroundColor;
 
     return UIGlassSurface(
       theme: theme,

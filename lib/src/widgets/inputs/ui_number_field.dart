@@ -197,9 +197,7 @@ class _UINumberFieldState extends State<UINumberField> {
               style: widget.textStyle,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
-                  RegExp(
-                    widget.decimalPlaces > 0 ? r'^\d*\.?\d*$' : r'^\d*$',
-                  ),
+                  RegExp(widget.decimalPlaces > 0 ? r'^\d*\.?\d*$' : r'^\d*$'),
                 ),
               ],
               decoration: const InputDecoration(
@@ -231,9 +229,9 @@ class _UINumberFieldState extends State<UINumberField> {
       children: [
         UIText(
           widget.label!,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: scheme.onSurfaceVariant,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(color: scheme.onSurfaceVariant),
         ),
         SizedBox(height: widget.spacing),
         field,
@@ -269,9 +267,9 @@ class _StepperButton extends StatelessWidget {
         onPressed: enabled ? onPressed : null,
         icon: Icon(
           icon,
-          color: enabled ? scheme.onSurface : scheme.onSurface.withValues(
-            alpha: 0.38,
-          ),
+          color: enabled
+              ? scheme.onSurface
+              : scheme.onSurface.withValues(alpha: 0.38),
         ),
       ),
     );

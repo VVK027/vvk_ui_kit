@@ -6,7 +6,7 @@ import 'log_util.dart';
 
 /// In-memory translation lookup with placeholder replacement.
 ///
-/// Load strings from ARB/JSON assets via [TranslationCache.preload] or construct
+/// Load strings from ARB/JSON assets via `TranslationCache.preload` or construct
 /// directly from a map for tests and simple apps.
 ///
 /// ```dart
@@ -61,6 +61,11 @@ class Translations {
 }
 
 /// Static cache for preloaded locale translation maps.
+@Deprecated(
+  'Non-UI utility outside the scope of a UI kit. Scheduled for removal in '
+  'v3.0.0. Use flutter_localizations with intl/slang for localization instead. '
+  'See doc/MIGRATION.md.',
+)
 class TranslationCache {
   TranslationCache._();
 
