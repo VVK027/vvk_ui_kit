@@ -64,24 +64,26 @@ class AnimShowcase extends StatelessWidget {
           ),
           ShowcaseTile(
             name: 'UIFlipAnimation + UIScaleInAnimation',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                UIFlipAnimation(
-                  child: Icon(
-                    Icons.credit_card,
-                    size: 48,
-                    color: Theme.of(context).colorScheme.primary,
+            child: UIAnimationConfiguration.synchronized(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  UIFlipAnimation(
+                    child: Icon(
+                      Icons.credit_card,
+                      size: 48,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                ),
-                UIScaleInAnimation(
-                  child: Icon(
-                    Icons.notifications,
-                    size: 48,
-                    color: Theme.of(context).colorScheme.tertiary,
+                  UIScaleInAnimation(
+                    child: Icon(
+                      Icons.notifications,
+                      size: 48,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           ShowcaseTile(

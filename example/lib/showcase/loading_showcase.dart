@@ -117,7 +117,7 @@ class _LoadingShowcaseState extends State<LoadingShowcase> {
             name: 'UIPostLoading.postInfo / comments',
             child: Column(
               children: [
-                SizedBox(height: 100, child: UIPostLoading.postInfo()),
+                SizedBox(height: 300, child: UIPostLoading.postInfo()),
                 const SizedBox(height: 8),
                 SizedBox(height: 80, child: UIPostLoading.comments()),
               ],

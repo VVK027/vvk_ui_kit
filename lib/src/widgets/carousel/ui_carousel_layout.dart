@@ -60,7 +60,7 @@ class UICarouselRowPage<T> extends StatelessWidget {
       padding: const EdgeInsets.only(right: 4),
       child: ClipRect(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var i = 0; i < items.length; i++) ...[
               if (i > 0) SizedBox(width: gap),

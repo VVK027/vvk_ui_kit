@@ -137,10 +137,11 @@ class AccordionCardsClipsShowcase extends StatelessWidget {
                 ),
               ),
               secondChild: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     UIText(
                       'SUMMER23',
