@@ -51,14 +51,14 @@ void main() {
   group('UIGlassSurface', () {
     testWidgets('renders with gradient and backdrop blur', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: UIGlassSurface(
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [Colors.white24, Colors.white10],
               ),
-              padding: const EdgeInsets.all(16),
-              child: const Text('Glass surface'),
+              padding: EdgeInsets.all(16),
+              child: Text('Glass surface'),
             ),
           ),
         ),

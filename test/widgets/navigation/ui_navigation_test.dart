@@ -471,13 +471,13 @@ void main() {
   group('UITabbedDetailScaffold', () {
     testWidgets('renders all components', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: UITabbedDetailScaffold(
             title: 'Tabbed Detail',
             accentColor: Colors.blue,
-            tabs: const [Tab(text: 'D'), Tab(text: 'W')],
-            tabViews: const [Text('Day View'), Text('Week View')],
-            header: const Text('Header Widget'),
+            tabs: [Tab(text: 'D'), Tab(text: 'W')],
+            tabViews: [Text('Day View'), Text('Week View')],
+            header: Text('Header Widget'),
           ),
         ),
       );
@@ -583,11 +583,11 @@ void main() {
   group('UIAccentTabDetailScaffold', () {
     testWidgets('renders tabs and content', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: UIAccentTabDetailScaffold(
             title: 'Detail',
-            tabs: const [Tab(text: 'A'), Tab(text: 'B')],
-            tabViews: const [Text('View A'), Text('View B')],
+            tabs: [Tab(text: 'A'), Tab(text: 'B')],
+            tabViews: [Text('View A'), Text('View B')],
           ),
         ),
       );

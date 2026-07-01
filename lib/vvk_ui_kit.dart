@@ -34,7 +34,7 @@
 /// * **Feedback & tours** — popover, skeleton placeholders, and guided product
 ///   tours with spotlight overlay.
 /// * **Glass** — frosted surface, card, button, app bar, bottom nav bar, and scaffold.
-/// * **Inputs** — form fields, [UIForm] with named field tracking, dropdowns,
+/// * **Inputs** — form fields, `UIForm` with named field tracking, dropdowns,
 ///   hierarchy searchable dropdown, calendar/date/time pickers, search bar, tag
 ///   input, number field, color picker, password strength, pill switch, rounded
 ///   checkboxes, textarea, OTP input, and value sliders.

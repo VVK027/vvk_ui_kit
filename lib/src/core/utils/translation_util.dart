@@ -14,7 +14,7 @@ import 'log_util.dart';
 /// t.tr('greeting', namedArgs: {'name': 'Ada'}); // Hello, Ada!
 /// ```
 class Translations {
-  /// Creates a [Translations] instance backed by [map].
+  /// Creates a [Translations] instance backed by the given string map.
   Translations(this._map);
 
   final Map<String, String> _map;

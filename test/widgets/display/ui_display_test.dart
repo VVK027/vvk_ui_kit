@@ -197,9 +197,9 @@ void main() {
   group('UIAvatarGlow', () {
     testWidgets('renders child with glow wrapper', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: UIAvatarGlow(child: const SizedBox(width: 40, height: 40)),
+            body: UIAvatarGlow(child: SizedBox(width: 40, height: 40)),
           ),
         ),
       );

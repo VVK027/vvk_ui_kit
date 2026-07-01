@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_asset_icon.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_image.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_path_parser.dart';
 
 void main() {
   group('SvgPathParser', () {
@@ -111,7 +108,7 @@ void main() {
   group('UISocialAuthIcon', () {
     testWidgets('renders provider icon', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: UISocialAuthIcon(provider: UISocialAuthProvider.google),
           ),

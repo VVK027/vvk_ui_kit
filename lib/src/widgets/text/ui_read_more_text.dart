@@ -291,9 +291,9 @@ class _UIReadMoreTextState extends State<UIReadMoreText> {
 
         final text = TextSpan(
           children: [
-            if (preTextSpan != null) preTextSpan,
+            ?preTextSpan,
             dataTextSpan,
-            if (postTextSpan != null) postTextSpan,
+            ?postTextSpan,
           ],
         );
 
@@ -401,9 +401,9 @@ class _UIReadMoreTextState extends State<UIReadMoreText> {
         return RichText(
           text: TextSpan(
             children: [
-              if (preTextSpan != null) preTextSpan,
+              ?preTextSpan,
               textSpan,
-              if (postTextSpan != null) postTextSpan,
+              ?postTextSpan,
             ],
           ),
           textAlign: textAlign,

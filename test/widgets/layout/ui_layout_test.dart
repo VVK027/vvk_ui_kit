@@ -166,7 +166,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: UISeparatedColumn(
-              separatorBuilder: (_, __) => const Divider(height: 1),
+              separatorBuilder: (_, _) => const Divider(height: 1),
               children: const [Text('One'), Text('Two'), Text('Three')],
             ),
           ),
@@ -288,13 +288,13 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: MediaQuery(
-              data: const MediaQueryData(
+              data: MediaQueryData(
                 viewInsets: EdgeInsets.only(bottom: 300),
               ),
-              child: const UIKeyboardToolbarHost(child: SizedBox()),
+              child: UIKeyboardToolbarHost(child: SizedBox()),
             ),
           ),
         ),
@@ -310,7 +310,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: UISeparatedRow(
-              separatorBuilder: (_, __) => const VerticalDivider(width: 1),
+              separatorBuilder: (_, _) => const VerticalDivider(width: 1),
               children: const [Text('One'), Text('Two'), Text('Three')],
             ),
           ),
@@ -333,7 +333,7 @@ void main() {
               direction: Axis.vertical,
               includeFirstSeparator: true,
               includeLastSeparator: true,
-              separatorBuilder: (_, __) => const Divider(height: 1),
+              separatorBuilder: (_, _) => const Divider(height: 1),
               children: const [Text('Alpha'), Text('Beta')],
             ),
           ),

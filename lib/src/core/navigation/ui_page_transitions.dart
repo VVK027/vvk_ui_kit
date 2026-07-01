@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vvk_ui_kit/src/core/utils/navigation_util.dart' show NavigationUtil;
 
 /// Built-in page transition styles for [NavigationUtil] and [UIPageRoute].
 enum UIPageTransition {

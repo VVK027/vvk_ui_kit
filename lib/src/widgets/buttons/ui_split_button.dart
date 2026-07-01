@@ -106,7 +106,6 @@ class UISplitButton extends StatefulWidget {
         );
     return UISplitButton(
       key: key,
-      child: resolvedChild,
       onPressed: onPressed,
       menuItems: menuItems,
       menu: menu,
@@ -118,6 +117,7 @@ class UISplitButton extends StatefulWidget {
       borderColor: borderColor ?? scheme.outline,
       dividerColor: dividerColor ?? scheme.outlineVariant,
       menuMinWidth: menuMinWidth,
+      child: resolvedChild,
     );
   }
 

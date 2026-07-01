@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
-import 'package:vvk_ui_kit/src/core/utils/json_utils.dart';
 import 'package:vvk_ui_kit/src/core/utils/log_util.dart';
 
 void main() {

@@ -67,7 +67,7 @@ class UIAnimationConfiguration extends InheritedWidget {
   final Duration? delay;
   final int columnCount;
 
-  /// Wraps each widget in [children] with a [staggeredList] configuration.
+  /// Wraps each widget in [children] with a [UIAnimationConfiguration.staggeredList] configuration.
   static List<Widget> toStaggeredList({
     Duration duration = const Duration(milliseconds: 225),
     Duration? delay,

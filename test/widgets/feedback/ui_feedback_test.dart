@@ -152,13 +152,13 @@ void main() {
   group('UISpotlightOverlay', () {
     testWidgets('renders spotlight painter', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: SizedBox(
               width: 300,
               height: 400,
               child: UISpotlightOverlay(
-                targetRect: const Rect.fromLTWH(80, 120, 100, 48),
+                targetRect: Rect.fromLTWH(80, 120, 100, 48),
               ),
             ),
           ),

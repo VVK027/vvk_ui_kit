@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'package:vvk_ui_kit/vvk_ui_kit.dart' show UIAlertDialog, UIAlertPanel;
 
 /// Visual variants for [UIAlert].
 enum UIAlertVariant { primary, destructive, info, warning }

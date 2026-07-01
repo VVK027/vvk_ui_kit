@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'package:vvk_ui_kit/vvk_ui_kit.dart' show UISplitButtonMenuItem, UICommandBarItem;
 
-/// One action inside a [UIContextMenu].
+/// One action inside a [showUIContextMenu] menu.
 class UIContextMenuItem {
   const UIContextMenuItem({
     required this.label,
@@ -162,7 +163,7 @@ class _UIContextMenuRow extends StatelessWidget {
   }
 }
 
-/// Wraps [child] and opens a [UIContextMenu] on long-press.
+/// Wraps [child] and opens [showUIContextMenu] on long-press.
 class UIContextMenuRegion extends StatelessWidget {
   const UIContextMenuRegion({
     super.key,

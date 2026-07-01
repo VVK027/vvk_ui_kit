@@ -1,4 +1,6 @@
 import 'package:vvk_ui_kit/src/widgets/buttons/ui_social_auth_provider.dart';
+import 'package:vvk_ui_kit/src/widgets/buttons/ui_social_auth_button.dart' show UISocialAuthButton;
+import 'package:vvk_ui_kit/src/icons/ui_social_auth_icon.dart' show UISocialAuthIcon;
 
 /// Default SVG asset paths for [UISocialAuthProvider] icons shipped with this package.
 ///

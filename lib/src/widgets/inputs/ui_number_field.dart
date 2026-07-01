@@ -4,7 +4,7 @@ import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
 
 /// Numeric input with increment/decrement stepper buttons.
 class UINumberField extends StatefulWidget {
-  UINumberField({
+  const UINumberField({
     super.key,
     required this.value,
     this.onChanged,
