@@ -393,10 +393,4 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-/// Deprecated alias for [UIAppBar] — use `UIAppBar.accent` instead.
-@Deprecated('Use UIAppBar.accent instead.')
-typedef UIAccentAppBar = UIAppBar;
 
-/// Deprecated alias for [UIAppBar] — use `UIAppBar.brand` instead.
-@Deprecated('Use UIAppBar.brand instead.')
-typedef UIBrandAppBar = UIAppBar;

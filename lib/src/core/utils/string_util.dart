@@ -277,7 +277,6 @@ class StringUtils {
   }
 
   /// Alias for [removeTrailingDots].
-  @Deprecated('Use removeTrailingDots instead.')
   static String doesNotEndWithDot(String text) => removeTrailingDots(text);
 
   /// Sanitizes [text] by replacing invalid characters with underscores.

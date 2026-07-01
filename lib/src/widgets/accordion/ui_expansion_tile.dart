@@ -237,7 +237,3 @@ class _UIExpansionTileState extends State<UIExpansionTile> {
     );
   }
 }
-
-/// Deprecated alias for [UIExpansionTile].
-@Deprecated('Use UIExpansionTile instead.')
-typedef UIAccordionItemExpansionTile = UIExpansionTile;

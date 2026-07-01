@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use_from_same_package
-//
 // Compile-time guarantee that each focused entry point re-exports the public
 // symbols host apps are expected to import from it. Referencing a symbol that a
 // barrel stops exporting makes this test fail to compile (and therefore fail in

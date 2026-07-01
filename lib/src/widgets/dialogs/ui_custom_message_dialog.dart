@@ -251,7 +251,3 @@ class UICustomMessageDialog extends StatelessWidget {
     );
   }
 }
-
-@Deprecated('Use UICustomMessageDialog.simple instead.')
-/// Deprecated alias for [UICustomMessageDialog].
-typedef UIMessageDialog = UICustomMessageDialog;
