@@ -43,6 +43,12 @@ jobs:
           if-no-files-found: error
 
       - name: Publish dry-run
-        # Validates the package is publishable. Catches packaging regressions on
-        # every run and gates tag pushes (v*) before a real publish.
+        # Validates the package is publishable on every PR and main push.
         run: dart pub publish --dry-run
+
+  publish:
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1

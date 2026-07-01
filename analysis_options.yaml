@@ -1,10 +1,8 @@
 # Lint and analyzer settings for vvk_ui_kit.
-# Enables package_api_docs and treats missing public API docs as info-level hints.
 include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    - package_api_docs
     - comment_references
     - avoid_print
     - prefer_const_constructors

@@ -220,6 +220,7 @@ class _DefaultHeader extends StatelessWidget {
                                   scrollDirection: chipScrollDirection,
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: selectedLabels.length,
+                                  // ignore: deprecated_member_use
                                   onReorder: onReorder!,
                                   buildDefaultDragHandles: false,
                                   proxyDecorator: (child, index, animation) {
