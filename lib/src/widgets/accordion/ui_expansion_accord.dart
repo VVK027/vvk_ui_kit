@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/accordion/ui_expansion_accord_item.dart';
-import 'package:vvk_ui_kit/src/widgets/accordion/ui_expansion_tile.dart';
+import 'ui_expansion_accord_item.dart';
+import 'ui_expansion_tile.dart';
 
 /// An accordion that expands one or more [UIExpansionAccordItem]s.
 class UIExpansionAccord extends StatefulWidget {

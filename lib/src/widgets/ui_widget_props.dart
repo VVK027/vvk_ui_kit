@@ -1,5 +1,70 @@
 import 'package:flutter/material.dart';
 
+/// Reusable accessibility parameters shared across kit widgets.
+///
+/// Bundle screen-reader metadata once and forward it to any widget, keeping the
+/// accessibility API consistent instead of each widget inventing its own
+/// `semanticsLabel` / `semanticsHint` parameters.
+///
+/// ```dart
+/// const props = UISemanticsProps(label: 'Save', hint: 'Saves the form');
+/// props.wrap(child: myButton, enabled: true, button: true);
+/// ```
+@immutable
+class UISemanticsProps {
+  const UISemanticsProps({this.label, this.hint, this.button, this.enabled});
+
+  /// Label announced by screen readers.
+  final String? label;
+
+  /// Hint describing the result of interacting with the widget.
+  final String? hint;
+
+  /// Whether the widget should be treated as a button.
+  final bool? button;
+
+  /// Whether the widget is currently enabled.
+  final bool? enabled;
+
+  /// Whether any semantic metadata is present.
+  bool get isEmpty =>
+      label == null && hint == null && button == null && enabled == null;
+
+  UISemanticsProps copyWith({
+    String? label,
+    String? hint,
+    bool? button,
+    bool? enabled,
+  }) {
+    return UISemanticsProps(
+      label: label ?? this.label,
+      hint: hint ?? this.hint,
+      button: button ?? this.button,
+      enabled: enabled ?? this.enabled,
+    );
+  }
+
+  /// Wraps [child] in a [Semantics] node using these props (merged with any
+  /// per-call overrides). Returns [child] unchanged when nothing is set.
+  Widget wrap({required Widget child, bool? button, bool? enabled}) {
+    final resolvedButton = button ?? this.button;
+    final resolvedEnabled = enabled ?? this.enabled;
+    if (label == null &&
+        hint == null &&
+        resolvedButton == null &&
+        resolvedEnabled == null) {
+      return child;
+    }
+    return Semantics(
+      label: label,
+      hint: hint,
+      button: resolvedButton,
+      enabled: resolvedEnabled,
+      child: child,
+    );
+  }
+}
+
 /// Forwarded [Card] parameters for kit card wrappers.
 @immutable
 class UICardProps {

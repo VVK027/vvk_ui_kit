@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/loading/ui_shimmer_widget.dart';
+import 'ui_shimmer_widget.dart';
 
 /// A shimmer-based page loading skeleton.
 class UIShimmerPageLoading extends StatelessWidget {

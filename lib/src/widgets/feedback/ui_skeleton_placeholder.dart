@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/loading/ui_shimmer.dart';
+import '../loading/ui_shimmer.dart';
 
 /// A rounded shimmer placeholder for loading skeletons.
 class UISkeletonPlaceholder extends StatelessWidget {

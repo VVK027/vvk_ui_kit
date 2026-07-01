@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/display/ui_icon_badge.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_icon_badge.dart';
+import '../text/ui_text.dart';
 
 /// List tile with icon badge, title, value line, and optional trailing text.
 class UIMetricListTile extends StatelessWidget {

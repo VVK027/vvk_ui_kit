@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// One navigation slot in [UIFloatingBottomBar].
 class UIFloatingBottomBarItem {
-  const UIFloatingBottomBarItem({
-    required this.icon,
-    required this.label,
-  });
+  const UIFloatingBottomBarItem({required this.icon, required this.label});
 
   final Widget icon;
   final String label;
@@ -14,10 +11,7 @@ class UIFloatingBottomBarItem {
 
 /// Center action for [UIFloatingBottomBar].
 class UIFloatingBottomBarCenterAction {
-  const UIFloatingBottomBarCenterAction({
-    required this.icon,
-    this.color,
-  });
+  const UIFloatingBottomBarCenterAction({required this.icon, this.color});
 
   final Widget icon;
   final Color? color;
@@ -233,9 +227,9 @@ class _NavSlot extends StatelessWidget {
                   maxLines: 1,
                   textOverflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: color,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    color: color,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ],

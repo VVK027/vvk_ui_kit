@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_theme.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../glass/ui_glass_surface.dart';
+import '../glass/ui_glass_theme.dart';
+import '../text/ui_text.dart';
 
 /// Edge from which a [UISheet] enters the screen.
 enum UISheetSide { bottom, top, left, right }

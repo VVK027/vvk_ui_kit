@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_context_menu.dart';
+import '../navigation/ui_context_menu.dart';
 
 /// Lays out [children] in a horizontal row and moves items that do not fit
 /// into an overflow control built by [overflowBuilder].
@@ -18,7 +18,7 @@ class UIDynamicOverflow extends StatefulWidget {
 
   final List<Widget> children;
   final Widget Function(BuildContext context, List<int> hiddenIndices)
-      overflowBuilder;
+  overflowBuilder;
   final double spacing;
   final MainAxisAlignment alignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -87,8 +87,7 @@ class _UIDynamicOverflowState extends State<UIDynamicOverflow> {
     for (var i = 0; i < widths.length; i++) {
       final itemWidth = widths[i] + (i == 0 ? 0 : widget.spacing);
       final hiddenAfter = widths.length - i - 1;
-      final needsReserve =
-          hiddenAfter > 0 || widget.alwaysShowOverflow;
+      final needsReserve = hiddenAfter > 0 || widget.alwaysShowOverflow;
       final budget = maxWidth - (needsReserve ? reserve : 0);
       if (used + itemWidth > budget) {
         visible = i;
@@ -105,7 +104,8 @@ class _UIDynamicOverflowState extends State<UIDynamicOverflow> {
       hidden.add(i);
     }
 
-    final changed = !_measured ||
+    final changed =
+        !_measured ||
         visible != _visibleCount ||
         !_listEquals(hidden, _hiddenIndices);
 
@@ -175,9 +175,7 @@ class _UIDynamicOverflowState extends State<UIDynamicOverflow> {
         ];
 
         if (_hiddenIndices.isNotEmpty || widget.alwaysShowOverflow) {
-          visibleChildren.add(
-            widget.overflowBuilder(context, _hiddenIndices),
-          );
+          visibleChildren.add(widget.overflowBuilder(context, _hiddenIndices));
         }
 
         return Row(

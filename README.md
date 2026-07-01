@@ -4,6 +4,12 @@ A feature-rich Flutter UI kit built to speed up app development with Material 3 
 
 See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for integration patterns, composition conventions, and migration notes.
 
+## Preview
+
+| Theming (light & dark) | Components | Glass surfaces |
+| :---: | :---: | :---: |
+| ![Themed components](doc/screenshots/showcase-theming.png) | ![Component gallery](doc/screenshots/showcase-components.png) | ![Glass surfaces](doc/screenshots/showcase-glass.png) |
+
 ## Features
 
 - **Theming** — `UIAppTheme` with semantic color tokens (`UIThemePalette`, `UIThemeExtension`, `UIMetrics`) and built-in light/dark presets (teal, zinc, slate, stone). Includes easy-to-use typography and shadow presets.
@@ -43,7 +49,7 @@ Showcase sections: Core utilities, Buttons, Animation, Accordion/cards/clips, Ca
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^1.0.0
+  vvk_ui_kit: ^1.1.0
 ```
 
 ### Theme setup
@@ -60,6 +66,32 @@ MaterialApp(
 ```
 
 Use `UIAppTheme.custom` when you need a custom `UIThemeColors` palette while keeping kit component styling.
+
+#### Seed a theme from one color
+
+Generate a full Material 3 palette from a single brand color:
+
+```dart
+MaterialApp(
+  theme: UIAppTheme.fromSeed(const Color(0xFF6750A4)),
+  darkTheme: UIAppTheme.fromSeed(
+    const Color(0xFF6750A4),
+    brightness: Brightness.dark,
+  ),
+)
+```
+
+#### High-contrast accessibility themes
+
+Honor the OS "increase contrast" setting with the built-in high-contrast presets:
+
+```dart
+final highContrast = MediaQuery.of(context).highContrast;
+MaterialApp(
+  theme: highContrast ? UIAppTheme.highContrast(Brightness.light) : UIAppTheme.light,
+  darkTheme: highContrast ? UIAppTheme.highContrast(Brightness.dark) : UIAppTheme.dark,
+)
+```
 
 ### Image scope (optional)
 
@@ -97,7 +129,7 @@ UIGlassCard.fromTheme(
 
 UIGlassScaffold(
   appBar: UIGlassAppBar(title: const Text('Glassy App')),
-  body: Center(child: UIImage(url: '...')),
+  body: Center(child: UIImage('...')),
 )
 ```
 
@@ -160,7 +192,7 @@ The package includes a comprehensive widget test suite. Run all tests from the p
 flutter test
 ```
 
-Tests are organized under `test/` by category — buttons, inputs, dialogs, feedback, glass, navigation, loading, media, and more — mirroring the public widget groups in `lib/vvk_ui_kit.dart`. As of 1.0.0, the suite covers **301 tests** across **30 test files**.
+Tests are organized under `test/` by category — buttons, inputs, dialogs, feedback, glass, navigation, loading, media, and more — mirroring the public widget groups in `lib/vvk_ui_kit.dart`. As of 1.1.0, the suite covers **326 tests** across **32 test files**.
 
 ## Component overview
 
@@ -185,7 +217,25 @@ Tests are organized under `test/` by category — buttons, inputs, dialogs, feed
 
 All public symbols are exported from `package:vvk_ui_kit/vvk_ui_kit.dart`. Internal helpers under `lib/src/` are not part of the stable API.
 
-See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance.
+### Modular imports
+
+Import only what you need:
+
+| Entry point | Contents |
+|-------------|----------|
+| `package:vvk_ui_kit/vvk_ui_kit.dart` | Full barrel (default) |
+| `package:vvk_ui_kit/theme.dart` | `UIAppTheme`, palettes, typography, shadows |
+| `package:vvk_ui_kit/buttons.dart` | Button family + `UIGlassButton` |
+| `package:vvk_ui_kit/inputs.dart` | Forms, fields, pickers, selection inputs |
+| `package:vvk_ui_kit/layout.dart` | Scaffolds, dividers, responsive, spacing |
+| `package:vvk_ui_kit/dialogs.dart` | Dialogs, sheets, adaptive alerts |
+| `package:vvk_ui_kit/feedback.dart` | Snackbars, badges, tours, loading/shimmer |
+| `package:vvk_ui_kit/navigation.dart` | App bars, bottom bars, tabs, menus |
+| `package:vvk_ui_kit/media.dart` | `UIImage`, SVG icons, image scope |
+| `package:vvk_ui_kit/widgets.dart` | Cards, carousel, display, glass, text, rating |
+| `package:vvk_ui_kit/core.dart` | Extensions, JSON/navigation/translation utils |
+
+See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance and [doc/MIGRATION.md](doc/MIGRATION.md) for upgrade notes. Track planned work in [doc/BACKLOG.md](doc/BACKLOG.md).
 
 ## License
 

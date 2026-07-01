@@ -22,10 +22,7 @@ class NavigationShowcase extends StatelessWidget {
       title: 'Navigation',
       child: Column(
         children: [
-          ShowcaseTile(
-            name: 'UIBottomNavyBar',
-            child: _BottomNavyBarDemo(),
-          ),
+          ShowcaseTile(name: 'UIBottomNavyBar', child: _BottomNavyBarDemo()),
           ShowcaseTile(
             name: 'UIFloatingBottomBar',
             child: _FloatingBottomBarDemo(),
@@ -36,10 +33,7 @@ class NavigationShowcase extends StatelessWidget {
               context,
               title: 'Glass app bar',
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                ),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
               ],
             ),
           ),
@@ -57,14 +51,8 @@ class NavigationShowcase extends StatelessWidget {
               ],
             ),
           ),
-          ShowcaseTile(
-            name: 'UIMenuBar',
-            child: _MenuBarDemo(),
-          ),
-          ShowcaseTile(
-            name: 'UITreeView',
-            child: _TreeViewDemo(),
-          ),
+          ShowcaseTile(name: 'UIMenuBar', child: _MenuBarDemo()),
+          ShowcaseTile(name: 'UITreeView', child: _TreeViewDemo()),
           ShowcaseTile(
             name: 'UIContextMenuRegion',
             child: UIContextMenuRegion(
@@ -316,8 +304,7 @@ class _SideMenuDemo extends StatelessWidget {
 
 class _FloatingBottomBarDemo extends StatefulWidget {
   @override
-  State<_FloatingBottomBarDemo> createState() =>
-      _FloatingBottomBarDemoState();
+  State<_FloatingBottomBarDemo> createState() => _FloatingBottomBarDemoState();
 }
 
 class _FloatingBottomBarDemoState extends State<_FloatingBottomBarDemo> {
@@ -330,10 +317,7 @@ class _FloatingBottomBarDemoState extends State<_FloatingBottomBarDemo> {
       currentIndex: _selected,
       onTap: (index) => setState(() => _selected = index),
       leftItems: const [
-        UIFloatingBottomBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-        ),
+        UIFloatingBottomBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
         UIFloatingBottomBarItem(
           icon: Icon(Icons.search_outlined),
           label: 'Search',
@@ -390,10 +374,7 @@ class _GlassBottomNavBarDemoState extends State<_GlassBottomNavBarDemo> {
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
-          UIGlassBottomNavBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
+          UIGlassBottomNavBarItem(icon: Icon(Icons.search), label: 'Search'),
           UIGlassBottomNavBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Profile',
@@ -414,18 +395,12 @@ class _BottomNavyBarDemoState extends State<_BottomNavyBarDemo> {
       selectedIndex: _selected,
       onItemSelected: (index) => setState(() => _selected = index),
       items: const [
-        UIBottomNavyBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-        ),
+        UIBottomNavyBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
         UIBottomNavyBarItem(
           icon: Icon(Icons.chat_bubble_outline),
           label: 'Chat',
         ),
-        UIBottomNavyBarItem(
-          icon: Icon(Icons.person_outline),
-          label: 'Profile',
-        ),
+        UIBottomNavyBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
       ],
     );
   }
@@ -518,11 +493,7 @@ class _TreeViewDemoState extends State<_TreeViewDemo> {
                 ),
               ],
             ),
-            UITreeNode(
-              key: 'notes',
-              label: 'Notes',
-              icon: Icons.note_outlined,
-            ),
+            UITreeNode(key: 'notes', label: 'Notes', icon: Icons.note_outlined),
           ],
         ),
         UITreeNode(

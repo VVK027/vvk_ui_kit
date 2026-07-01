@@ -128,10 +128,12 @@ class LayoutResponsiveShowcase extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: UIExpandableFloatingPanel.fromTheme(
                 context,
-                title: const UIText('Quick actions', fontWeight: FontWeight.w700),
-                toggleIconBuilder: (expanded) => Icon(
-                  expanded ? Icons.close_rounded : Icons.add_rounded,
+                title: const UIText(
+                  'Quick actions',
+                  fontWeight: FontWeight.w700,
                 ),
+                toggleIconBuilder: (expanded) =>
+                    Icon(expanded ? Icons.close_rounded : Icons.add_rounded),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

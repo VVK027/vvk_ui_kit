@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_theme.dart';
+import 'ui_glass_surface.dart';
+import 'ui_glass_theme.dart';
 
 /// Scaffold with a gradient background and optional glass chrome wrappers.
 ///
@@ -65,7 +65,8 @@ class UIGlassScaffold extends StatelessWidget {
       extendBody: extendBody,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      backgroundGradient: backgroundGradient ??
+      backgroundGradient:
+          backgroundGradient ??
           LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -89,9 +90,7 @@ class UIGlassScaffold extends StatelessWidget {
     }
 
     return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: backgroundGradient,
-      ),
+      decoration: BoxDecoration(gradient: backgroundGradient),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: appBar,

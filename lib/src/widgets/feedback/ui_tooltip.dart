@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_portal.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../layout/ui_portal.dart';
+import '../text/ui_text.dart';
 
 /// Tooltip anchored to [child] via [UIPortal].
 class UITooltip extends StatefulWidget {

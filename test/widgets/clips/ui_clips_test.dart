@@ -69,10 +69,7 @@ void main() {
 
   group('UICouponClipper', () {
     test('produces a closed path for horizontal axis', () {
-      const clipper = UICouponClipper(
-        curvePosition: 60,
-        borderRadius: 8,
-      );
+      const clipper = UICouponClipper(curvePosition: 60, borderRadius: 8);
       final path = clipper.getClip(const Size(300, 150));
       expect(path.getBounds().width, greaterThan(0));
     });

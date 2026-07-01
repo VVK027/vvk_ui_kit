@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_avatar_with_edit.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../navigation/ui_avatar_with_edit.dart';
+import '../text/ui_text.dart';
 
 /// Default letter-to-color map for [UITextAvatar] backgrounds.
 const Map<String, Color> kUITextAvatarLetterColors = {

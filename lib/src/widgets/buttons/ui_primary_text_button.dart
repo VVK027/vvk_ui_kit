@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_styled_button.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_button_props.dart';
+import 'ui_styled_button.dart';
+import '../text/ui_text.dart';
 import '../ui_button_helpers.dart';
 
 /// Filled or outlined primary action — thin wrapper over Material

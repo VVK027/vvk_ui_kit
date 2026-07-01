@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_separated_flex.dart' show UISeparatedRow, UISeparatedColumn;
-import 'package:vvk_ui_kit/vvk_ui_kit.dart' show UISeparatedRow, UISeparatedColumn;
+import 'layout/ui_separated_flex.dart' show UISeparatedRow, UISeparatedColumn;
+import '../../vvk_ui_kit.dart' show UISeparatedRow, UISeparatedColumn;
 
 import 'text/ui_text.dart';
 
@@ -119,7 +119,7 @@ double getTextHeight(
 /// Returns loose constraints sized to roughly half the screen width.
 BoxConstraints getBoxConstraintsLoose(BuildContext context) {
   return BoxConstraints.loose(
-    Size(MediaQuery.of(context).size.width / 2 - 50, 50),
+    Size(MediaQuery.sizeOf(context).width / 2 - 50, 50),
   );
 }
 

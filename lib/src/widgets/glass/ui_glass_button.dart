@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_glass_surface.dart';
+import '../text/ui_text.dart';
 
 /// Frosted-glass button with optional icon, label, and press-scale animation.
 class UIGlassButton extends StatefulWidget {
@@ -131,9 +131,9 @@ class _UIGlassButtonState extends State<UIGlassButton>
     final scheme = Theme.of(context).colorScheme;
     final accent = widget.color ?? scheme.primary;
     final textStyle = Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: accent,
-          fontWeight: FontWeight.w600,
-        );
+      color: accent,
+      fontWeight: FontWeight.w600,
+    );
 
     final button = UIGlassSurface(
       blur: widget.blur,
@@ -145,8 +145,9 @@ class _UIGlassButtonState extends State<UIGlassButton>
       height: widget.height,
       padding: widget.padding,
       child: Row(
-        mainAxisSize:
-            widget.width != null ? MainAxisSize.max : MainAxisSize.min,
+        mainAxisSize: widget.width != null
+            ? MainAxisSize.max
+            : MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (widget.icon != null) ...[

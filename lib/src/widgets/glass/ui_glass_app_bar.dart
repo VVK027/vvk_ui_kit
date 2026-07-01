@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_theme.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_glass_surface.dart';
+import 'ui_glass_theme.dart';
+import '../text/ui_text.dart';
 
 /// App bar with a frosted-glass background.
 class UIGlassAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -58,7 +58,8 @@ class UIGlassAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final foreground =
-        theme?.foregroundColor ?? UIGlassTheme.fromTheme(context).foregroundColor;
+        theme?.foregroundColor ??
+        UIGlassTheme.fromTheme(context).foregroundColor;
 
     return UIGlassSurface(
       theme: theme,

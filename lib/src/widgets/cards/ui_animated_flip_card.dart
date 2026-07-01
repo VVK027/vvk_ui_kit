@@ -3,10 +3,7 @@ import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 
 /// Axis used by [UIAnimatedFlipCard] for the 3D flip animation.
-enum UIFlipDirection {
-  horizontal,
-  vertical,
-}
+enum UIFlipDirection { horizontal, vertical }
 
 /// Visual configuration for [UIAnimatedFlipCard].
 class UIAnimatedFlipCardStyle {
@@ -227,7 +224,8 @@ class _UIAnimatedFlipCardState extends State<UIAnimatedFlipCard>
         width: style.width,
         height: style.height,
         padding: style.padding,
-        decoration: (isFront ? style.frontDecoration : style.backDecoration) ??
+        decoration:
+            (isFront ? style.frontDecoration : style.backDecoration) ??
             BoxDecoration(
               color: isFront ? style.frontColor : style.backColor,
               borderRadius: style.borderRadius,
@@ -261,9 +259,7 @@ class _UIAnimatedFlipCardState extends State<UIAnimatedFlipCard>
           ? buildFace(widget.front, true)
           : Transform(
               transform: Matrix4.identity()
-                ..rotateY(
-                  direction == UIFlipDirection.horizontal ? pi : 0,
-                )
+                ..rotateY(direction == UIFlipDirection.horizontal ? pi : 0)
                 ..rotateX(direction == UIFlipDirection.vertical ? pi : 0),
               alignment: Alignment.center,
               child: buildFace(widget.back, false),

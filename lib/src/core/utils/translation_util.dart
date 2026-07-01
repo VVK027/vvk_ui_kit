@@ -6,7 +6,7 @@ import 'log_util.dart';
 
 /// In-memory translation lookup with placeholder replacement.
 ///
-/// Load strings from ARB/JSON assets via [TranslationCache.preload] or construct
+/// Load strings from ARB/JSON assets via `TranslationCache.preload` or construct
 /// directly from a map for tests and simple apps.
 ///
 /// ```dart

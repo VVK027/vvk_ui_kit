@@ -23,6 +23,7 @@ class UIRatingBar extends StatefulWidget {
     this.emptyColor,
     this.tapEnabled = true,
     this.updateOnDrag = true,
+    this.semanticsLabel = 'Rating',
   }) : itemBuilder = null;
 
   /// Creates a [UIRatingBar] with a per-index [itemBuilder].
@@ -41,6 +42,7 @@ class UIRatingBar extends StatefulWidget {
     this.emptyColor,
     this.tapEnabled = true,
     this.updateOnDrag = true,
+    this.semanticsLabel = 'Rating',
   }) : ratingWidget = null;
 
   /// Starting rating value.
@@ -84,6 +86,9 @@ class UIRatingBar extends StatefulWidget {
 
   /// Builds each rating item; supports per-index customization.
   final UIRatingItemBuilder? itemBuilder;
+
+  /// Accessibility label announced by screen readers for the rating control.
+  final String semanticsLabel;
 
   @override
   State<UIRatingBar> createState() => _UIRatingBarState();
@@ -183,7 +188,7 @@ class _UIRatingBarState extends State<UIRatingBar> {
     );
 
     bar = Semantics(
-      label: 'Rating',
+      label: widget.semanticsLabel,
       value: '$_rating out of $_maxRating',
       increasedValue: (_rating + (widget.allowHalfRating ? 0.5 : 1))
           .clamp(widget.minRating, _maxRating)

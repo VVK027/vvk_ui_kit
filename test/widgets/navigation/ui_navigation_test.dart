@@ -172,10 +172,7 @@ void main() {
         MaterialApp(
           home: Builder(
             builder: (context) => Scaffold(
-              appBar: UIGlassAppBar.fromTheme(
-                context,
-                title: 'Glass Title',
-              ),
+              appBar: UIGlassAppBar.fromTheme(context, title: 'Glass Title'),
               body: const SizedBox.shrink(),
             ),
           ),
@@ -252,9 +249,7 @@ void main() {
                   UITreeNode(
                     key: 'parent',
                     label: 'Parent',
-                    children: [
-                      UITreeNode(key: 'child', label: 'Child'),
-                    ],
+                    children: [UITreeNode(key: 'child', label: 'Child')],
                   ),
                 ],
               ),
@@ -441,9 +436,7 @@ void main() {
     testWidgets('renders initials when no image provided', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIAvatarWithEdit(displayName: 'John Doe'),
-          ),
+          home: Scaffold(body: UIAvatarWithEdit(displayName: 'John Doe')),
         ),
       );
 
@@ -475,7 +468,10 @@ void main() {
           home: UITabbedDetailScaffold(
             title: 'Tabbed Detail',
             accentColor: Colors.blue,
-            tabs: [Tab(text: 'D'), Tab(text: 'W')],
+            tabs: [
+              Tab(text: 'D'),
+              Tab(text: 'W'),
+            ],
             tabViews: [Text('Day View'), Text('Week View')],
             header: Text('Header Widget'),
           ),
@@ -545,9 +541,7 @@ void main() {
     testWidgets('renders activity label', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIDetailActivityHeader(label: 'Running'),
-          ),
+          home: Scaffold(body: UIDetailActivityHeader(label: 'Running')),
         ),
       );
 
@@ -586,7 +580,10 @@ void main() {
         const MaterialApp(
           home: UIAccentTabDetailScaffold(
             title: 'Detail',
-            tabs: [Tab(text: 'A'), Tab(text: 'B')],
+            tabs: [
+              Tab(text: 'A'),
+              Tab(text: 'B'),
+            ],
             tabViews: [Text('View A'), Text('View B')],
           ),
         ),

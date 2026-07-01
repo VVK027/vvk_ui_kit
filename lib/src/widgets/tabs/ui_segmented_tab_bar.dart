@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_tab_text_button.dart';
+import '../buttons/ui_tab_text_button.dart';
 
 /// Represents an item in the [UISegmentedTabBar].
 class UISegmentTabItem {

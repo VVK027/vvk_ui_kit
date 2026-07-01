@@ -276,10 +276,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UIBatteryIndicator(
-              batteryLevel: 75,
-              percentNumSize: 8,
-            ),
+            body: UIBatteryIndicator(batteryLevel: 75, percentNumSize: 8),
           ),
         ),
       );
@@ -377,9 +374,7 @@ void main() {
     testWidgets('renders text correctly', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIDetailInfoBanner(text: 'Banner Message'),
-          ),
+          home: Scaffold(body: UIDetailInfoBanner(text: 'Banner Message')),
         ),
       );
 

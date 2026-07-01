@@ -66,10 +66,7 @@ class AccordionCardsClipsShowcase extends StatelessWidget {
               ],
             ),
           ),
-          ShowcaseTile(
-            name: 'UIAnimatedFlipCard',
-            child: _FlipCardDemo(),
-          ),
+          ShowcaseTile(name: 'UIAnimatedFlipCard', child: _FlipCardDemo()),
           ShowcaseTile(
             name: 'UICard + UICardTopContainer',
             child:
@@ -137,7 +134,10 @@ class AccordionCardsClipsShowcase extends StatelessWidget {
                 ),
               ),
               secondChild: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -204,7 +204,11 @@ class _FlipCardDemo extends StatelessWidget {
       back: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.lock_outline, size: 40, color: Theme.of(context).colorScheme.primary),
+          Icon(
+            Icons.lock_outline,
+            size: 40,
+            color: Theme.of(context).colorScheme.primary,
+          ),
           const SizedBox(height: 8),
           const UIText('Back face', textAlign: TextAlign.center),
         ],

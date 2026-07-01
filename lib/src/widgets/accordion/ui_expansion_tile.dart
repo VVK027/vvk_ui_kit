@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Visual styling for `UIExpansionTile` and `UIExpansionAccordItem`.
 class UIExpansionTileStyle {
@@ -237,7 +237,3 @@ class _UIExpansionTileState extends State<UIExpansionTile> {
     );
   }
 }
-
-/// Deprecated alias for [UIExpansionTile].
-@Deprecated('Use UIExpansionTile instead.')
-typedef UIAccordionItemExpansionTile = UIExpansionTile;

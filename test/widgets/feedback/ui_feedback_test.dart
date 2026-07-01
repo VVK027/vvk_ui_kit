@@ -380,9 +380,7 @@ void main() {
   group('UISkeletonPlaceholder', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: UISkeletonPlaceholder(width: 100, height: 20),
-        ),
+        const MaterialApp(home: UISkeletonPlaceholder(width: 100, height: 20)),
       );
 
       expect(find.byType(SizedBox), findsOneWidget);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/dialogs/ui_custom_message_dialog.dart';
-import 'package:vvk_ui_kit/src/widgets/dialogs/ui_list_dialog.dart';
+import '../../widgets/text/ui_text.dart';
+import '../../widgets/dialogs/ui_custom_message_dialog.dart';
+import '../../widgets/dialogs/ui_list_dialog.dart';
 
 /// Utility class for showing common dialogs and overlays.
 class DialogUtil {

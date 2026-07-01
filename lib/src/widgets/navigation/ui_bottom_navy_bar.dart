@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// One tab inside [UIBottomNavyBar].
 class UIBottomNavyBarItem {
@@ -235,9 +235,6 @@ class _UIBottomNavyBarTile extends StatelessWidget {
           color: activeColor,
           fontWeight: FontWeight.w700,
         ) ??
-        TextStyle(
-          color: activeColor,
-          fontWeight: FontWeight.w700,
-        );
+        TextStyle(color: activeColor, fontWeight: FontWeight.w700);
   }
 }

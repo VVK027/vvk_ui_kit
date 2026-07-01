@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/utils/navigation_util.dart' show NavigationUtil;
 
-/// Built-in page transition styles for [NavigationUtil] and [UIPageRoute].
+/// Built-in page transition styles for `NavigationUtil` and [UIPageRoute].
 enum UIPageTransition {
   /// Platform default [MaterialPageRoute] transition.
   material,
@@ -88,11 +87,12 @@ class UIHorizontalSlidePageTransition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final begin = fromLeft
-        ? Offset(-distance, 0)
-        : Offset(distance, 0);
+    final begin = fromLeft ? Offset(-distance, 0) : Offset(distance, 0);
     return SlideTransition(
-      position: Tween<Offset>(begin: begin, end: Offset.zero).animate(animation),
+      position: Tween<Offset>(
+        begin: begin,
+        end: Offset.zero,
+      ).animate(animation),
       child: child,
     );
   }
@@ -130,28 +130,28 @@ class UIPageRoute<T> extends MaterialPageRoute<T> {
   ) {
     return switch (transition) {
       UIPageTransition.material => super.buildTransitions(
-          context,
-          animation,
-          secondaryAnimation,
-          child,
-        ),
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      ),
       UIPageTransition.entrance => UIEntrancePageTransition(
-          animation: animation,
-          vertical: entranceVertical,
-          reverse: entranceReverse,
-          startFrom: entranceStartFrom,
-          child: child,
-        ),
+        animation: animation,
+        vertical: entranceVertical,
+        reverse: entranceReverse,
+        startFrom: entranceStartFrom,
+        child: child,
+      ),
       UIPageTransition.drillIn => UIDrillInPageTransition(
-          animation: animation,
-          beginScale: drillInBeginScale,
-          child: child,
-        ),
+        animation: animation,
+        beginScale: drillInBeginScale,
+        child: child,
+      ),
       UIPageTransition.horizontalSlide => UIHorizontalSlidePageTransition(
-          animation: animation,
-          fromLeft: horizontalFromLeft,
-          child: child,
-        ),
+        animation: animation,
+        fromLeft: horizontalFromLeft,
+        child: child,
+      ),
     };
   }
 }

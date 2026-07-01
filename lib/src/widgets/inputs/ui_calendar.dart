@@ -16,6 +16,8 @@ class UICalendar extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.initialMonth,
+    this.previousMonthTooltip,
+    this.nextMonthTooltip,
   });
 
   final DateTime? selectedDate;
@@ -26,6 +28,18 @@ class UICalendar extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final DateTime? initialMonth;
+
+  /// Tooltip / semantic label for the previous-month arrow.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.previousMonthTooltip].
+  final String? previousMonthTooltip;
+
+  /// Tooltip / semantic label for the next-month arrow.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.nextMonthTooltip].
+  final String? nextMonthTooltip;
 
   @override
   State<UICalendar> createState() => _UICalendarState();
@@ -135,6 +149,9 @@ class _UICalendarState extends State<UICalendar> {
         Row(
           children: [
             IconButton(
+              tooltip:
+                  widget.previousMonthTooltip ??
+                  MaterialLocalizations.of(context).previousMonthTooltip,
               onPressed: () => _changeMonth(-1),
               icon: const Icon(Icons.chevron_left),
             ),
@@ -146,6 +163,9 @@ class _UICalendarState extends State<UICalendar> {
               ),
             ),
             IconButton(
+              tooltip:
+                  widget.nextMonthTooltip ??
+                  MaterialLocalizations.of(context).nextMonthTooltip,
               onPressed: () => _changeMonth(1),
               icon: const Icon(Icons.chevron_right),
             ),

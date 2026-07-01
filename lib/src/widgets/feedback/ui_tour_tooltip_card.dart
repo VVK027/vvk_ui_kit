@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_enums.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_progress_indicator.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_step.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_tour_enums.dart';
+import 'ui_tour_progress_indicator.dart';
+import 'ui_tour_step.dart';
+import '../text/ui_text.dart';
 
 enum _UITourArrowDirection { up, down, left, right }
 
@@ -144,9 +144,10 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
       curve: widget.animationCurve,
     );
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(curve);
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
     _rotateAnimation = Tween<double>(begin: -0.1, end: 0).animate(curve);
 
     final slideBegin = switch (widget.step.animation) {
@@ -156,8 +157,10 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
       UITourStepAnimation.fadeSlideRight => const Offset(-0.3, 0),
       _ => Offset.zero,
     };
-    _slideAnimation = Tween<Offset>(begin: slideBegin, end: Offset.zero)
-        .animate(curve);
+    _slideAnimation = Tween<Offset>(
+      begin: slideBegin,
+      end: Offset.zero,
+    ).animate(curve);
   }
 
   @override
@@ -174,8 +177,8 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
     const estimatedHeight = 180.0;
     final wantsCenter =
         widget.step.preferredPosition == UITourTooltipPosition.center ||
-            (!widget.hasTarget &&
-                widget.step.preferredPosition == UITourTooltipPosition.auto);
+        (!widget.hasTarget &&
+            widget.step.preferredPosition == UITourTooltipPosition.auto);
 
     if (wantsCenter) {
       return (
@@ -247,12 +250,16 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
     final targetCenter = widget.targetRect.center;
     switch (arrowDir) {
       case _UITourArrowDirection.up:
-        final arrowX =
-            (targetCenter.dx - cardPosition.dx).clamp(20.0, _cardWidth - 20.0);
+        final arrowX = (targetCenter.dx - cardPosition.dx).clamp(
+          20.0,
+          _cardWidth - 20.0,
+        );
         return Offset(arrowX - _arrowSize / 2, -_arrowSize);
       case _UITourArrowDirection.down:
-        final arrowX =
-            (targetCenter.dx - cardPosition.dx).clamp(20.0, _cardWidth - 20.0);
+        final arrowX = (targetCenter.dx - cardPosition.dx).clamp(
+          20.0,
+          _cardWidth - 20.0,
+        );
         return Offset(arrowX - _arrowSize / 2, -1);
       case _UITourArrowDirection.left:
         final arrowY = (targetCenter.dy - cardPosition.dy).clamp(30.0, 150.0);
@@ -266,33 +273,30 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
   Widget _animatedChild(Widget child) {
     return switch (widget.step.animation) {
       UITourStepAnimation.none => child,
-      UITourStepAnimation.fade =>
-        FadeTransition(opacity: _fadeAnimation, child: child),
-      UITourStepAnimation.scale ||
-      UITourStepAnimation.bounce =>
-        FadeTransition(
-          opacity: _fadeAnimation,
-          child: ScaleTransition(scale: _scaleAnimation, child: child),
-        ),
+      UITourStepAnimation.fade => FadeTransition(
+        opacity: _fadeAnimation,
+        child: child,
+      ),
+      UITourStepAnimation.scale || UITourStepAnimation.bounce => FadeTransition(
+        opacity: _fadeAnimation,
+        child: ScaleTransition(scale: _scaleAnimation, child: child),
+      ),
       UITourStepAnimation.rotate => FadeTransition(
-          opacity: _fadeAnimation,
-          child: AnimatedBuilder(
-            animation: _rotateAnimation,
-            builder: (context, ch) => Transform.rotate(
-              angle: _rotateAnimation.value,
-              child: ch,
-            ),
-            child: child,
-          ),
+        opacity: _fadeAnimation,
+        child: AnimatedBuilder(
+          animation: _rotateAnimation,
+          builder: (context, ch) =>
+              Transform.rotate(angle: _rotateAnimation.value, child: ch),
+          child: child,
         ),
+      ),
       UITourStepAnimation.fadeSlideUp ||
       UITourStepAnimation.fadeSlideDown ||
       UITourStepAnimation.fadeSlideLeft ||
-      UITourStepAnimation.fadeSlideRight =>
-        FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(position: _slideAnimation, child: child),
-        ),
+      UITourStepAnimation.fadeSlideRight => FadeTransition(
+        opacity: _fadeAnimation,
+        child: SlideTransition(position: _slideAnimation, child: child),
+      ),
     };
   }
 
@@ -302,8 +306,11 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
     final (cardPosition, arrowDir) = _position(screenSize);
     final arrowOffset = _arrowOffset(cardPosition, arrowDir);
     final cardColor =
-        widget.step.backgroundColor ?? widget.backgroundColor ?? Theme.of(context).colorScheme.primaryContainer;
-    final textColor = widget.foregroundColor ??
+        widget.step.backgroundColor ??
+        widget.backgroundColor ??
+        Theme.of(context).colorScheme.primaryContainer;
+    final textColor =
+        widget.foregroundColor ??
         (cardColor.computeLuminance() > 0.5 ? Colors.black87 : Colors.white);
     final buttonLabel =
         widget.step.buttonLabel ?? (widget.step.isLast ? 'Done' : 'Next');
@@ -334,10 +341,7 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
           GestureDetector(
             onTap: widget.dismissOnBarrierTap ? widget.onSkip : null,
             behavior: HitTestBehavior.opaque,
-            child: SizedBox(
-              width: screenSize.width,
-              height: screenSize.height,
-            ),
+            child: SizedBox(width: screenSize.width, height: screenSize.height),
           ),
           Positioned(
             top: cardPosition.dy,
@@ -400,16 +404,18 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                   Expanded(
                     child: UIText(
                       widget.step.title,
-                      style: widget.step.titleStyle ??
+                      style:
+                          widget.step.titleStyle ??
                           Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: textColor,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            color: textColor,
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
                   ),
                   if (widget.step.showCloseButton)
                     IconButton(
                       onPressed: widget.onSkip,
+                      tooltip: widget.step.skipButtonLabel ?? 'Skip',
                       icon: const Icon(Icons.close),
                       iconSize: 18,
                       padding: EdgeInsets.zero,
@@ -427,10 +433,11 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
               else
                 UIText(
                   widget.step.description,
-                  style: widget.step.descriptionStyle ??
+                  style:
+                      widget.step.descriptionStyle ??
                       Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: textColor.withValues(alpha: 0.85),
-                          ),
+                        color: textColor.withValues(alpha: 0.85),
+                      ),
                 ),
               const SizedBox(height: 16),
               Row(
@@ -439,7 +446,8 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                     Expanded(
                       child: TextButton(
                         onPressed: widget.onDontShowAgain,
-                        style: widget.dontShowAgainStyle ??
+                        style:
+                            widget.dontShowAgainStyle ??
                             TextButton.styleFrom(
                               foregroundColor: textColor.withValues(alpha: 0.7),
                               padding: const EdgeInsets.symmetric(
@@ -454,7 +462,8 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                           widget.dontShowAgainText,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
                                 color: textColor.withValues(alpha: 0.7),
                                 decoration: TextDecoration.underline,
                               ),
@@ -481,6 +490,7 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                   if (!isFirstStep && widget.step.showPreviousButton)
                     IconButton(
                       onPressed: widget.onPrevious,
+                      tooltip: widget.step.previousButtonLabel ?? 'Previous',
                       icon: const Icon(Icons.chevron_left),
                       iconSize: 20,
                       color: textColor,
@@ -567,10 +577,7 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
 }
 
 class _UITourArrowPainter extends CustomPainter {
-  const _UITourArrowPainter({
-    required this.color,
-    required this.direction,
-  });
+  const _UITourArrowPainter({required this.color, required this.direction});
 
   final Color color;
   final _UITourArrowDirection direction;

@@ -5,6 +5,8 @@ class UIKeyboardToolbar extends StatelessWidget {
   const UIKeyboardToolbar({
     super.key,
     this.doneLabel = 'Done',
+    this.previousLabel = 'Previous field',
+    this.nextLabel = 'Next field',
     this.backgroundColor,
     this.showPrevious = true,
     this.showNext = true,
@@ -14,6 +16,13 @@ class UIKeyboardToolbar extends StatelessWidget {
   });
 
   final String doneLabel;
+
+  /// Tooltip / semantic label for the previous-field button.
+  final String previousLabel;
+
+  /// Tooltip / semantic label for the next-field button.
+  final String nextLabel;
+
   final Color? backgroundColor;
   final bool showPrevious;
   final bool showNext;
@@ -40,13 +49,13 @@ class UIKeyboardToolbar extends StatelessWidget {
               children: [
                 if (showPrevious)
                   IconButton(
-                    tooltip: 'Previous field',
+                    tooltip: previousLabel,
                     onPressed: () => FocusScope.of(context).previousFocus(),
                     icon: const Icon(Icons.keyboard_arrow_up),
                   ),
                 if (showNext)
                   IconButton(
-                    tooltip: 'Next field',
+                    tooltip: nextLabel,
                     onPressed: () => FocusScope.of(context).nextFocus(),
                     icon: const Icon(Icons.keyboard_arrow_down),
                   ),

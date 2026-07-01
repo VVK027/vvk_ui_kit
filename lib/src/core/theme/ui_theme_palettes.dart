@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_theme.dart';
+import 'ui_theme.dart';
 
 /// Named color presets beyond the default teal palette.
 abstract final class UIThemePalettes {

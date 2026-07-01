@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/display/ui_info_banner.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_detail_date_navigator.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_fixed_section_list.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_settings_tiles.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_app_bar.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../display/ui_info_banner.dart';
+import 'ui_detail_date_navigator.dart';
+import '../layout/ui_fixed_section_list.dart';
+import '../inputs/ui_settings_tiles.dart';
+import 'ui_app_bar.dart';
+import '../text/ui_text.dart';
 
 /// Scaffold layout for settings screens with app bar and optional save FAB.
 class UISettingsPageScaffold extends StatelessWidget {
@@ -19,6 +19,7 @@ class UISettingsPageScaffold extends StatelessWidget {
     this.saveFabTooltip,
     this.accentColor,
     this.appBarActions = const [],
+    this.backTooltip,
   }) : assert(
          titleChild != null || title != null,
          'Either title or titleChild must be provided.',
@@ -34,6 +35,12 @@ class UISettingsPageScaffold extends StatelessWidget {
   final Color? accentColor;
   final List<Widget> appBarActions;
 
+  /// Tooltip / semantic label for the back button.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.backButtonTooltip].
+  final String? backTooltip;
+
   UISettingsPageScaffold copyWith({
     Key? key,
     String? title,
@@ -45,6 +52,7 @@ class UISettingsPageScaffold extends StatelessWidget {
     String? saveFabTooltip,
     Color? accentColor,
     List<Widget>? appBarActions,
+    String? backTooltip,
   }) {
     return UISettingsPageScaffold(
       key: key ?? this.key,
@@ -57,6 +65,7 @@ class UISettingsPageScaffold extends StatelessWidget {
       saveFabTooltip: saveFabTooltip ?? this.saveFabTooltip,
       accentColor: accentColor ?? this.accentColor,
       appBarActions: appBarActions ?? this.appBarActions,
+      backTooltip: backTooltip ?? this.backTooltip,
     );
   }
 
@@ -90,6 +99,9 @@ class UISettingsPageScaffold extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
+          tooltip:
+              backTooltip ??
+              MaterialLocalizations.of(context).backButtonTooltip,
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: onBar, size: 20),
           onPressed: onBack ?? () => Navigator.of(context).pop(),
         ),

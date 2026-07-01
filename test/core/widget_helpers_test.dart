@@ -62,10 +62,10 @@ void main() {
     });
 
     test('intersperse inserts dividers between widgets', () {
-      final result = intersperse(
-        [const Text('A'), const Text('B')],
-        const Divider(),
-      );
+      final result = intersperse([
+        const Text('A'),
+        const Text('B'),
+      ], const Divider());
 
       expect(result, hasLength(3));
       expect(result[1], isA<Divider>());
@@ -73,11 +73,7 @@ void main() {
 
     testWidgets('buildUILabel renders UIText by default', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: buildUILabel('Hello'),
-          ),
-        ),
+        MaterialApp(home: Scaffold(body: buildUILabel('Hello'))),
       );
 
       expect(find.text('Hello'), findsOneWidget);

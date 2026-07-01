@@ -53,7 +53,7 @@ final myPalette = UIThemePalette(
 );
 
 MaterialApp(
-  theme: UIAppTheme.custom(palette: myPalette),
+  theme: UIAppTheme.custom(brightness: Brightness.light, colors: myPalette),
   home: const MyHomePage(),
 )
 ```
@@ -75,7 +75,7 @@ UIStyledButton(
 )
 
 UIStyledButton(
-  style: UIStyledButtonStyle.outline(context),
+  style: UIStyledButtonStyle.outlined(context),
   onPressed: () {},
   child: const Text('Outline Button'),
 )
@@ -267,13 +267,13 @@ tour.start(context);
 
 ```dart
 // Network image
-UIImage(url: 'https://example.com/image.png', width: 100, height: 100)
+UIImage('https://example.com/image.png', width: 100, height: 100)
 
 // SVG from asset
-UIImage(url: 'assets/icons/logo.svg', color: Colors.blue)
+UIImage('assets/icons/logo.svg', color: Colors.blue)
 
 // Base64 image
-UIImage(url: 'data:image/png;base64,...')
+UIImage('data:image/png;base64,...')
 ```
 
 ### Custom SVG Rendering

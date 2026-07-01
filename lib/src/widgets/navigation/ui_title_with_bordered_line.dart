@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Section title with a trailing horizontal divider line.
 class UITitleWithBorderedLine extends StatelessWidget {
@@ -96,7 +96,7 @@ class UITitleWithBorderedLine extends StatelessWidget {
         Padding(padding: titlePadding, child: textWidget),
         Container(
           margin: dividerPadding,
-          width: dividerWidth ?? MediaQuery.of(context).size.width / 2.5,
+          width: dividerWidth ?? MediaQuery.sizeOf(context).width / 2.5,
           height: 4,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(4)),

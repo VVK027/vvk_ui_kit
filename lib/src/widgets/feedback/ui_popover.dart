@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_portal.dart';
+import '../layout/ui_portal.dart';
 
 /// Where the popover panel opens relative to its anchor.
 enum UIPopoverDirection { above, below, left, right }
@@ -36,6 +36,7 @@ class UIPopover extends StatefulWidget {
     this.scrimColor,
     this.dismissOnTapOutside = true,
     this.showCloseButton = false,
+    this.closeButtonTooltip,
     this.backgroundColor,
     this.borderRadius = 12,
     this.padding = const EdgeInsets.all(12),
@@ -54,6 +55,12 @@ class UIPopover extends StatefulWidget {
   final Color? scrimColor;
   final bool dismissOnTapOutside;
   final bool showCloseButton;
+
+  /// Tooltip / semantic label for the close button.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.closeButtonTooltip].
+  final String? closeButtonTooltip;
   final Color? backgroundColor;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
@@ -75,6 +82,7 @@ class UIPopover extends StatefulWidget {
     Color? scrimColor,
     bool dismissOnTapOutside = true,
     bool showCloseButton = false,
+    String? closeButtonTooltip,
     Color? backgroundColor,
     double borderRadius = 12,
     EdgeInsetsGeometry padding = const EdgeInsets.all(12),
@@ -94,6 +102,7 @@ class UIPopover extends StatefulWidget {
       scrimColor: scrimColor ?? scheme.scrim.withValues(alpha: 0.45),
       dismissOnTapOutside: dismissOnTapOutside,
       showCloseButton: showCloseButton,
+      closeButtonTooltip: closeButtonTooltip,
       backgroundColor: backgroundColor ?? scheme.surfaceContainerHigh,
       borderRadius: borderRadius,
       padding: padding,
@@ -176,7 +185,8 @@ class _UIPopoverState extends State<UIPopover> {
 
     _scrimEntry ??= OverlayEntry(
       builder: (context) {
-        final color = widget.scrimColor ??
+        final color =
+            widget.scrimColor ??
             Theme.of(context).colorScheme.scrim.withValues(alpha: 0.45);
         return Positioned.fill(
           child: GestureDetector(
@@ -248,6 +258,7 @@ class _UIPopoverState extends State<UIPopover> {
         arrowBaseWidth: widget.arrowBaseWidth,
         maxWidth: widget.maxWidth,
         showCloseButton: widget.showCloseButton,
+        closeButtonTooltip: widget.closeButtonTooltip,
         onClose: _controller.hide,
         child: widget.content,
       ),
@@ -278,6 +289,7 @@ class _UIPopoverPanel extends StatelessWidget {
     required this.showCloseButton,
     required this.onClose,
     required this.child,
+    this.closeButtonTooltip,
   });
 
   final UIPopoverDirection direction;
@@ -290,6 +302,7 @@ class _UIPopoverPanel extends StatelessWidget {
   final bool showCloseButton;
   final VoidCallback onClose;
   final Widget child;
+  final String? closeButtonTooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -314,25 +327,16 @@ class _UIPopoverPanel extends StatelessWidget {
           children: [bubble, arrow],
         );
       case UIPopoverDirection.left:
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [bubble, arrow],
-        );
+        return Row(mainAxisSize: MainAxisSize.min, children: [bubble, arrow]);
       case UIPopoverDirection.right:
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [arrow, bubble],
-        );
+        return Row(mainAxisSize: MainAxisSize.min, children: [arrow, bubble]);
     }
   }
 
   Widget _buildBubble(BuildContext context) {
     final content = ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth),
-      child: Padding(
-        padding: padding,
-        child: child,
-      ),
+      child: Padding(padding: padding, child: child),
     );
 
     final body = showCloseButton
@@ -348,9 +352,15 @@ class _UIPopoverPanel extends StatelessWidget {
                 right: -4,
                 child: IconButton(
                   key: const Key('ui_popover_close'),
+                  tooltip:
+                      closeButtonTooltip ??
+                      MaterialLocalizations.of(context).closeButtonTooltip,
                   visualDensity: VisualDensity.compact,
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints.tightFor(width: 28, height: 28),
+                  constraints: const BoxConstraints.tightFor(
+                    width: 28,
+                    height: 28,
+                  ),
                   icon: Icon(
                     Icons.close,
                     size: 16,
@@ -389,10 +399,10 @@ class _UIPopoverArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = switch (direction) {
-      UIPopoverDirection.above || UIPopoverDirection.below =>
-        Size(width, height),
-      UIPopoverDirection.left || UIPopoverDirection.right =>
-        Size(height, width),
+      UIPopoverDirection.above ||
+      UIPopoverDirection.below => Size(width, height),
+      UIPopoverDirection.left ||
+      UIPopoverDirection.right => Size(height, width),
     };
 
     return CustomPaint(
@@ -403,10 +413,7 @@ class _UIPopoverArrow extends StatelessWidget {
 }
 
 class _UIPopoverArrowPainter extends CustomPainter {
-  const _UIPopoverArrowPainter({
-    required this.color,
-    required this.direction,
-  });
+  const _UIPopoverArrowPainter({required this.color, required this.direction});
 
   final Color color;
   final UIPopoverDirection direction;

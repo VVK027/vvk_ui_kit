@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
+import '../../test_assets.dart';
+
 void main() {
   group('UIDottedBorder', () {
     testWidgets('renders child inside border', (tester) async {
@@ -111,7 +113,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: UIGradientSvgIcon(
-              assetName: 'test/assets/sample.svg',
+              assetName: kTestSvgAsset,
               width: 50,
               height: 50,
               gradient: RadialGradient(colors: [Colors.yellow, Colors.orange]),

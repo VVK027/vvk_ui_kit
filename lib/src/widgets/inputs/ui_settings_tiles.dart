@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/display/ui_icon_badge.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../display/ui_icon_badge.dart';
+import '../text/ui_text.dart';
 
 /// On/off status chip for settings rows.
 class UISettingsStatusChip extends StatelessWidget {

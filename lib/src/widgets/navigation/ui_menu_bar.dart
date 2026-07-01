@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// One action inside a [UIMenuBar] flyout.
 class UIMenuBarAction {
@@ -24,10 +24,7 @@ class UIMenuBarAction {
 
 /// Top-level menu in [UIMenuBar] (for example File, Edit).
 class UIMenuBarItem {
-  const UIMenuBarItem({
-    required this.label,
-    required this.actions,
-  });
+  const UIMenuBarItem({required this.label, required this.actions});
 
   final String label;
   final List<UIMenuBarAction> actions;
@@ -208,10 +205,7 @@ class _MenuBarButton extends StatelessWidget {
 }
 
 class _UIMenuBarPanel extends StatelessWidget {
-  const _UIMenuBarPanel({
-    required this.actions,
-    required this.onClose,
-  });
+  const _UIMenuBarPanel({required this.actions, required this.onClose});
 
   final List<UIMenuBarAction> actions;
   final VoidCallback onClose;
@@ -231,10 +225,7 @@ class _UIMenuBarPanel extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             for (var i = 0; i < actions.length; i++) ...[
-              _UIMenuBarActionRow(
-                action: actions[i],
-                onClose: onClose,
-              ),
+              _UIMenuBarActionRow(action: actions[i], onClose: onClose),
               if (i < actions.length - 1)
                 Divider(height: 1, color: scheme.outlineVariant),
             ],
@@ -246,10 +237,7 @@ class _UIMenuBarPanel extends StatelessWidget {
 }
 
 class _UIMenuBarActionRow extends StatefulWidget {
-  const _UIMenuBarActionRow({
-    required this.action,
-    required this.onClose,
-  });
+  const _UIMenuBarActionRow({required this.action, required this.onClose});
 
   final UIMenuBarAction action;
   final VoidCallback onClose;
@@ -367,10 +355,7 @@ class _UIMenuBarActionRowState extends State<_UIMenuBarActionRow> {
 }
 
 class _UIMenuBarLeafRow extends StatelessWidget {
-  const _UIMenuBarLeafRow({
-    required this.action,
-    required this.onClose,
-  });
+  const _UIMenuBarLeafRow({required this.action, required this.onClose});
 
   final UIMenuBarAction action;
   final VoidCallback onClose;

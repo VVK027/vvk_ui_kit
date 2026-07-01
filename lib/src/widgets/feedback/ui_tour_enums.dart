@@ -1,4 +1,4 @@
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_progress_indicator.dart' show UITourProgressIndicator;
+import 'ui_tour_progress_indicator.dart' show UITourProgressIndicator;
 
 /// Animation applied when a tour tooltip appears.
 enum UITourStepAnimation {
@@ -14,27 +14,10 @@ enum UITourStepAnimation {
 }
 
 /// Shape of the spotlight cutout around a tour target.
-enum UISpotlightShape {
-  rounded,
-  circle,
-  pill,
-  rectangle,
-}
+enum UISpotlightShape { rounded, circle, pill, rectangle }
 
 /// Preferred placement of a tour tooltip relative to its target.
-enum UITourTooltipPosition {
-  auto,
-  top,
-  bottom,
-  left,
-  right,
-  center,
-}
+enum UITourTooltipPosition { auto, top, bottom, left, right, center }
 
 /// Style for [UITourProgressIndicator].
-enum UITourProgressStyle {
-  dots,
-  text,
-  textCompact,
-  none,
-}
+enum UITourProgressStyle { dots, text, textCompact, none }

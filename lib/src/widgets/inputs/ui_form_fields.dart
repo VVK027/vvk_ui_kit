@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_component_themes.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_form.dart';
-import 'package:vvk_ui_kit/src/widgets/selection/ui_rounded_checkbox.dart';
-import 'package:vvk_ui_kit/src/widgets/selection/ui_pill_switch.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../../core/theme/ui_component_themes.dart';
+import 'ui_form.dart';
+import '../selection/ui_rounded_checkbox.dart';
+import '../selection/ui_pill_switch.dart';
+import '../text/ui_text.dart';
 
 /// Text field integrated with [UIForm].
 class UIFormTextField extends StatelessWidget {

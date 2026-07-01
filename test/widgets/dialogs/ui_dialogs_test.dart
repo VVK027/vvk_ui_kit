@@ -533,9 +533,7 @@ void main() {
   group('UISheetDragHandle', () {
     testWidgets('renders drag handle bar', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UISheetDragHandle()),
-        ),
+        const MaterialApp(home: Scaffold(body: UISheetDragHandle())),
       );
 
       expect(find.byType(UISheetDragHandle), findsOneWidget);

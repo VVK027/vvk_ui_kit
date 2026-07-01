@@ -181,7 +181,10 @@ void main() {
 
       expect(find.text('alpha'), findsOneWidget);
 
-      await tester.enterText(find.byKey(const Key('ui_tag_input_field')), 'beta');
+      await tester.enterText(
+        find.byKey(const Key('ui_tag_input_field')),
+        'beta',
+      );
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
@@ -410,10 +413,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: UITimePickerField(
-              useBottomSheet: true,
-              onChanged: (_) {},
-            ),
+            body: UITimePickerField(useBottomSheet: true, onChanged: (_) {}),
           ),
         ),
       );
@@ -444,14 +444,22 @@ void main() {
     testWidgets('UISettingsStatusChip renders correctly', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: UISettingsStatusChip(isOn: true, onLabel: 'ON', offLabel: 'OFF'),
+          home: UISettingsStatusChip(
+            isOn: true,
+            onLabel: 'ON',
+            offLabel: 'OFF',
+          ),
         ),
       );
       expect(find.text('(ON)'), findsOneWidget);
 
       await tester.pumpWidget(
         const MaterialApp(
-          home: UISettingsStatusChip(isOn: false, onLabel: 'ON', offLabel: 'OFF'),
+          home: UISettingsStatusChip(
+            isOn: false,
+            onLabel: 'ON',
+            offLabel: 'OFF',
+          ),
         ),
       );
       expect(find.text('(OFF)'), findsOneWidget);
@@ -673,10 +681,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UISingleValueDropdown(
-              label: 'Status',
-              value: 'Active',
-            ),
+            body: UISingleValueDropdown(label: 'Status', value: 'Active'),
           ),
         ),
       );
@@ -803,9 +808,7 @@ void main() {
     testWidgets('renders label text', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UISettingsSectionLabel(label: 'General'),
-          ),
+          home: Scaffold(body: UISettingsSectionLabel(label: 'General')),
         ),
       );
 

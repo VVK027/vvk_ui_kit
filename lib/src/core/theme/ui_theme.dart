@@ -1,8 +1,8 @@
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_component_themes.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_theme_palettes.dart';
+import 'ui_component_themes.dart';
+import 'ui_theme_palettes.dart';
 
 /// Semantic color tokens used to build a [UIAppTheme].
 ///
@@ -64,6 +64,46 @@ class UIThemePalette implements UIThemeColors {
     required this.accentSecondary,
   });
 
+  /// Derives a semantic palette from a single [seed] color using Material 3's
+  /// [ColorScheme.fromSeed].
+  ///
+  /// This is the quickest way to brand the kit: pass one color and the rest of
+  /// the tokens are generated from the tonal palette for the given
+  /// [brightness]. Use it with [UIAppTheme.fromSeed] to build a full theme.
+  ///
+  /// ```dart
+  /// MaterialApp(
+  ///   theme: UIAppTheme.fromSeed(const Color(0xFF6750A4)),
+  ///   darkTheme: UIAppTheme.fromSeed(
+  ///     const Color(0xFF6750A4),
+  ///     brightness: Brightness.dark,
+  ///   ),
+  /// );
+  /// ```
+  factory UIThemePalette.fromSeed(
+    Color seed, {
+    Brightness brightness = Brightness.light,
+  }) {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: seed,
+      brightness: brightness,
+    );
+    return UIThemePalette(
+      scaffold: scheme.surface,
+      surface: scheme.surface,
+      card: scheme.surfaceContainerLow,
+      sectionBorder: scheme.outlineVariant,
+      textPrimary: scheme.onSurface,
+      textSecondary: scheme.onSurfaceVariant,
+      textMuted: scheme.outline,
+      chipBackground: scheme.surfaceContainerHighest,
+      chipBorder: scheme.outlineVariant,
+      chipLabel: scheme.onSurface,
+      accent: scheme.primary,
+      accentSecondary: scheme.secondary,
+    );
+  }
+
   @override
   final Color scaffold;
   @override
@@ -89,6 +129,7 @@ class UIThemePalette implements UIThemeColors {
   @override
   final Color accentSecondary;
 
+  /// Default light palette (teal accent on a soft slate background).
   static const light = UIThemePalette(
     scaffold: Color(0xFFF8FAFC),
     surface: Colors.white,
@@ -104,6 +145,7 @@ class UIThemePalette implements UIThemeColors {
     accentSecondary: Color(0xFF334155),
   );
 
+  /// Default dark palette (teal accent on a deep navy background).
   static const dark = UIThemePalette(
     scaffold: Color(0xFF1A1B26),
     surface: Color(0xFF2A2D3E),
@@ -117,6 +159,44 @@ class UIThemePalette implements UIThemeColors {
     chipLabel: Color(0xFFE2E8F0),
     accent: Color(0xFF14B8A6),
     accentSecondary: Color(0xFF38BDF8),
+  );
+
+  /// High-contrast light palette for improved accessibility.
+  ///
+  /// Uses pure black text on a pure white background with a saturated accent so
+  /// text and interactive elements comfortably exceed WCAG AA contrast ratios.
+  static const highContrastLight = UIThemePalette(
+    scaffold: Color(0xFFFFFFFF),
+    surface: Color(0xFFFFFFFF),
+    card: Color(0xFFFFFFFF),
+    sectionBorder: Color(0xFF000000),
+    textPrimary: Color(0xFF000000),
+    textSecondary: Color(0xFF1A1A1A),
+    textMuted: Color(0xFF3D3D3D),
+    chipBackground: Color(0xFFFFFFFF),
+    chipBorder: Color(0xFF000000),
+    chipLabel: Color(0xFF000000),
+    accent: Color(0xFF005A9E),
+    accentSecondary: Color(0xFF6A1B9A),
+  );
+
+  /// High-contrast dark palette for improved accessibility.
+  ///
+  /// Uses pure white text on a pure black background with bright accents so
+  /// text and interactive elements comfortably exceed WCAG AA contrast ratios.
+  static const highContrastDark = UIThemePalette(
+    scaffold: Color(0xFF000000),
+    surface: Color(0xFF000000),
+    card: Color(0xFF0A0A0A),
+    sectionBorder: Color(0xFFFFFFFF),
+    textPrimary: Color(0xFFFFFFFF),
+    textSecondary: Color(0xFFF2F2F2),
+    textMuted: Color(0xFFD6D6D6),
+    chipBackground: Color(0xFF0A0A0A),
+    chipBorder: Color(0xFFFFFFFF),
+    chipLabel: Color(0xFFFFFFFF),
+    accent: Color(0xFF4FC3F7),
+    accentSecondary: Color(0xFFFFD54F),
   );
 }
 
@@ -403,6 +483,7 @@ ThemeData buildUIKitTheme({
       UIAlertTheme.standard,
       UICardTheme.standard,
       UINavigationTheme.standard,
+      UIGlassMetrics.standard,
     ],
   );
 
@@ -467,5 +548,51 @@ class UIAppTheme {
     colors: brightness == Brightness.dark
         ? UIThemePalettes.stoneDark
         : UIThemePalettes.stoneLight,
+  );
+
+  /// Builds a theme from a single [seed] color using Material 3 tonal palettes.
+  ///
+  /// The fastest way to brand the kit — pass one color and every semantic token
+  /// is derived via [UIThemePalette.fromSeed]. Optionally pass a [fontFamily]
+  /// (only when the host app bundles that font) or custom [metrics].
+  ///
+  /// ```dart
+  /// MaterialApp(
+  ///   theme: UIAppTheme.fromSeed(Colors.indigo),
+  ///   darkTheme: UIAppTheme.fromSeed(Colors.indigo, brightness: Brightness.dark),
+  /// );
+  /// ```
+  static ThemeData fromSeed(
+    Color seed, {
+    Brightness brightness = Brightness.light,
+    String? fontFamily,
+    UIMetrics metrics = const UIMetrics(sectionHPad: 20),
+  }) => custom(
+    brightness: brightness,
+    colors: UIThemePalette.fromSeed(seed, brightness: brightness),
+    fontFamily: fontFamily,
+    metrics: metrics,
+  );
+
+  /// High-contrast accessibility themes for the given [brightness].
+  ///
+  /// Backed by [UIThemePalette.highContrastLight] /
+  /// [UIThemePalette.highContrastDark]. Wire these up to
+  /// [MediaQueryData.highContrast] to honor the OS "increase contrast" setting:
+  ///
+  /// ```dart
+  /// final highContrast = MediaQuery.of(context).highContrast;
+  /// MaterialApp(
+  ///   theme: highContrast ? UIAppTheme.highContrast(Brightness.light)
+  ///                       : UIAppTheme.light,
+  ///   darkTheme: highContrast ? UIAppTheme.highContrast(Brightness.dark)
+  ///                          : UIAppTheme.dark,
+  /// );
+  /// ```
+  static ThemeData highContrast(Brightness brightness) => custom(
+    brightness: brightness,
+    colors: brightness == Brightness.dark
+        ? UIThemePalette.highContrastDark
+        : UIThemePalette.highContrastLight,
   );
 }

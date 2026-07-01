@@ -3,7 +3,7 @@ library;
 
 import 'dart:ui' show Color;
 
-import 'package:vvk_ui_kit/src/core/utils/log_util.dart';
+import '../utils/log_util.dart';
 
 /// Extensions for non-nullable [Color] values.
 extension ColorExtensions on Color {

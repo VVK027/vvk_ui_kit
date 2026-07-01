@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Selection behavior for [UITreeView].
 enum UITreeViewSelectionMode {
@@ -61,6 +61,8 @@ class UITreeView extends StatefulWidget {
     this.selectedColor,
     this.iconColor,
     this.textStyle,
+    this.expandTooltip = 'Expand',
+    this.collapseTooltip = 'Collapse',
   });
 
   final List<UITreeNode> nodes;
@@ -76,6 +78,12 @@ class UITreeView extends StatefulWidget {
   final Color? selectedColor;
   final Color? iconColor;
   final TextStyle? textStyle;
+
+  /// Tooltip / semantic label for a node's expand button when collapsed.
+  final String expandTooltip;
+
+  /// Tooltip / semantic label for a node's collapse button when expanded.
+  final String collapseTooltip;
 
   factory UITreeView.fromTheme(
     BuildContext context, {
@@ -93,6 +101,8 @@ class UITreeView extends StatefulWidget {
     Color? selectedColor,
     Color? iconColor,
     TextStyle? textStyle,
+    String expandTooltip = 'Expand',
+    String collapseTooltip = 'Collapse',
   }) {
     final scheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
@@ -111,6 +121,8 @@ class UITreeView extends StatefulWidget {
       selectedColor: selectedColor ?? scheme.primaryContainer,
       iconColor: iconColor ?? scheme.onSurfaceVariant,
       textStyle: textStyle ?? theme.textTheme.bodyMedium,
+      expandTooltip: expandTooltip,
+      collapseTooltip: collapseTooltip,
     );
   }
 
@@ -152,8 +164,7 @@ class _UITreeViewState extends State<UITreeView> {
   }
 
   void _toggleSelection(UITreeNode node) {
-    if (widget.selectionMode == UITreeViewSelectionMode.none ||
-        !node.enabled) {
+    if (widget.selectionMode == UITreeViewSelectionMode.none || !node.enabled) {
       return;
     }
 
@@ -201,8 +212,9 @@ class _UITreeViewState extends State<UITreeView> {
       return _selectedKeys.contains(node.key);
     }
 
-    final selectedCount =
-        descendants.where((key) => _selectedKeys.contains(key)).length;
+    final selectedCount = descendants
+        .where((key) => _selectedKeys.contains(key))
+        .length;
     if (selectedCount == 0 && !_selectedKeys.contains(node.key)) {
       return false;
     }
@@ -222,9 +234,7 @@ class _UITreeViewState extends State<UITreeView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Material(
-          color: isSelected
-              ? widget.selectedColor
-              : widget.backgroundColor,
+          color: isSelected ? widget.selectedColor : widget.backgroundColor,
           child: InkWell(
             onTap: () => _handleTap(node),
             child: SizedBox(
@@ -238,6 +248,9 @@ class _UITreeViewState extends State<UITreeView> {
                       child: node.hasChildren
                           ? IconButton(
                               padding: EdgeInsets.zero,
+                              tooltip: isExpanded
+                                  ? widget.collapseTooltip
+                                  : widget.expandTooltip,
                               constraints: const BoxConstraints(
                                 minWidth: 28,
                                 minHeight: 28,
@@ -276,8 +289,9 @@ class _UITreeViewState extends State<UITreeView> {
                         style: widget.textStyle?.copyWith(
                           color: node.enabled
                               ? widget.textStyle?.color
-                              : widget.textStyle?.color
-                                    ?.withValues(alpha: 0.38),
+                              : widget.textStyle?.color?.withValues(
+                                  alpha: 0.38,
+                                ),
                         ),
                         maxLines: 1,
                         textOverflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_network_loader.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_path_parser.dart';
+import 'ui_svg_network_loader.dart';
+import 'ui_svg_path_parser.dart';
 
 /// Parsed SVG path data with its coordinate bounds.
 class UISvgParsedData {

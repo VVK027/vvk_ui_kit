@@ -19,6 +19,8 @@ class UIExpandableFloatingPanel extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 300),
     this.borderRadius = 24,
     this.initiallyExpanded = false,
+    this.expandTooltip = 'Expand',
+    this.collapseTooltip = 'Collapse',
   });
 
   final Widget title;
@@ -31,6 +33,12 @@ class UIExpandableFloatingPanel extends StatefulWidget {
   final Duration animationDuration;
   final double borderRadius;
   final bool initiallyExpanded;
+
+  /// Tooltip / semantic label for the toggle button when collapsed.
+  final String expandTooltip;
+
+  /// Tooltip / semantic label for the toggle button when expanded.
+  final String collapseTooltip;
 
   /// Theme-aware panel defaults.
   factory UIExpandableFloatingPanel.fromTheme(
@@ -46,6 +54,8 @@ class UIExpandableFloatingPanel extends StatefulWidget {
     Duration animationDuration = const Duration(milliseconds: 300),
     double borderRadius = 24,
     bool initiallyExpanded = false,
+    String expandTooltip = 'Expand',
+    String collapseTooltip = 'Collapse',
   }) {
     return UIExpandableFloatingPanel(
       key: key,
@@ -59,6 +69,8 @@ class UIExpandableFloatingPanel extends StatefulWidget {
       animationDuration: animationDuration,
       borderRadius: borderRadius,
       initiallyExpanded: initiallyExpanded,
+      expandTooltip: expandTooltip,
+      collapseTooltip: collapseTooltip,
       child: child,
     );
   }
@@ -90,7 +102,8 @@ class _UIExpandableFloatingPanelState extends State<UIExpandableFloatingPanel> {
   @override
   Widget build(BuildContext context) {
     final background =
-        widget.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHigh;
+        widget.backgroundColor ??
+        Theme.of(context).colorScheme.surfaceContainerHigh;
 
     return Material(
       color: background,
@@ -105,10 +118,15 @@ class _UIExpandableFloatingPanelState extends State<UIExpandableFloatingPanel> {
             duration: widget.animationDuration,
             curve: Curves.easeInOutCubic,
             alignment: Alignment.topRight,
-            child: _isExpanded ? _expandedBody(context) : const SizedBox.shrink(),
+            child: _isExpanded
+                ? _expandedBody(context)
+                : const SizedBox.shrink(),
           ),
           IconButton(
             key: const Key('ui_expandable_floating_panel_toggle'),
+            tooltip: _isExpanded
+                ? widget.collapseTooltip
+                : widget.expandTooltip,
             onPressed: () => setState(() => _isExpanded = !_isExpanded),
             icon: widget.toggleIconBuilder(_isExpanded),
           ),

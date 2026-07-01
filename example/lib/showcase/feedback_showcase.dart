@@ -103,14 +103,8 @@ class _FeedbackShowcaseState extends State<FeedbackShowcase> {
               ],
             ),
           ),
-          ShowcaseTile(
-            name: 'UIPopover',
-            child: _PopoverDemo(),
-          ),
-          ShowcaseTile(
-            name: 'UITourController',
-            child: _TourDemo(),
-          ),
+          ShowcaseTile(name: 'UIPopover', child: _PopoverDemo()),
+          ShowcaseTile(name: 'UITourController', child: _TourDemo()),
           ShowcaseTile(
             name: 'UITooltip',
             child: UITooltip(
@@ -219,10 +213,7 @@ class _TourDemoState extends State<_TourDemo> {
           ],
         ),
         const SizedBox(height: 8),
-        UIPrimaryTextButton(
-          text: 'Start product tour',
-          onPressed: _startTour,
-        ),
+        UIPrimaryTextButton(text: 'Start product tour', onPressed: _startTour),
       ],
     );
   }

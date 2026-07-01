@@ -6,7 +6,7 @@ This guide explains how to integrate `vvk_ui_kit` into a host Flutter app or pac
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^1.0.0
+  vvk_ui_kit: ^1.1.0
 ```
 
 ```dart
@@ -14,6 +14,18 @@ import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 ```
 
 Do **not** import files under `lib/src/` directly — those paths are internal and may change.
+
+### Modular imports (optional)
+
+Use focused entry points when you do not need the full barrel:
+
+```dart
+import 'package:vvk_ui_kit/theme.dart';
+import 'package:vvk_ui_kit/buttons.dart';
+import 'package:vvk_ui_kit/inputs.dart';
+```
+
+See the full list in [README.md](../README.md#modular-imports) and upgrade notes in [MIGRATION.md](MIGRATION.md).
 
 ## Theme setup
 
@@ -210,7 +222,7 @@ Tests live under `test/` and mirror the widget categories in `lib/vvk_ui_kit.dar
 | `test/widgets/responsive/` | `ResponsiveLayout`, `Responsive` |
 | `test/widgets/states/` | Error info |
 
-As of 1.0.0 the suite includes **301 tests** across **30 test files**.
+As of 1.1.0 the suite includes **326 tests** across **32 test files**.
 
 ## Example app
 

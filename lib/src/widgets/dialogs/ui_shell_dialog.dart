@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/ui_widget_props.dart';
+import '../text/ui_text.dart';
+import '../ui_widget_props.dart';
 
 /// Visual styling for [UIShellDialog].
 class UIShellDialogStyle {

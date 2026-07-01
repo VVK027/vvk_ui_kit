@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_image.dart';
+import '../../icons/ui_svg_image.dart';
 
 /// An SVG icon that renders with a gradient fill.
 class UIGradientSvgIcon extends StatelessWidget {

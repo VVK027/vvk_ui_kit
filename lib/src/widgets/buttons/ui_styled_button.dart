@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
+import '../../core/theme/ui_component_themes.dart';
+import 'ui_button_props.dart';
 import '../ui_button_helpers.dart';
 
 /// Visual configuration for [UIStyledButton].
@@ -56,16 +57,17 @@ class UIStyledButtonStyle {
 
   factory UIStyledButtonStyle.text(
     BuildContext context, {
-    double height = 44,
-    double borderRadius = 8,
+    double? height,
+    double? borderRadius,
     Color? foregroundColor,
     TextStyle? textStyle,
   }) {
     final theme = Theme.of(context);
+    final metrics = context.uiButtonMetrics;
     final onSurface = foregroundColor ?? theme.colorScheme.primary;
     return UIStyledButtonStyle(
-      height: height,
-      borderRadius: borderRadius,
+      height: height ?? metrics.textHeight,
+      borderRadius: borderRadius ?? metrics.textRadius,
       textStyle: textStyle ?? theme.textTheme.labelLarge ?? const TextStyle(),
       textColor: onSurface,
       loadingIndicatorSize: 16,
@@ -80,8 +82,8 @@ class UIStyledButtonStyle {
 
   factory UIStyledButtonStyle.primary(
     BuildContext context, {
-    double height = 61,
-    double borderRadius = 5,
+    double? height,
+    double? borderRadius,
     Color? backgroundColor,
     Color? foregroundColor,
     Color? disabledBackgroundColor,
@@ -91,11 +93,12 @@ class UIStyledButtonStyle {
     FontWeight fontWeight = FontWeight.w600,
   }) {
     final theme = Theme.of(context);
+    final metrics = context.uiButtonMetrics;
     final primary = backgroundColor ?? theme.colorScheme.primary;
     final onPrimary = foregroundColor ?? theme.colorScheme.onPrimary;
     return UIStyledButtonStyle(
-      height: height,
-      borderRadius: borderRadius,
+      height: height ?? metrics.primaryHeight,
+      borderRadius: borderRadius ?? metrics.primaryRadius,
       textStyle:
           textStyle ?? TextStyle(fontSize: fontSize, fontWeight: fontWeight),
       textColor: onPrimary,
@@ -113,8 +116,8 @@ class UIStyledButtonStyle {
 
   factory UIStyledButtonStyle.outlined(
     BuildContext context, {
-    double height = 61,
-    double borderRadius = 5,
+    double? height,
+    double? borderRadius,
     Color? borderColor,
     Color? foregroundColor,
     Color? backgroundColor,
@@ -123,11 +126,12 @@ class UIStyledButtonStyle {
     FontWeight fontWeight = FontWeight.w600,
   }) {
     final theme = Theme.of(context);
+    final metrics = context.uiButtonMetrics;
     final primary = borderColor ?? theme.colorScheme.primary;
     final fg = foregroundColor ?? primary;
     return UIStyledButtonStyle(
-      height: height,
-      borderRadius: borderRadius,
+      height: height ?? metrics.outlinedHeight,
+      borderRadius: borderRadius ?? metrics.outlinedRadius,
       textStyle:
           textStyle ?? TextStyle(fontSize: fontSize, fontWeight: fontWeight),
       textColor: fg,
@@ -143,8 +147,8 @@ class UIStyledButtonStyle {
 
   factory UIStyledButtonStyle.elevated(
     BuildContext context, {
-    double height = 56,
-    double borderRadius = 8,
+    double? height,
+    double? borderRadius,
     Color? backgroundColor,
     Color? foregroundColor,
     TextStyle? textStyle,
@@ -152,11 +156,12 @@ class UIStyledButtonStyle {
     FontWeight fontWeight = FontWeight.w500,
   }) {
     final theme = Theme.of(context);
+    final metrics = context.uiButtonMetrics;
     final bg = backgroundColor ?? theme.colorScheme.primary;
     final fg = foregroundColor ?? Colors.white;
     return UIStyledButtonStyle(
-      height: height,
-      borderRadius: borderRadius,
+      height: height ?? metrics.elevatedHeight,
+      borderRadius: borderRadius ?? metrics.elevatedRadius,
       textStyle:
           textStyle ?? TextStyle(fontSize: fontSize, fontWeight: fontWeight),
       textColor: fg,
@@ -206,6 +211,8 @@ class UIStyledButton extends StatelessWidget {
     this.backgroundColor,
     this.buttonStyle,
     this.material = const UIMaterialButtonProps(),
+    this.semanticsLabel,
+    this.semanticsHint,
   });
 
   /// The main content of the button, typically a [Text] or [Icon].
@@ -241,6 +248,13 @@ class UIStyledButton extends StatelessWidget {
   /// Forwarded Material button interaction and style overrides.
   final UIMaterialButtonProps material;
 
+  /// Accessibility label announced by screen readers. Defaults to the visible
+  /// [child] text when null.
+  final String? semanticsLabel;
+
+  /// Optional accessibility hint describing the button's action.
+  final String? semanticsHint;
+
   UIStyledButton copyWith({
     Key? key,
     Widget? child,
@@ -254,6 +268,8 @@ class UIStyledButton extends StatelessWidget {
     Color? backgroundColor,
     ButtonStyle? buttonStyle,
     UIMaterialButtonProps? material,
+    String? semanticsLabel,
+    String? semanticsHint,
   }) {
     return UIStyledButton(
       key: key ?? this.key,
@@ -267,6 +283,8 @@ class UIStyledButton extends StatelessWidget {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       buttonStyle: buttonStyle ?? this.buttonStyle,
       material: material ?? this.material,
+      semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+      semanticsHint: semanticsHint ?? this.semanticsHint,
       child: child ?? this.child,
     );
   }
@@ -277,7 +295,23 @@ class UIStyledButton extends StatelessWidget {
     final content = _buildButtonContent(isButtonDisabled);
     final buttonWidget = _buildButtonWidget(content, isButtonDisabled);
 
-    return SizedBox(height: style.height, width: width, child: buttonWidget);
+    Widget result = SizedBox(
+      height: style.height,
+      width: width,
+      child: buttonWidget,
+    );
+
+    if (semanticsLabel != null || semanticsHint != null) {
+      result = Semantics(
+        button: true,
+        enabled: !isButtonDisabled,
+        label: semanticsLabel,
+        hint: semanticsHint,
+        child: result,
+      );
+    }
+
+    return result;
   }
 
   Widget _buildButtonContent(bool isButtonDisabled) {

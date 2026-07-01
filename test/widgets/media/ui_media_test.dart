@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
+import '../../test_assets.dart';
+
 void main() {
   group('UIImageScope', () {
     testWidgets('provides builders to descendants', (tester) async {
@@ -48,9 +50,7 @@ void main() {
   group('UIImage', () {
     testWidgets('renders fallback for empty source', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIImage('')),
-        ),
+        const MaterialApp(home: Scaffold(body: UIImage(''))),
       );
 
       expect(find.byType(Icon), findsOneWidget);
@@ -60,9 +60,7 @@ void main() {
     testWidgets('renders custom fallback', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIImage('', fallback: Text('Custom Fallback')),
-          ),
+          home: Scaffold(body: UIImage('', fallback: Text('Custom Fallback'))),
         ),
       );
 
@@ -73,9 +71,7 @@ void main() {
       const base64Image =
           'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIImage(base64Image)),
-        ),
+        const MaterialApp(home: Scaffold(body: UIImage(base64Image))),
       );
 
       expect(find.byType(Image), findsOneWidget);
@@ -83,9 +79,7 @@ void main() {
 
     testWidgets('renders fallback for invalid network url', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: UIImage('not-a-valid-url')),
-        ),
+        const MaterialApp(home: Scaffold(body: UIImage('not-a-valid-url'))),
       );
 
       expect(find.byIcon(Icons.broken_image_outlined), findsOneWidget);
@@ -130,9 +124,7 @@ void main() {
     testWidgets('renders network image without scope builder', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIImage('https://example.com/photo.png'),
-          ),
+          home: Scaffold(body: UIImage('https://example.com/photo.png')),
         ),
       );
 
@@ -141,15 +133,11 @@ void main() {
 
     testWidgets('renders asset svg via default builder', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: UIImage('test/assets/sample.svg'),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: UIImage(kTestSvgAsset))),
       );
 
       await tester.pumpAndSettle();
-      expect(find.byType(CustomPaint), findsOneWidget);
+      expect(find.byType(UISvgImage), findsOneWidget);
     });
   });
 
@@ -157,9 +145,7 @@ void main() {
     testWidgets('renders child with aspect ratio', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: UIImagePreviewFrame(child: Text('Preview')),
-          ),
+          home: Scaffold(body: UIImagePreviewFrame(child: Text('Preview'))),
         ),
       );
 
@@ -171,10 +157,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UIImagePreviewFrame(
-              height: 200,
-              child: Text('Fixed'),
-            ),
+            body: UIImagePreviewFrame(height: 200, child: Text('Fixed')),
           ),
         ),
       );

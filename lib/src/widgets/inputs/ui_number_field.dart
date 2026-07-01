@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Numeric input with increment/decrement stepper buttons.
 class UINumberField extends StatefulWidget {
@@ -19,6 +19,8 @@ class UINumberField extends StatefulWidget {
     this.backgroundColor,
     this.borderColor,
     this.textStyle,
+    this.decrementTooltip = 'Decrease',
+    this.incrementTooltip = 'Increase',
   }) : assert(step > 0, 'step must be positive');
 
   final num value;
@@ -34,6 +36,12 @@ class UINumberField extends StatefulWidget {
   final Color? backgroundColor;
   final Color? borderColor;
   final TextStyle? textStyle;
+
+  /// Tooltip / semantic label for the decrement (−) button.
+  final String decrementTooltip;
+
+  /// Tooltip / semantic label for the increment (+) button.
+  final String incrementTooltip;
 
   factory UINumberField.fromTheme(
     BuildContext context, {
@@ -51,6 +59,8 @@ class UINumberField extends StatefulWidget {
     Color? backgroundColor,
     Color? borderColor,
     TextStyle? textStyle,
+    String decrementTooltip = 'Decrease',
+    String incrementTooltip = 'Increase',
   }) {
     final scheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
@@ -69,6 +79,8 @@ class UINumberField extends StatefulWidget {
       backgroundColor: backgroundColor ?? scheme.surfaceContainerHighest,
       borderColor: borderColor ?? scheme.outlineVariant,
       textStyle: textStyle ?? theme.textTheme.bodyLarge,
+      decrementTooltip: decrementTooltip,
+      incrementTooltip: incrementTooltip,
     );
   }
 
@@ -169,6 +181,7 @@ class _UINumberFieldState extends State<UINumberField> {
         children: [
           _StepperButton(
             icon: Icons.remove,
+            tooltip: widget.decrementTooltip,
             size: widget.buttonSize,
             enabled: _canDecrement,
             onPressed: () => _step(-widget.step),
@@ -184,9 +197,7 @@ class _UINumberFieldState extends State<UINumberField> {
               style: widget.textStyle,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
-                  RegExp(
-                    widget.decimalPlaces > 0 ? r'^\d*\.?\d*$' : r'^\d*$',
-                  ),
+                  RegExp(widget.decimalPlaces > 0 ? r'^\d*\.?\d*$' : r'^\d*$'),
                 ),
               ],
               decoration: const InputDecoration(
@@ -200,6 +211,7 @@ class _UINumberFieldState extends State<UINumberField> {
           ),
           _StepperButton(
             icon: Icons.add,
+            tooltip: widget.incrementTooltip,
             size: widget.buttonSize,
             enabled: _canIncrement,
             onPressed: () => _step(widget.step),
@@ -217,9 +229,9 @@ class _UINumberFieldState extends State<UINumberField> {
       children: [
         UIText(
           widget.label!,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: scheme.onSurfaceVariant,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(color: scheme.onSurfaceVariant),
         ),
         SizedBox(height: widget.spacing),
         field,
@@ -234,12 +246,14 @@ class _StepperButton extends StatelessWidget {
     required this.size,
     required this.enabled,
     required this.onPressed,
+    this.tooltip,
   });
 
   final IconData icon;
   final double size;
   final bool enabled;
   final VoidCallback onPressed;
+  final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -249,12 +263,13 @@ class _StepperButton extends StatelessWidget {
       height: size,
       child: IconButton(
         padding: EdgeInsets.zero,
+        tooltip: tooltip,
         onPressed: enabled ? onPressed : null,
         icon: Icon(
           icon,
-          color: enabled ? scheme.onSurface : scheme.onSurface.withValues(
-            alpha: 0.38,
-          ),
+          color: enabled
+              ? scheme.onSurface
+              : scheme.onSurface.withValues(alpha: 0.38),
         ),
       ),
     );

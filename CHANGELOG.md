@@ -1,3 +1,77 @@
+## 1.1.0
+
+* **Theming ergonomics** — new `UIAppTheme.fromSeed(Color)` and
+  `UIThemePalette.fromSeed(Color, {brightness})` generate a full semantic
+  palette from a single seed color via Material 3's `ColorScheme.fromSeed`.
+  Added high-contrast accessibility presets: `UIThemePalette.highContrastLight`
+  / `highContrastDark` and `UIAppTheme.highContrast(Brightness)`.
+* **Design tokens** — new `UIButtonMetrics` / `UIInputMetrics` (aliases of
+  `UIButtonTheme` / `UIInputTheme`) and a new `UIGlassMetrics` theme extension.
+  `UIStyledButtonStyle.primary/outlined/elevated/text` and `UIGlassSurface` now
+  resolve heights, radii, blur, and opacity from the theme when the matching
+  parameter is left unset (defaults unchanged, so this is backwards compatible).
+* **Glass performance** — `UIGlassPerformanceMode` (`fullBlur` / `staticTint` /
+  `auto`) lets you swap the live `BackdropFilter` blur for a cheap static tint on
+  low-end devices; `UIGlassSurface` optionally wraps its blur in a
+  `RepaintBoundary`.
+* **Accessibility** — added `semanticsLabel` / `semanticsHint` (and tooltips
+  where relevant) to `UIStyledButton`, `UIIconButton`, `UISplitButton`, and a
+  custom `semanticsLabel` on `UIRatingBar`; `UILoadingOverlay` and `UISnackbar`
+  now expose live-region semantics. New shared `UISemanticsProps`.
+* **Adaptive Cupertino** — `UIPillSwitch` gains `adaptive` / `forceCupertino` /
+  `forceMaterial` to render a native `CupertinoSwitch` on Apple platforms.
+* **Theme-first APIs** — added `UISnackbarStyle.fromTheme(context)`.
+* **i18n** — replaced hardcoded English strings in several widgets with
+  overridable parameters (defaults unchanged, so behavior is backwards
+  compatible):
+  * `UIHierarchySearchableDropdown` — `searchHintText` (`'Search here...'`) and
+    `clearSearchTooltip` (`'Clear search'`); the clear button now has a tooltip.
+  * `UISearchBar` — `clearTooltip`, `ascendingTooltip`, `descendingTooltip`,
+    `filterTooltip`; the clear button now has a tooltip.
+  * `UIKeyboardToolbar` — `previousLabel` and `nextLabel`.
+  * `UITourProgressIndicator` — `labelBuilder` and `compactLabelBuilder` for
+    the step text.
+  * `UIDropdown` — `requiredMarker` (`' *'`) and `showRequiredMarker`.
+* **a11y** — added tooltips / semantic labels to icon buttons that previously
+  had none, so they are now announced by screen readers and show hover/long-press
+  hints:
+  * Back buttons in `UIAppBar` (new `backTooltip`), `UISettingsPageScaffold`
+    (`backTooltip`), and `UITabbedDetailScaffold` (`backTooltip`) — when the
+    param is null they fall back to the locale-aware
+    `MaterialLocalizations.backButtonTooltip`.
+  * `UICalendar` month arrows — `previousMonthTooltip` / `nextMonthTooltip`
+    (fall back to the matching `MaterialLocalizations` values).
+  * `UIPopover` close button — `closeButtonTooltip` (falls back to
+    `MaterialLocalizations.closeButtonTooltip`).
+  * `UIDetailDateNavigator` — `previousTooltip` / `nextTooltip`.
+  * `UINumberField` — `decrementTooltip` / `incrementTooltip`.
+  * `UIExpandableFloatingPanel` & `UITreeView` — `expandTooltip` /
+    `collapseTooltip`.
+  * `UITextFormField` — `showPasswordTooltip` / `hidePasswordTooltip` on the
+    password visibility toggle.
+  * `UITourTooltipCard` skip and previous buttons now expose tooltips from
+    `UITourStep.skipButtonLabel` / `previousButtonLabel`.
+* **Fixes** — `UIIconButton` now inherits its color from the ambient `IconTheme`
+  (was hardcoded to `Colors.black`, breaking dark mode) and is genuinely
+  disabled when `onPressed` is `null` (previously always tappable).
+  `DateTimeUtil.getFormattedDate` and `getFormatDayMonthYearHourMinSec` now log
+  parse/format failures in debug instead of silently swallowing them.
+* **pub.dev metadata** — declared supported `platforms` (android, ios, web,
+  macos, windows, linux) and added `screenshots` for visual previews.
+* **Tooling** — tightened the `flutter` SDK constraint to `>=3.32.0` to match
+  the required Dart SDK and modern APIs (`Color.withValues`, `CardThemeData`).
+  Enabled the `prefer_relative_imports` lint and normalized all intra-package
+  imports under `lib/src` to relative paths. Raised `public_member_api_docs`
+  from `info` to `warning` so missing public docs fail analysis. CI now runs
+  `dart pub publish --dry-run`; added a compile-time export guard
+  (`test/exports_test.dart`) and accessibility tests. Migrated legacy
+  `MediaQuery.of(context).size` usages to `MediaQuery.sizeOf(context)` in
+  `UIDivider`, `UITitleWithBorderedLine`, `UILabeledTextFormField`, and widget
+  helpers.
+* **Maintenance** — decomposed the 1,830-line
+  `ui_hierarchy_searchable_dropdown.dart` into focused `part` files
+  (header / panel / tree) with no public API change.
+
 ## 1.0.0
 
 * **Stable release** — first production-ready version of `vvk_ui_kit` with a complete public API exported from `package:vvk_ui_kit/vvk_ui_kit.dart`.

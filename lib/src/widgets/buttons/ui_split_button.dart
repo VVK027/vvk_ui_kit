@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_context_menu.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../navigation/ui_context_menu.dart';
+import '../text/ui_text.dart';
 
 /// One action in the menu opened by [UISplitButton].
 class UISplitButtonMenuItem {
@@ -57,6 +57,8 @@ class UISplitButton extends StatefulWidget {
     this.borderColor,
     this.dividerColor,
     this.menuMinWidth = 180,
+    this.semanticsLabel,
+    this.menuSemanticsLabel = 'More actions',
   }) : assert(
          menu != null || menuItems.isNotEmpty,
          'Provide menuItems or menu.',
@@ -75,6 +77,12 @@ class UISplitButton extends StatefulWidget {
   final Color? dividerColor;
   final double menuMinWidth;
 
+  /// Accessibility label for the primary action. Defaults to the visible label.
+  final String? semanticsLabel;
+
+  /// Accessibility label for the chevron that opens the menu.
+  final String menuSemanticsLabel;
+
   factory UISplitButton.fromTheme(
     BuildContext context, {
     Key? key,
@@ -91,18 +99,21 @@ class UISplitButton extends StatefulWidget {
     Color? borderColor,
     Color? dividerColor,
     double menuMinWidth = 180,
+    String? semanticsLabel,
+    String menuSemanticsLabel = 'More actions',
   }) {
     final scheme = Theme.of(context).colorScheme;
     assert(
       child != null || label != null,
       'Either label or child must be provided.',
     );
-    final resolvedChild = child ??
+    final resolvedChild =
+        child ??
         UIText(
           label!,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
         );
     return UISplitButton(
       key: key,
@@ -117,6 +128,8 @@ class UISplitButton extends StatefulWidget {
       borderColor: borderColor ?? scheme.outline,
       dividerColor: dividerColor ?? scheme.outlineVariant,
       menuMinWidth: menuMinWidth,
+      semanticsLabel: semanticsLabel,
+      menuSemanticsLabel: menuSemanticsLabel,
       child: resolvedChild,
     );
   }
@@ -135,10 +148,8 @@ class _UISplitButtonState extends State<UISplitButton> {
       await showModalBottomSheet<void>(
         context: context,
         showDragHandle: true,
-        builder: (context) => Padding(
-          padding: const EdgeInsets.all(16),
-          child: widget.menu!,
-        ),
+        builder: (context) =>
+            Padding(padding: const EdgeInsets.all(16), child: widget.menu!),
       );
       return;
     }
@@ -161,8 +172,8 @@ class _UISplitButtonState extends State<UISplitButton> {
     final bg = widget.backgroundColor ?? Theme.of(context).colorScheme.surface;
     final fg = widget.foregroundColor ?? Theme.of(context).colorScheme.primary;
     final border = widget.borderColor ?? Theme.of(context).colorScheme.outline;
-    final divider = widget.dividerColor ??
-        Theme.of(context).colorScheme.outlineVariant;
+    final divider =
+        widget.dividerColor ?? Theme.of(context).colorScheme.outlineVariant;
     final radius = BorderRadius.circular(widget.borderRadius);
 
     return Material(
@@ -180,15 +191,19 @@ class _UISplitButtonState extends State<UISplitButton> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                InkWell(
-                  onTap: widget.enabled ? widget.onPressed : null,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: IconTheme.merge(
-                      data: IconThemeData(color: fg, size: 18),
-                      child: DefaultTextStyle.merge(
-                        style: TextStyle(color: fg),
-                        child: widget.child,
+                _MaybeSemantics(
+                  label: widget.semanticsLabel,
+                  enabled: widget.enabled && widget.onPressed != null,
+                  child: InkWell(
+                    onTap: widget.enabled ? widget.onPressed : null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: IconTheme.merge(
+                        data: IconThemeData(color: fg, size: 18),
+                        child: DefaultTextStyle.merge(
+                          style: TextStyle(color: fg),
+                          child: widget.child,
+                        ),
                       ),
                     ),
                   ),
@@ -198,12 +213,16 @@ class _UISplitButtonState extends State<UISplitButton> {
                   height: double.infinity,
                   child: ColoredBox(color: divider),
                 ),
-                InkWell(
-                  key: _menuKey,
-                  onTap: widget.enabled ? _openMenu : null,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Icon(Icons.expand_more, color: fg, size: 20),
+                _MaybeSemantics(
+                  label: widget.menuSemanticsLabel,
+                  enabled: widget.enabled,
+                  child: InkWell(
+                    key: _menuKey,
+                    onTap: widget.enabled ? _openMenu : null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(Icons.expand_more, color: fg, size: 20),
+                    ),
                   ),
                 ),
               ],
@@ -211,6 +230,31 @@ class _UISplitButtonState extends State<UISplitButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Wraps [child] in a [Semantics] button node only when a [label] is provided,
+/// avoiding a redundant label that would concatenate with visible child text.
+class _MaybeSemantics extends StatelessWidget {
+  const _MaybeSemantics({
+    required this.child,
+    required this.enabled,
+    this.label,
+  });
+
+  final Widget child;
+  final bool enabled;
+  final String? label;
+
+  @override
+  Widget build(BuildContext context) {
+    if (label == null) return child;
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      child: child,
     );
   }
 }

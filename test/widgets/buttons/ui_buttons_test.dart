@@ -90,6 +90,33 @@ void main() {
       await tester.tap(find.byIcon(Icons.add));
       expect(pressed, isTrue);
     });
+
+    testWidgets('is disabled when onPressed is null', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: UIIconButton(Icons.add))),
+      );
+
+      final iconButton = tester.widget<IconButton>(find.byType(IconButton));
+      expect(iconButton.onPressed, isNull);
+    });
+
+    testWidgets('inherits IconTheme color when color is not set', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: IconTheme(
+              data: const IconThemeData(color: Colors.purple),
+              child: UIIconButton(Icons.add, onPressed: () {}),
+            ),
+          ),
+        ),
+      );
+
+      final icon = tester.widget<Icon>(find.byIcon(Icons.add));
+      expect(icon.color, isNull);
+    });
   });
 
   group('UIImageButton', () {
@@ -211,30 +238,30 @@ void main() {
       expect(pressed, isTrue);
     });
 
-    testWidgets('wraps content in AnimatedBuilder when enablePressScale is true',
-        (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UIGlassButton(
-              label: 'Scale',
-              onPressed: () {},
+    testWidgets(
+      'wraps content in AnimatedBuilder when enablePressScale is true',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: UIGlassButton(label: 'Scale', onPressed: () {}),
             ),
           ),
-        ),
-      );
+        );
 
-      expect(
-        find.descendant(
-          of: find.byType(UIGlassButton),
-          matching: find.byType(AnimatedBuilder),
-        ),
-        findsOneWidget,
-      );
-    });
+        expect(
+          find.descendant(
+            of: find.byType(UIGlassButton),
+            matching: find.byType(AnimatedBuilder),
+          ),
+          findsOneWidget,
+        );
+      },
+    );
 
-    testWidgets('skips AnimatedBuilder when enablePressScale is false',
-        (tester) async {
+    testWidgets('skips AnimatedBuilder when enablePressScale is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

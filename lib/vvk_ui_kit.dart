@@ -6,6 +6,10 @@
 /// import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 /// ```
 ///
+/// Focused entry points are also available, e.g. `theme.dart`, `buttons.dart`,
+/// `inputs.dart`, `layout.dart`, `dialogs.dart`, `feedback.dart`,
+/// `navigation.dart`, `media.dart`, `widgets.dart`, and `core.dart`.
+///
 /// ## Getting started
 ///
 /// Apply `UIAppTheme.light` and `UIAppTheme.dark` on `MaterialApp`, and optionally

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
+import '../test_assets.dart';
+
 void main() {
   group('SvgPathParser', () {
     test('parses simple MoveTo and LineTo', () {
@@ -56,7 +58,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: UISvgImage.asset(
-              source: 'test/assets/sample.svg',
+              source: kTestSvgAsset,
               width: 24,
               height: 24,
             ),
@@ -73,7 +75,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: UISvgImage.asset(
-              source: 'test/assets/sample.svg',
+              source: kTestSvgAsset,
               color: Colors.red,
               width: 24,
               height: 24,
@@ -92,10 +94,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UISvgAssetIcon(
-              assetPath: 'test/assets/sample.svg',
-              size: 32,
-            ),
+            body: UISvgAssetIcon(assetPath: kTestSvgAsset, size: 32),
           ),
         ),
       );

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Message category for [UISnackbar].
 enum UISnackbarType { success, error }
@@ -21,6 +21,31 @@ class UISnackbarStyle {
   final Color successColor;
   final Color errorColor;
   final Color closeIconColor;
+
+  /// Builds a theme-driven style from the ambient [Theme], keeping [UISnackbar]
+  /// consistent with the kit's theme-first factory convention. Any parameter
+  /// overrides the resolved theme value.
+  factory UISnackbarStyle.fromTheme(
+    BuildContext context, {
+    Color? backgroundColor,
+    TextStyle? textStyle,
+    Color? successColor,
+    Color? errorColor,
+    Color? closeIconColor,
+  }) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return UISnackbarStyle(
+      backgroundColor: backgroundColor ?? scheme.surface,
+      textStyle:
+          textStyle ??
+          theme.textTheme.bodyMedium?.copyWith(color: scheme.onSurface) ??
+          TextStyle(color: scheme.onSurface),
+      successColor: successColor ?? scheme.primary,
+      errorColor: errorColor ?? scheme.error,
+      closeIconColor: closeIconColor ?? scheme.onSurface,
+    );
+  }
 
   UISnackbarStyle copyWith({
     Color? backgroundColor,
@@ -175,36 +200,43 @@ class _UISnackbarOverlayState extends State<_UISnackbarOverlay>
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Material(
               color: Colors.transparent,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: widget.style.backgroundColor,
-                  border: Border.all(color: color, width: 1.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    if (widget.leadingIcon != null) ...[
-                      widget.leadingIcon!,
-                      const SizedBox(width: 8),
-                    ],
-                    Expanded(
-                      child: UIText(
-                        widget.message,
-                        style: widget.style.textStyle,
+              child: Semantics(
+                liveRegion: true,
+                container: true,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: widget.style.backgroundColor,
+                    border: Border.all(color: color, width: 1.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      if (widget.leadingIcon != null) ...[
+                        widget.leadingIcon!,
+                        const SizedBox(width: 8),
+                      ],
+                      Expanded(
+                        child: UIText(
+                          widget.message,
+                          style: widget.style.textStyle,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: _animateOut,
-                      child:
-                          widget.closeIcon ??
-                          Icon(Icons.close, color: widget.style.closeIconColor),
-                    ),
-                  ],
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: _animateOut,
+                        child:
+                            widget.closeIcon ??
+                            Icon(
+                              Icons.close,
+                              color: widget.style.closeIconColor,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/ui_widget_props.dart';
+import '../ui_widget_props.dart';
 
 /// A styled card widget that provides consistent elevation and corner radius.
 ///

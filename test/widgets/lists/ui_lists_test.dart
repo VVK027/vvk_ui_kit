@@ -18,9 +18,7 @@ void main() {
                   onTap: () => deleted = true,
                 ),
               ],
-              child: const ListTile(
-                title: Text('Swipe me'),
-              ),
+              child: const ListTile(title: Text('Swipe me')),
             ),
           ),
         ),

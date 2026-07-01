@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/vvk_ui_kit.dart' show UICouponCard, UITicketClipper;
+import '../../../vvk_ui_kit.dart' show UICouponCard, UITicketClipper;
 
 /// Clips a widget to a split-panel coupon shape with curved tear lines.
 ///

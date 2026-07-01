@@ -104,8 +104,9 @@ class DecorationShowcase extends StatelessWidget {
                     margin: const EdgeInsets.all(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow
-                            .withValues(alpha: 0.12),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.shadow.withValues(alpha: 0.12),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),

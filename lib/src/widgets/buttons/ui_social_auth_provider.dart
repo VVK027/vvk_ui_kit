@@ -1,5 +1,5 @@
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_social_auth_button.dart' show UISocialAuthButton;
-import 'package:vvk_ui_kit/src/icons/ui_social_auth_icon.dart' show UISocialAuthIcon;
+import 'ui_social_auth_button.dart' show UISocialAuthButton;
+import '../../icons/ui_social_auth_icon.dart' show UISocialAuthIcon;
 
 /// Supported OAuth / identity providers for [UISocialAuthButton] and
 /// [UISocialAuthIcon].

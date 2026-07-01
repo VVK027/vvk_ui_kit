@@ -52,16 +52,53 @@ class UIInputTheme extends ThemeExtension<UIInputTheme> {
 }
 
 /// Button sizing tokens for kit buttons.
+///
+/// Centralizes the per-variant heights and corner radii used by
+/// `UIStyledButtonStyle` so host apps can restyle every button by overriding a
+/// single theme extension instead of editing hardcoded values. Also exported
+/// under the alias [UIButtonMetrics].
 class UIButtonTheme extends ThemeExtension<UIButtonTheme> {
   const UIButtonTheme({
     this.borderRadius = 12,
     this.height = 48,
     this.horizontalPadding = 20,
+    this.primaryHeight = 61,
+    this.primaryRadius = 5,
+    this.outlinedHeight = 61,
+    this.outlinedRadius = 5,
+    this.elevatedHeight = 56,
+    this.elevatedRadius = 8,
+    this.textHeight = 44,
+    this.textRadius = 8,
   });
 
   final double borderRadius;
   final double height;
   final double horizontalPadding;
+
+  /// Height for `UIStyledButtonStyle.primary`.
+  final double primaryHeight;
+
+  /// Corner radius for `UIStyledButtonStyle.primary`.
+  final double primaryRadius;
+
+  /// Height for `UIStyledButtonStyle.outlined`.
+  final double outlinedHeight;
+
+  /// Corner radius for `UIStyledButtonStyle.outlined`.
+  final double outlinedRadius;
+
+  /// Height for `UIStyledButtonStyle.elevated`.
+  final double elevatedHeight;
+
+  /// Corner radius for `UIStyledButtonStyle.elevated`.
+  final double elevatedRadius;
+
+  /// Height for `UIStyledButtonStyle.text`.
+  final double textHeight;
+
+  /// Corner radius for `UIStyledButtonStyle.text`.
+  final double textRadius;
 
   static const standard = UIButtonTheme();
 
@@ -70,11 +107,27 @@ class UIButtonTheme extends ThemeExtension<UIButtonTheme> {
     double? borderRadius,
     double? height,
     double? horizontalPadding,
+    double? primaryHeight,
+    double? primaryRadius,
+    double? outlinedHeight,
+    double? outlinedRadius,
+    double? elevatedHeight,
+    double? elevatedRadius,
+    double? textHeight,
+    double? textRadius,
   }) {
     return UIButtonTheme(
       borderRadius: borderRadius ?? this.borderRadius,
       height: height ?? this.height,
       horizontalPadding: horizontalPadding ?? this.horizontalPadding,
+      primaryHeight: primaryHeight ?? this.primaryHeight,
+      primaryRadius: primaryRadius ?? this.primaryRadius,
+      outlinedHeight: outlinedHeight ?? this.outlinedHeight,
+      outlinedRadius: outlinedRadius ?? this.outlinedRadius,
+      elevatedHeight: elevatedHeight ?? this.elevatedHeight,
+      elevatedRadius: elevatedRadius ?? this.elevatedRadius,
+      textHeight: textHeight ?? this.textHeight,
+      textRadius: textRadius ?? this.textRadius,
     );
   }
 
@@ -89,6 +142,121 @@ class UIButtonTheme extends ThemeExtension<UIButtonTheme> {
         other.horizontalPadding,
         t,
       )!,
+      primaryHeight: lerpDouble(primaryHeight, other.primaryHeight, t)!,
+      primaryRadius: lerpDouble(primaryRadius, other.primaryRadius, t)!,
+      outlinedHeight: lerpDouble(outlinedHeight, other.outlinedHeight, t)!,
+      outlinedRadius: lerpDouble(outlinedRadius, other.outlinedRadius, t)!,
+      elevatedHeight: lerpDouble(elevatedHeight, other.elevatedHeight, t)!,
+      elevatedRadius: lerpDouble(elevatedRadius, other.elevatedRadius, t)!,
+      textHeight: lerpDouble(textHeight, other.textHeight, t)!,
+      textRadius: lerpDouble(textRadius, other.textRadius, t)!,
+    );
+  }
+}
+
+/// Alias for [UIButtonTheme]; the design-token name used across the kit.
+typedef UIButtonMetrics = UIButtonTheme;
+
+/// Alias for [UIInputTheme]; the design-token name used across the kit.
+typedef UIInputMetrics = UIInputTheme;
+
+/// Performance strategy for frosted-glass widgets.
+///
+/// [BackdropFilter] is expensive; stacking several glass layers can drop frames
+/// on low-end devices. Use [staticTint] to swap the live blur for a cheap solid
+/// tint, or [auto] to let the widget decide.
+enum UIGlassPerformanceMode {
+  /// Use a real-time [BackdropFilter] blur (highest fidelity, highest cost).
+  fullBlur,
+
+  /// Skip the blur and paint a solid semi-opaque tint (cheapest).
+  staticTint,
+
+  /// Currently behaves like [fullBlur]; reserved for future device-aware logic.
+  auto,
+}
+
+/// Frosted-glass design tokens shared by all glass widgets.
+///
+/// Override on the theme to tune blur/opacity globally or to enable a
+/// performance fallback for the whole app.
+class UIGlassMetrics extends ThemeExtension<UIGlassMetrics> {
+  const UIGlassMetrics({
+    this.blur = 10,
+    this.tintOpacity = 0.12,
+    this.borderRadius = 12,
+    this.borderWidth = 1,
+    this.staticTintOpacity = 0.6,
+    this.performanceMode = UIGlassPerformanceMode.auto,
+    this.wrapInRepaintBoundary = true,
+  });
+
+  /// Default blur sigma for glass surfaces.
+  final double blur;
+
+  /// Tint opacity applied over the blur.
+  final double tintOpacity;
+
+  /// Default corner radius.
+  final double borderRadius;
+
+  /// Default border width.
+  final double borderWidth;
+
+  /// Tint opacity used when [performanceMode] falls back to a static tint.
+  final double staticTintOpacity;
+
+  /// Global performance strategy for glass widgets.
+  final UIGlassPerformanceMode performanceMode;
+
+  /// Whether glass surfaces wrap their blur in a [RepaintBoundary] to isolate
+  /// repaints from the rest of the tree.
+  final bool wrapInRepaintBoundary;
+
+  /// Whether a live [BackdropFilter] blur should be used.
+  bool get usesBlur => performanceMode != UIGlassPerformanceMode.staticTint;
+
+  static const standard = UIGlassMetrics();
+
+  @override
+  UIGlassMetrics copyWith({
+    double? blur,
+    double? tintOpacity,
+    double? borderRadius,
+    double? borderWidth,
+    double? staticTintOpacity,
+    UIGlassPerformanceMode? performanceMode,
+    bool? wrapInRepaintBoundary,
+  }) {
+    return UIGlassMetrics(
+      blur: blur ?? this.blur,
+      tintOpacity: tintOpacity ?? this.tintOpacity,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderWidth: borderWidth ?? this.borderWidth,
+      staticTintOpacity: staticTintOpacity ?? this.staticTintOpacity,
+      performanceMode: performanceMode ?? this.performanceMode,
+      wrapInRepaintBoundary:
+          wrapInRepaintBoundary ?? this.wrapInRepaintBoundary,
+    );
+  }
+
+  @override
+  UIGlassMetrics lerp(ThemeExtension<UIGlassMetrics>? other, double t) {
+    if (other is! UIGlassMetrics) return this;
+    return UIGlassMetrics(
+      blur: lerpDouble(blur, other.blur, t)!,
+      tintOpacity: lerpDouble(tintOpacity, other.tintOpacity, t)!,
+      borderRadius: lerpDouble(borderRadius, other.borderRadius, t)!,
+      borderWidth: lerpDouble(borderWidth, other.borderWidth, t)!,
+      staticTintOpacity: lerpDouble(
+        staticTintOpacity,
+        other.staticTintOpacity,
+        t,
+      )!,
+      performanceMode: t < 0.5 ? performanceMode : other.performanceMode,
+      wrapInRepaintBoundary: t < 0.5
+          ? wrapInRepaintBoundary
+          : other.wrapInRepaintBoundary,
     );
   }
 }
@@ -245,6 +413,15 @@ extension UIComponentThemeContext on BuildContext {
 
   UIButtonTheme get uiButtonTheme =>
       Theme.of(this).extension<UIButtonTheme>() ?? UIButtonTheme.standard;
+
+  /// Alias of [uiButtonTheme] using the design-token name.
+  UIButtonMetrics get uiButtonMetrics => uiButtonTheme;
+
+  /// Alias of [uiInputTheme] using the design-token name.
+  UIInputMetrics get uiInputMetrics => uiInputTheme;
+
+  UIGlassMetrics get uiGlassMetrics =>
+      Theme.of(this).extension<UIGlassMetrics>() ?? UIGlassMetrics.standard;
 
   UIBadgeTheme get uiBadgeTheme =>
       Theme.of(this).extension<UIBadgeTheme>() ?? UIBadgeTheme.standard;

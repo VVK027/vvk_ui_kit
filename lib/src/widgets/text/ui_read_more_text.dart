@@ -290,11 +290,7 @@ class _UIReadMoreTextState extends State<UIReadMoreText> {
         }
 
         final text = TextSpan(
-          children: [
-            ?preTextSpan,
-            dataTextSpan,
-            ?postTextSpan,
-          ],
+          children: [?preTextSpan, dataTextSpan, ?postTextSpan],
         );
 
         final textPainter = TextPainter(
@@ -399,13 +395,7 @@ class _UIReadMoreTextState extends State<UIReadMoreText> {
         }
 
         return RichText(
-          text: TextSpan(
-            children: [
-              ?preTextSpan,
-              textSpan,
-              ?postTextSpan,
-            ],
-          ),
+          text: TextSpan(children: [?preTextSpan, textSpan, ?postTextSpan]),
           textAlign: textAlign,
           textDirection: textDirection,
           locale: locale,

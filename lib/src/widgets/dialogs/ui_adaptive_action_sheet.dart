@@ -80,9 +80,7 @@ Future<T?> showUIAdaptiveActionSheet<T>({
                   action.label,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleMedium?.copyWith(
-                    color: action.isDestructive
-                        ? scheme.error
-                        : scheme.primary,
+                    color: action.isDestructive ? scheme.error : scheme.primary,
                     fontWeight: action.isDefaultAction
                         ? FontWeight.w700
                         : FontWeight.w500,
@@ -106,4 +104,3 @@ Future<T?> showUIAdaptiveActionSheet<T>({
     },
   );
 }
-

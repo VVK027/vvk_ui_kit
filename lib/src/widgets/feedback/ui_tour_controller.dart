@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_spotlight_overlay.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_step.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_tooltip_card.dart';
+import 'ui_spotlight_overlay.dart';
+import 'ui_tour_step.dart';
+import 'ui_tour_tooltip_card.dart';
 
 /// Orchestrates a multi-step product tour with spotlight overlays and tooltips.
 ///
@@ -90,10 +90,9 @@ class UITourController {
   int get currentStepIndex => _currentStepIndex;
   int get totalSteps => steps.length;
   bool get isRunning => _isRunning;
-  UITourStep? get currentStep =>
-      _isRunning && _currentStepIndex < steps.length
-          ? steps[_currentStepIndex]
-          : null;
+  UITourStep? get currentStep => _isRunning && _currentStepIndex < steps.length
+      ? steps[_currentStepIndex]
+      : null;
 
   Future<void> start() async {
     if (steps.isEmpty) return;

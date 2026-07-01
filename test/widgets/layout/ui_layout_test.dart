@@ -71,10 +71,7 @@ void main() {
     testWidgets('renders constrained scrollable body', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: UIPageScaffold(
-            maxContentWidth: 300,
-            body: Text('Page body'),
-          ),
+          home: UIPageScaffold(maxContentWidth: 300, body: Text('Page body')),
         ),
       );
 
@@ -100,7 +97,9 @@ void main() {
 
       expect(find.text('Panel content'), findsNothing);
 
-      await tester.tap(find.byKey(const Key('ui_expandable_floating_panel_toggle')));
+      await tester.tap(
+        find.byKey(const Key('ui_expandable_floating_panel_toggle')),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('Panel content'), findsOneWidget);
@@ -214,10 +213,7 @@ void main() {
                       hiddenIndices: hidden,
                       menuItems: [
                         for (final index in hidden)
-                          UIContextMenuItem(
-                            label: 'Item $index',
-                            onTap: () {},
-                          ),
+                          UIContextMenuItem(label: 'Item $index', onTap: () {}),
                       ],
                     );
                   },
@@ -291,9 +287,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: MediaQuery(
-              data: MediaQueryData(
-                viewInsets: EdgeInsets.only(bottom: 300),
-              ),
+              data: MediaQueryData(viewInsets: EdgeInsets.only(bottom: 300)),
               child: UIKeyboardToolbarHost(child: SizedBox()),
             ),
           ),
@@ -352,11 +346,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: Row(
-              children: [
-                Text('A'),
-                UISpacing.horizontal(16),
-                Text('B'),
-              ],
+              children: [Text('A'), UISpacing.horizontal(16), Text('B')],
             ),
           ),
         ),

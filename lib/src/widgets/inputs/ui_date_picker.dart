@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_form.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_calendar.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_picker_bottom_sheet.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_form.dart';
+import 'ui_calendar.dart';
+import 'ui_picker_bottom_sheet.dart';
+import '../text/ui_text.dart';
 import 'package:intl/intl.dart';
 
 /// Tappable date field that opens a calendar picker.

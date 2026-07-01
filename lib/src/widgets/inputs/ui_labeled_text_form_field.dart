@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_rich_text.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/media/ui_image.dart';
+import '../text/ui_rich_text.dart';
+import '../text/ui_text.dart';
+import '../media/ui_image.dart';
 import '../ui_widget_helpers.dart';
 
 /// Stateful labeled text field with optional password toggle and validation.
@@ -258,7 +258,7 @@ class _UILabeledTextFormFieldState extends State<UILabeledTextFormField> {
         SizedBox(height: widget.paddingBetweenHeaderAndTextField ?? 10),
         Container(
           height: widget.height ?? 58,
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.sizeOf(context).width,
           decoration: widget.isToShowDecoration == true
               ? BoxDecoration(
                   color: widget.backgroundColor ?? Colors.transparent,

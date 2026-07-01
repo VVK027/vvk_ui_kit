@@ -27,6 +27,8 @@ class UITextFormField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.onToggleObscure,
+    this.showPasswordTooltip = 'Show password',
+    this.hidePasswordTooltip = 'Hide password',
   }) : assert(
          labelChild != null || label != null,
          'Either label or labelChild must be provided.',
@@ -71,6 +73,12 @@ class UITextFormField extends StatelessWidget {
   /// Called when the password visibility toggle is pressed.
   final VoidCallback? onToggleObscure;
 
+  /// Tooltip / semantic label for the toggle when the password is hidden.
+  final String showPasswordTooltip;
+
+  /// Tooltip / semantic label for the toggle when the password is visible.
+  final String hidePasswordTooltip;
+
   /// Returns a copy with the given fields replaced.
   UITextFormField copyWith({
     Key? key,
@@ -87,6 +95,8 @@ class UITextFormField extends StatelessWidget {
     void Function(String)? onChanged,
     String? Function(String?)? validator,
     VoidCallback? onToggleObscure,
+    String? showPasswordTooltip,
+    String? hidePasswordTooltip,
   }) {
     return UITextFormField(
       key: key ?? this.key,
@@ -103,6 +113,8 @@ class UITextFormField extends StatelessWidget {
       onChanged: onChanged ?? this.onChanged,
       validator: validator ?? this.validator,
       onToggleObscure: onToggleObscure ?? this.onToggleObscure,
+      showPasswordTooltip: showPasswordTooltip ?? this.showPasswordTooltip,
+      hidePasswordTooltip: hidePasswordTooltip ?? this.hidePasswordTooltip,
     );
   }
 
@@ -134,6 +146,9 @@ class UITextFormField extends StatelessWidget {
           errorText: errorText,
           suffixIcon: isPassword
               ? IconButton(
+                  tooltip: obscureText
+                      ? showPasswordTooltip
+                      : hidePasswordTooltip,
                   icon: Icon(
                     obscureText ? Icons.visibility_off : Icons.visibility,
                   ),
