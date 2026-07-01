@@ -11,15 +11,20 @@ class UIIconButton extends StatelessWidget {
     super.key,
     this.onPressed,
     this.iconSize,
-    this.color = Colors.black,
+    this.color,
     this.icon,
     this.props = const UIIconButtonProps(),
   });
 
   /// Callback when the button is pressed.
+  ///
+  /// When `null`, the button renders in its disabled state.
   final VoidCallback? onPressed;
 
   /// Color of the icon.
+  ///
+  /// Defaults to the ambient [IconTheme] color when `null`, so the icon adapts
+  /// to light/dark themes automatically.
   final Color? color;
 
   /// The icon data to display when [icon] is not provided.
@@ -57,7 +62,7 @@ class UIIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return props.build(
-      onPressed: onPressed ?? () {},
+      onPressed: onPressed,
       icon: icon ?? Icon(iconData, size: iconSize, color: color),
     );
   }

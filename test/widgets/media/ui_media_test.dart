@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
+import '../../test_assets.dart';
+
 void main() {
   group('UIImageScope', () {
     testWidgets('provides builders to descendants', (tester) async {
@@ -143,13 +145,13 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UIImage('test/assets/sample.svg'),
+            body: UIImage(kTestSvgAsset),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
-      expect(find.byType(CustomPaint), findsOneWidget);
+      expect(find.byType(UISvgImage), findsOneWidget);
     });
   });
 

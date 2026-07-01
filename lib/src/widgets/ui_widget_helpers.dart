@@ -119,7 +119,7 @@ double getTextHeight(
 /// Returns loose constraints sized to roughly half the screen width.
 BoxConstraints getBoxConstraintsLoose(BuildContext context) {
   return BoxConstraints.loose(
-    Size(MediaQuery.of(context).size.width / 2 - 50, 50),
+    Size(MediaQuery.sizeOf(context).width / 2 - 50, 50),
   );
 }
 

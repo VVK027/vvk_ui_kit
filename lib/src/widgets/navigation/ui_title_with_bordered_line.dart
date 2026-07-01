@@ -96,7 +96,7 @@ class UITitleWithBorderedLine extends StatelessWidget {
         Padding(padding: titlePadding, child: textWidget),
         Container(
           margin: dividerPadding,
-          width: dividerWidth ?? MediaQuery.of(context).size.width / 2.5,
+          width: dividerWidth ?? MediaQuery.sizeOf(context).width / 2.5,
           height: 4,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(4)),

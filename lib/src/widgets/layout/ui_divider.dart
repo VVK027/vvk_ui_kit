@@ -18,7 +18,7 @@ class UIDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? MediaQuery.of(context).size.width / 1.25,
+      width: width ?? MediaQuery.sizeOf(context).width / 1.25,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
         child: Divider(height: 3.5, thickness: 3, color: color),

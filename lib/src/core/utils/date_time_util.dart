@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'log_util.dart';
+
 /// Utility class for date and time formatting and manipulation.
 class DateTimeUtil {
   /// Default format for dates: yyyy-MM-dd
@@ -55,7 +57,9 @@ class DateTimeUtil {
         localized: localized,
         locale: locale,
       );
-    } catch (_) {}
+    } catch (e) {
+      LogUtil.logDefaultMsg('DateTimeUtil.getFormattedDate', e);
+    }
     return dateTime?.toString() ?? '';
   }
 
@@ -73,7 +77,9 @@ class DateTimeUtil {
           locale,
         ).format(DateTime.parse('$dateTime${localized ? 'Z' : ''}').toLocal());
       }
-    } catch (_) {}
+    } catch (e) {
+      LogUtil.logDefaultMsg('DateTimeUtil.getFormatDayMonthYearHourMinSec', e);
+    }
     return dateTime ?? '';
   }
 

@@ -90,6 +90,37 @@ void main() {
       await tester.tap(find.byIcon(Icons.add));
       expect(pressed, isTrue);
     });
+
+    testWidgets('is disabled when onPressed is null', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: UIIconButton(Icons.add),
+          ),
+        ),
+      );
+
+      final iconButton = tester.widget<IconButton>(find.byType(IconButton));
+      expect(iconButton.onPressed, isNull);
+    });
+
+    testWidgets('inherits IconTheme color when color is not set', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: IconTheme(
+              data: const IconThemeData(color: Colors.purple),
+              child: UIIconButton(Icons.add, onPressed: () {}),
+            ),
+          ),
+        ),
+      );
+
+      final icon = tester.widget<Icon>(find.byIcon(Icons.add));
+      expect(icon.color, isNull);
+    });
   });
 
   group('UIImageButton', () {

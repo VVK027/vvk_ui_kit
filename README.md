@@ -185,7 +185,25 @@ Tests are organized under `test/` by category — buttons, inputs, dialogs, feed
 
 All public symbols are exported from `package:vvk_ui_kit/vvk_ui_kit.dart`. Internal helpers under `lib/src/` are not part of the stable API.
 
-See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance.
+### Modular imports
+
+Import only what you need:
+
+| Entry point | Contents |
+|-------------|----------|
+| `package:vvk_ui_kit/vvk_ui_kit.dart` | Full barrel (default) |
+| `package:vvk_ui_kit/theme.dart` | `UIAppTheme`, palettes, typography, shadows |
+| `package:vvk_ui_kit/buttons.dart` | Button family + `UIGlassButton` |
+| `package:vvk_ui_kit/inputs.dart` | Forms, fields, pickers, selection inputs |
+| `package:vvk_ui_kit/layout.dart` | Scaffolds, dividers, responsive, spacing |
+| `package:vvk_ui_kit/dialogs.dart` | Dialogs, sheets, adaptive alerts |
+| `package:vvk_ui_kit/feedback.dart` | Snackbars, badges, tours, loading/shimmer |
+| `package:vvk_ui_kit/navigation.dart` | App bars, bottom bars, tabs, menus |
+| `package:vvk_ui_kit/media.dart` | `UIImage`, SVG icons, image scope |
+| `package:vvk_ui_kit/widgets.dart` | Cards, carousel, display, glass, text, rating |
+| `package:vvk_ui_kit/core.dart` | Extensions, JSON/navigation/translation utils |
+
+See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance and [doc/MIGRATION.md](doc/MIGRATION.md) for upgrade notes. Track planned work in [doc/BACKLOG.md](doc/BACKLOG.md).
 
 ## License
 

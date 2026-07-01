@@ -258,7 +258,7 @@ class _UILabeledTextFormFieldState extends State<UILabeledTextFormField> {
         SizedBox(height: widget.paddingBetweenHeaderAndTextField ?? 10),
         Container(
           height: widget.height ?? 58,
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.sizeOf(context).width,
           decoration: widget.isToShowDecoration == true
               ? BoxDecoration(
                   color: widget.backgroundColor ?? Colors.transparent,

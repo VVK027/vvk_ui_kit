@@ -32,4 +32,3 @@ dev_dependencies:
 flutter:
   assets:
     - assets/icons/social/
-    - test/assets/

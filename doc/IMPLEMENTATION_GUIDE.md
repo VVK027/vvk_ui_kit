@@ -15,6 +15,18 @@ import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
 Do **not** import files under `lib/src/` directly — those paths are internal and may change.
 
+### Modular imports (optional)
+
+Use focused entry points when you do not need the full barrel:
+
+```dart
+import 'package:vvk_ui_kit/theme.dart';
+import 'package:vvk_ui_kit/buttons.dart';
+import 'package:vvk_ui_kit/inputs.dart';
+```
+
+See the full list in [README.md](../README.md#modular-imports) and upgrade notes in [MIGRATION.md](MIGRATION.md).
+
 ## Theme setup
 
 ```dart
