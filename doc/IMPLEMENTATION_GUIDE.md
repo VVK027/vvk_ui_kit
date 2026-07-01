@@ -6,7 +6,7 @@ This guide explains how to integrate `vvk_ui_kit` into a host Flutter app or pac
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^0.0.2
+  vvk_ui_kit: ^1.0.0
 ```
 
 ```dart
@@ -50,7 +50,7 @@ Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_sv
 - `UITextFormField` — labeled field with formatters (`trimLeadingSpace`, `disallowSpaces`)
 - `UIForm` — named field tracking with `UIFormTextField`, date/time/textarea/checkbox fields
 
-### New input widgets
+### Input widgets
 
 | Widget | Use when |
 | :--- | :--- |
@@ -58,6 +58,9 @@ Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_sv
 | `UITagInput` | Chip-based multi-value text input |
 | `UINumberField` | Numeric entry with stepper controls |
 | `UIColorPicker` | HSV/spectrum color selection |
+| `UIHierarchySearchableDropdown` | Searchable tree dropdown for hierarchical data |
+| `UIInputOTP` | One-time password / verification code entry |
+| `UICalendar` / `UIDatePickerField` / `UITimePickerField` | Date and time selection |
 
 ### Layout
 
@@ -65,6 +68,8 @@ Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_sv
 - `UIPageScaffold` — centered max-width page with `UIScrollableScreen`
 - `UIDynamicOverflow` — toolbar overflow (used by `UICommandBar`)
 - `UIExpandableFloatingPanel` — collapsible FAB-style action panel
+- `UIPortal` — overlay portal host (used by `UIPopover`)
+- `UIKeyboardToolbar` — accessory toolbar above the keyboard
 
 ### Clips & cards
 
@@ -107,6 +112,7 @@ Platform selection is centralized in `useAdaptiveCupertino()` (internal).
 - `UIMenuBar` — desktop-style menu bar with flyouts
 - `UITreeView` — hierarchical expand/select tree
 - `UIDoubleBackToExit` — Android-style double-back confirmation
+- `UIPageRoute` — custom page transitions (`UIEntrancePageTransition`, `UIDrillInPageTransition`, `UIHorizontalSlidePageTransition`)
 
 ### Lists
 
@@ -136,6 +142,45 @@ t.tr('welcome', namedArgs: {'name': 'Ada'});
 await TranslationCache.preload(['en', 'es']);
 ```
 
+## Testing
+
+Run the full test suite from the package root:
+
+```bash
+flutter test
+```
+
+Tests live under `test/` and mirror the widget categories in `lib/vvk_ui_kit.dart`:
+
+| Test directory | Coverage |
+| :--- | :--- |
+| `test/core/` | Extensions, theme, `NavigationUtil`, `DialogUtil`, `JsonUtils`, `Translations`, widget helpers |
+| `test/icons/` | SVG path parser, `UISvgImage`, `UISvgAssetIcon`, `UISocialAuthIcon` |
+| `test/widgets/buttons/` | All button variants including split, glass, slider, and social auth |
+| `test/widgets/inputs/` | Form fields, dropdowns, search, tags, number, color, OTP, calendar, settings tiles |
+| `test/widgets/dialogs/` | Adaptive dialogs, shell dialogs, sheets, image picker |
+| `test/widgets/feedback/` | Badges, snackbars, empty state, popover, product tour |
+| `test/widgets/navigation/` | App bars, bottom bars, menu bar, tree view, breadcrumbs, scaffolds |
+| `test/widgets/layout/` | Dividers, page scaffold, expandable panel, portal, glass scaffold |
+| `test/widgets/loading/` | Shimmer, overlays, load-more container |
+| `test/widgets/display/` | Stat cards, banners, command bar, progress, animated counter |
+| `test/widgets/decoration/` | Gradients, dotted border, corner ribbon, glass surface |
+| `test/widgets/cards/` | `UICard`, `UIGlassCard`, `UIAnimatedFlipCard` |
+| `test/widgets/clips/` | Ticket/coupon clips, hexagon, sharp corners |
+| `test/widgets/carousel/` | Carousels with indicators and controls |
+| `test/widgets/accordion/` | Expansion tile and accord |
+| `test/widgets/selection/` | List tile select, pill switch, radio group, checkbox |
+| `test/widgets/tabs/` | Tab bar, segmented tab bar, buttons tab |
+| `test/widgets/text/` | Text, rich text, read-more, marquee |
+| `test/widgets/media/` | `UIImage`, `UIImageScope`, preview frame |
+| `test/widgets/rating/` | Rating bar and indicator |
+| `test/widgets/lists/` | Swipe action tile |
+| `test/widgets/anim/` | Tap guard, entrance animations, gesture detector |
+| `test/widgets/responsive/` | `ResponsiveLayout`, `Responsive` |
+| `test/widgets/states/` | Error info |
+
+As of 1.0.0 the suite includes **301 tests** across **30 test files**.
+
 ## Example app
 
 ```bash
@@ -154,11 +199,12 @@ Each showcase section in `example/lib/showcase/` maps to a category in `lib/vvk_
 | `lib/src/icons/` | SVG rendering and social icons |
 | `lib/src/widgets/` | UI components by category |
 | `assets/icons/social/` | Bundled OAuth brand SVGs |
+| `test/` | Widget and unit tests by category |
 
 ### Internal-only (not exported)
 
 `ui_button_helpers.dart`, `ui_rating_layout.dart`, `ui_svg_network_loader*.dart`, `log_util.dart`, `adaptive_platform_util.dart`
 
-## Public API additions (0.0.2)
+## Stable public API (1.0.0)
 
-Glass, tour, coupon clips, adaptive dialogs, split button, command bar, search/tag/number/color inputs, swipe tiles, tree view, menu bar, bottom bars, page scaffold, expandable panel, animated flip card, popover, and page transitions.
+Version 1.0.0 marks the first stable release. The full public surface includes theming, buttons, accordion/cards/clips, carousel, decoration, glass, display, rating, dialogs, feedback, inputs, layout, lists, loading, media, navigation, selection, states, tabs, text, icons, animation helpers, and core utilities — all exported from `vvk_ui_kit.dart`.

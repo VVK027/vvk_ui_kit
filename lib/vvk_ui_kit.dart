@@ -16,30 +16,39 @@
 /// * **Core** — navigation, dialog, date/time, string and translation utilities,
 ///   JsonHelper, Mapper, Translations, TranslationCache, JsonUtils; theme tokens,
 ///   palette presets (teal, zinc, slate, stone), typography, shadows, breakpoints,
-///   and extensions for strings, collections, numbers, colors, alignment, and listenables.
+///   page transitions, and extensions for strings, collections, numbers, colors,
+///   alignment, and listenables.
 /// * **Animation** — tap guard, avatar glow, gesture helpers, and staggered
 ///   list/grid entrance animations.
 /// * **Buttons** — styled, primary, elevated, icon, image, slider confirm,
-///   gradient, social auth, and platform buttons.
-/// * **Accordion, cards & clips** — expansion accordions, cards, hexagon, ticket,
-///   and sharp-corner clips.
-/// * **Carousel & decoration** — carousels with indicators, gradient widgets, dotted borders, corner ribbons.
-/// * **Display & feedback** — stat cards, banners, snackbars, empty states, shimmer,
-///   rating bars, text avatars, animated counters, timer builders, stack badges,
-///   unified badges/alerts, tooltips, and progress bars.
-/// * **Dialogs** — message dialogs, alert/confirm presets, shell dialogs,
-///   sheets, and Cupertino action sheets.
+///   gradient, split, glass, social auth, and platform buttons.
+/// * **Accordion, cards & clips** — expansion accordions, cards, animated flip
+///   card, hexagon, ticket/coupon clips, and sharp-corner clips.
+/// * **Carousel & decoration** — carousels with indicators, gradient widgets,
+///   dotted borders, corner ribbons, and glass surfaces.
+/// * **Display & rating** — stat cards, banners, command bar, snackbars, empty
+///   states, shimmer, rating bars, text avatars, animated counters, timer
+///   builders, stack badges, badges/alerts, tooltips, and progress bars.
+/// * **Dialogs** — message dialogs, adaptive alert/action sheets, confirm
+///   presets, shell dialogs, sheets, and Cupertino action sheets.
+/// * **Feedback & tours** — popover, skeleton placeholders, and guided product
+///   tours with spotlight overlay.
+/// * **Glass** — frosted surface, card, button, app bar, bottom nav bar, and scaffold.
 /// * **Inputs** — form fields, [UIForm] with named field tracking, dropdowns,
-///   hierarchy searchable dropdown, calendar/date/time pickers, password strength,
-///   pill switch, rounded checkboxes, textarea, OTP input, and value sliders.
-/// * **Layout & loading** — responsive helpers, scroll screens, keyboard dismiss,
-///   keyboard toolbar host, portal overlays, separated rows/columns, dashed dividers,
-///   centered text dividers, and shimmer.
+///   hierarchy searchable dropdown, calendar/date/time pickers, search bar, tag
+///   input, number field, color picker, password strength, pill switch, rounded
+///   checkboxes, textarea, OTP input, and value sliders.
+/// * **Layout & loading** — responsive helpers, scroll screens, page scaffold,
+///   expandable floating panel, dynamic overflow, keyboard dismiss, keyboard
+///   toolbar host, portal overlays, separated rows/columns, dashed dividers,
+///   centered text dividers, shimmer, overlays, and load-more helpers.
+/// * **Lists** — swipe action tile with custom drag actions.
 /// * **Text** — read-more text, marquee scrolling, and icon/text rows.
 /// * **Media & icons** — unified `UIImage`, SVG rendering, and asset icons.
 /// * **Navigation & tabs** — app bars, breadcrumbs, context menus, side menu,
-///   settings scaffolds, tab bars.
-/// * **Selection** — list tile select, pill switch, rounded checkbox, radio groups.
+///   bottom bars, menu bar, tree view, settings scaffolds, and tab bars.
+/// * **Selection & states** — list tile select, pill switch, rounded checkbox,
+///   radio groups, and error info.
 library;
 
 // Core

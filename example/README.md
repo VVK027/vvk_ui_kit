@@ -13,21 +13,23 @@ flutter run
 
 | Section | Highlights |
 | :--- | :--- |
-| **Core utilities** | `NavigationUtil`, `DialogUtil`, `DateTimeUtil`, `StringUtils`, extensions, theme tokens |
-| **Buttons** | `UIStyledButton`, `UIPrimaryTextButton`, `UIElevatedButton`, `UIIconButton`, and more |
-| **Accordion, cards & clips** | `UIExpansionAccord`, `UICard`, `UIHexagon` |
-| **Carousel** | `UICarouselWithIndicator`, `UISectionCarousel` |
-| **Decoration** | `UIGradientBox`, `UIGradientText`, `UIGradientSvgIcon` |
-| **Display** | `UIStatSummaryCard`, `UIBatteryIndicator`, `UISegmentedBar` |
-| **Dialogs** | `UICustomMessageDialog`, `UIShellDialog`, `UIListDialog` |
-| **Feedback** | `UISnackbar`, `UIEmptyState`, `UILiveBadge` |
-| **Inputs** | `UITextFormField`, `UIDropdown`, `UIOverlayDropdown` |
-| **Layout & responsive** | `ResponsiveLayout`, `UIScrollableScreen`, `UIDivider` |
-| **Loading** | `UIShimmer`, `UIShimmerLoadingContainer`, `UIShimmerBase`, `UILoadingOverlay` |
-| **Media** | `UIImage`, `UIImageScope`, `UISvgAssetIcon` |
-| **Navigation** | `UIAppBar`, `UISideMenu`, `UISettingsPageScaffold`, theme toggle |
-| **Selection & states** | `UIListTileSelect`, `UIErrorInfo` |
+| **Core utilities** | `NavigationUtil`, `DialogUtil`, `DateTimeUtil`, `JsonUtils`, `Translations`, extensions, theme tokens |
+| **Buttons** | `UIStyledButton`, `UISplitButton`, `UIGlassButton`, `UISliderButton`, `UISocialAuthButton` |
+| **Animation** | `UITapGuard`, entrance animations, `AnimatedGestureDetector`, `UIAvatarGlow` |
+| **Accordion, cards & clips** | `UIExpansionAccord`, `UICard`, `UIAnimatedFlipCard`, `UICouponCard`, `UITicketClip`, `UIHexagon` |
+| **Carousel** | `UICarouselWithIndicator`, `UISectionCarousel`, `UICarouselControls` |
+| **Decoration** | `UIGradientBox`, `UIGradientText`, `UIGradientSvgIcon`, `UIDottedBorder`, `UICornerRibbon`, `UIGlassSurface` |
+| **Display** | `UIStatSummaryCard`, `UICommandBar`, `UIAnimatedCounter`, `UIBatteryIndicator`, `UISegmentedBar` |
+| **Rating** | `UIRatingBar`, `UIRatingBarIndicator`, `UIRatingWidget` |
+| **Dialogs** | `showUIAdaptiveAlertDialog`, `showUIAdaptiveActionSheet`, `UIShellDialog`, `showUISheet` |
+| **Feedback** | `UISnackbar`, `UIEmptyState`, `UIPopover`, `UITourController`, `UIBadge`, `UILiveBadge` |
+| **Inputs** | `UITextFormField`, `UIForm`, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, `UIInputOTP` |
+| **Layout & responsive** | `ResponsiveLayout`, `UIPageScaffold`, `UIExpandableFloatingPanel`, `UIDynamicOverflow`, `UIPortal` |
+| **Loading** | `UIShimmer`, `UIShimmerLoadingContainer`, `UILoadingOverlay`, `UILoadMoreContainer` |
+| **Media** | `UIImage`, `UIImageScope`, `UISvgAssetIcon`, `UIImagePreviewFrame` |
+| **Navigation** | `UIAppBar`, `UIBottomNavyBar`, `UIFloatingBottomBar`, `UIGlassBottomNavBar`, `UIMenuBar`, `UITreeView`, `UISideMenu` |
+| **Selection & states** | `UIListTileSelect`, `UIPillSwitch`, `UIRadioGroup`, `UIRoundedCheckbox`, `UIErrorInfo` |
 | **Tabs** | `UITabBar`, `UISegmentedTabBar`, `UIButtonsTab` |
-| **Text & icons** | `UIText`, `UIRichText`, `UISvgImage` |
+| **Text & icons** | `UIText`, `UIRichText`, `UIReadMoreText`, `UIMarquee`, `UISvgImage`, `UISocialAuthIcon` |
 
 Source lives under `lib/showcase/`. Each screen demonstrates live widgets with light/dark theme support via `UIThemeToggleButton`.

@@ -1,3 +1,21 @@
+## 1.0.0
+
+* **Stable release** — first production-ready version of `vvk_ui_kit` with a complete public API exported from `package:vvk_ui_kit/vvk_ui_kit.dart`.
+* **Widget test suite** — 301 tests across 30 test files covering the full component library:
+  * **Core** — extensions, theme tokens, `NavigationUtil`, `DialogUtil`, `JsonUtils`, `Translations`, and widget helpers.
+  * **Buttons** — `UIStyledButton`, split/glass/slider/social auth, and all button variants.
+  * **Accordion, cards & clips** — expansion accordions, `UICard`, `UIAnimatedFlipCard`, ticket/coupon clips, hexagon, and sharp corners.
+  * **Carousel & decoration** — carousels with indicators, gradient widgets, dotted borders, corner ribbons, and glass surfaces.
+  * **Display & rating** — stat cards, banners, command bar, progress bars, animated counter, text avatar, stack badge, timer builder, and rating bars.
+  * **Dialogs** — adaptive alert/action sheets, shell dialogs, Cupertino sheets, image picker, and bottom sheets.
+  * **Feedback** — snackbars, badges, empty states, tooltips, popover, skeleton placeholders, and product tour (`UITourController`, spotlight overlay).
+  * **Inputs** — form fields, `UIForm`, dropdowns, search bar, tag input, number field, color picker, OTP, sliders, calendar/date/time pickers, and settings tiles.
+  * **Layout & responsive** — dividers, page scaffold, expandable panel, dynamic overflow, keyboard dismiss/toolbar, portal, glass scaffold, and `Responsive` helpers.
+  * **Lists, loading & media** — swipe action tile, shimmer/overlay/load-more helpers, `UIImage`, and `UIImageScope`.
+  * **Navigation & tabs** — app bars, bottom bars, menu bar, tree view, breadcrumbs, context menu, side menu, settings scaffolds, and tab bars.
+  * **Selection, states & text** — list tile select, pill switch, radio group, rounded checkbox, error info, rich/read-more/marquee text, and SVG icons.
+* **Documentation** — updated `README.md`, `doc/IMPLEMENTATION_GUIDE.md`, and example app catalog to match the current API.
+
 ## 0.0.9
 
 * **Glass** — `UIGlassSurface`, `UIGlassCard`, `UIGlassButton`, `UIGlassAppBar`, `UIGlassBottomNavBar`, `UIGlassScaffold`, `UIGlassTheme`.

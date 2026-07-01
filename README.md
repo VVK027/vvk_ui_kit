@@ -11,16 +11,16 @@ See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for integration p
 - **Accordion, cards & clips** — expansion accordions, `UICard`, `UIAnimatedFlipCard`, `UIHexagon`, `UISharpCorners`, `UITicketClip`, `UICouponClip`, `UICouponCard`.
 - **Carousel** — `UICarouselWithIndicator`, `UISectionCarousel`, `UICarouselControls`, nav buttons, and page indicators.
 - **Decoration & glass** — gradient widgets, dotted borders, corner ribbons, and frosted `UIGlassSurface` / `UIGlassCard` / `UIGlassScaffold` family.
-- **Display** — stat cards, banners, progress bars, `UICommandBar`, `UIAnimatedCounter`, `UITextAvatar`, `UIStackBadge`, `UITimerBuilder`, and more.
+- **Display & rating** — stat cards, banners, progress bars, `UICommandBar`, `UIAnimatedCounter`, `UITextAvatar`, `UIStackBadge`, `UITimerBuilder`, and `UIRatingBar`.
 - **Dialogs** — shell dialogs, adaptive alert/action sheets, Cupertino sheets, image picker, and bottom sheets.
 - **Feedback** — snackbars, badges, empty states, tooltips, `UIPopover`, and guided `UITourController` with spotlight overlay.
-- **Forms & inputs** — form fields, `UIForm`, dropdowns, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, OTP, sliders, and settings tiles.
+- **Forms & inputs** — form fields, `UIForm`, dropdowns, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, OTP, sliders, calendar/date/time pickers, and settings tiles.
 - **Layout & responsive** — dividers, separated rows/columns, `UIPageScaffold`, `UIExpandableFloatingPanel`, `UIDynamicOverflow`, keyboard toolbar, `Responsive` helpers.
 - **Lists** — `UISwipeActionTile` with custom drag actions.
 - **Loading** — shimmer containers, overlays, page loading, and load-more helpers.
 - **Media** — `UIImage` for assets, network, SVG, and base64 via `UIImageScope`.
 - **Navigation** — app bars, side menu, bottom bars (`UIBottomNavyBar`, `UIFloatingBottomBar`, `UIGlassBottomNavBar`), `UIMenuBar`, `UITreeView`, settings scaffolds, breadcrumbs.
-- **Selection & states** — list tile select, rounded checkbox, radio groups, error states.
+- **Selection & states** — list tile select, pill switch, rounded checkbox, radio groups, error states.
 - **Tabs** — `UITabBar`, `UISegmentedTabBar`, `UIButtonsTab`.
 - **Text & icons** — `UIText`, rich/read-more/marquee text, SVG rendering, social auth icons, and text helpers.
 - **Utilities** — `NavigationUtil`, `DialogUtil`, `DateTimeUtil`, `JsonUtils`, `JsonHelper`, `Mapper`, `Translations`, `TranslationCache`, and Dart extensions.
@@ -42,7 +42,7 @@ Showcase sections: Core utilities, Buttons, Animation, Accordion/cards/clips, Ca
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^0.0.2
+  vvk_ui_kit: ^1.0.0
 ```
 
 ### Theme setup
@@ -129,6 +129,16 @@ UIForm(
 NavigationUtil.pushPage(context, const ProfileScreen());
 ```
 
+## Testing
+
+The package includes a comprehensive widget test suite. Run all tests from the package root:
+
+```bash
+flutter test
+```
+
+Tests are organized under `test/` by category — buttons, inputs, dialogs, feedback, glass, navigation, loading, media, and more — mirroring the public widget groups in `lib/vvk_ui_kit.dart`. As of 1.0.0, the suite covers **301 tests** across **30 test files**.
+
 ## Component overview
 
 | Category | Key components |
@@ -137,7 +147,7 @@ NavigationUtil.pushPage(context, const ProfileScreen());
 | **Buttons** | `UIStyledButton`, `UISplitButton`, `UIGlassButton`, `UISocialAuthButton` |
 | **Cards & clips** | `UICard`, `UIAnimatedFlipCard`, `UICouponCard`, `UITicketClip` |
 | **Glass** | `UIGlassSurface`, `UIGlassCard`, `UIGlassScaffold`, `UIGlassAppBar` |
-| **Display** | `UICommandBar`, `UIAnimatedCounter`, `UITextAvatar`, `UIStackBadge` |
+| **Display & rating** | `UICommandBar`, `UIAnimatedCounter`, `UIRatingBar`, `UITextAvatar` |
 | **Feedback** | `UITourController`, `UIPopover`, `UIBadge`, `UISkeletonPlaceholder` |
 | **Dialogs** | `showUIAdaptiveAlertDialog`, `showUIAdaptiveActionSheet`, `showUISheet` |
 | **Inputs** | `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, `UIForm` |
