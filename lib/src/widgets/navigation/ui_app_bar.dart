@@ -42,6 +42,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBack,
     this.bottom,
     this.appBarProps,
+    this.backTooltip,
   });
 
   const UIAppBar.accent({
@@ -53,6 +54,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
     PreferredSizeWidget? bottom,
     Widget? titleChild,
     UIAppBarProps? appBarProps,
+    String? backTooltip,
   }) : this(
          key: key,
          variant: UIAppBarVariant.accent,
@@ -63,6 +65,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
          onBack: onBack,
          bottom: bottom,
          appBarProps: appBarProps,
+         backTooltip: backTooltip,
          centerTitle: true,
        );
 
@@ -73,6 +76,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
     List<Widget> actions = const [],
     Widget? titleChild,
     UIAppBarProps? appBarProps,
+    String? backTooltip,
   }) : this(
          key: key,
          variant: UIAppBarVariant.brand,
@@ -81,6 +85,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
          leading: leading,
          actionWidgets: actions,
          appBarProps: appBarProps,
+         backTooltip: backTooltip,
          centerTitle: true,
        );
 
@@ -107,6 +112,12 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   final UIAppBarProps? appBarProps;
 
+  /// Tooltip / semantic label for the back button.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.backButtonTooltip].
+  final String? backTooltip;
+
   UIAppBar copyWith({
     Key? key,
     UIAppBarVariant? variant,
@@ -131,6 +142,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
     VoidCallback? onBack,
     PreferredSizeWidget? bottom,
     UIAppBarProps? appBarProps,
+    String? backTooltip,
   }) {
     return UIAppBar(
       key: key ?? this.key,
@@ -156,6 +168,7 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
       onBack: onBack ?? this.onBack,
       bottom: bottom ?? this.bottom,
       appBarProps: appBarProps ?? this.appBarProps,
+      backTooltip: backTooltip ?? this.backTooltip,
     );
   }
 
@@ -261,24 +274,29 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
               scrolledUnderElevation: 0,
               automaticallyImplyLeading: showBackButton == true,
               leading: showBackButton == true
-                  ? UIImageButton(
-                      image: backIconPath != null
-                          ? UIImage(
-                              backIconPath!,
-                              width: 21,
-                              height: 21,
-                              fit: BoxFit.fill,
-                              color: iconColor,
-                            )
-                          : Icon(
-                              Icons.arrow_back_ios_new,
-                              size: 21,
-                              color:
-                                  iconColor ??
-                                  Theme.of(context).colorScheme.onSurface,
-                            ),
-                      onPressed:
-                          onBackPressed ?? () => Navigator.maybePop(context),
+                  ? Tooltip(
+                      message:
+                          backTooltip ??
+                          MaterialLocalizations.of(context).backButtonTooltip,
+                      child: UIImageButton(
+                        image: backIconPath != null
+                            ? UIImage(
+                                backIconPath!,
+                                width: 21,
+                                height: 21,
+                                fit: BoxFit.fill,
+                                color: iconColor,
+                              )
+                            : Icon(
+                                Icons.arrow_back_ios_new,
+                                size: 21,
+                                color:
+                                    iconColor ??
+                                    Theme.of(context).colorScheme.onSurface,
+                              ),
+                        onPressed:
+                            onBackPressed ?? () => Navigator.maybePop(context),
+                      ),
                     )
                   : null,
               centerTitle: centerTitle,
@@ -309,6 +327,8 @@ class UIAppBar extends StatelessWidget implements PreferredSizeWidget {
         shadowColor: color.withValues(alpha: 0.35),
         automaticallyImplyLeading: false,
         leading: IconButton(
+          tooltip:
+              backTooltip ?? MaterialLocalizations.of(context).backButtonTooltip,
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: onBar, size: 20),
           onPressed:
               onBack ?? onBackPressed ?? () => Navigator.of(context).pop(),

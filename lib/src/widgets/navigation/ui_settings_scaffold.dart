@@ -19,6 +19,7 @@ class UISettingsPageScaffold extends StatelessWidget {
     this.saveFabTooltip,
     this.accentColor,
     this.appBarActions = const [],
+    this.backTooltip,
   }) : assert(
          titleChild != null || title != null,
          'Either title or titleChild must be provided.',
@@ -34,6 +35,12 @@ class UISettingsPageScaffold extends StatelessWidget {
   final Color? accentColor;
   final List<Widget> appBarActions;
 
+  /// Tooltip / semantic label for the back button.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.backButtonTooltip].
+  final String? backTooltip;
+
   UISettingsPageScaffold copyWith({
     Key? key,
     String? title,
@@ -45,6 +52,7 @@ class UISettingsPageScaffold extends StatelessWidget {
     String? saveFabTooltip,
     Color? accentColor,
     List<Widget>? appBarActions,
+    String? backTooltip,
   }) {
     return UISettingsPageScaffold(
       key: key ?? this.key,
@@ -57,6 +65,7 @@ class UISettingsPageScaffold extends StatelessWidget {
       saveFabTooltip: saveFabTooltip ?? this.saveFabTooltip,
       accentColor: accentColor ?? this.accentColor,
       appBarActions: appBarActions ?? this.appBarActions,
+      backTooltip: backTooltip ?? this.backTooltip,
     );
   }
 
@@ -90,6 +99,8 @@ class UISettingsPageScaffold extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
+          tooltip:
+              backTooltip ?? MaterialLocalizations.of(context).backButtonTooltip,
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: onBar, size: 20),
           onPressed: onBack ?? () => Navigator.of(context).pop(),
         ),

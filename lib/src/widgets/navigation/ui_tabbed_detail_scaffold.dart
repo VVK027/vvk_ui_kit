@@ -44,6 +44,7 @@ class UITabbedDetailScaffold extends StatelessWidget {
     this.tabViewPhysics,
     this.centerTitle = false,
     this.appBarActions = const [],
+    this.backTooltip,
   }) : assert(
          titleChild != null || title != null,
          'Either title or titleChild must be provided.',
@@ -61,6 +62,12 @@ class UITabbedDetailScaffold extends StatelessWidget {
   final bool centerTitle;
   final List<Widget> appBarActions;
 
+  /// Tooltip / semantic label for the back button.
+  ///
+  /// When null, falls back to the locale-aware
+  /// [MaterialLocalizations.backButtonTooltip].
+  final String? backTooltip;
+
   UITabbedDetailScaffold copyWith({
     Key? key,
     String? title,
@@ -74,6 +81,7 @@ class UITabbedDetailScaffold extends StatelessWidget {
     ScrollPhysics? tabViewPhysics,
     bool? centerTitle,
     List<Widget>? appBarActions,
+    String? backTooltip,
   }) {
     return UITabbedDetailScaffold(
       key: key ?? this.key,
@@ -88,6 +96,7 @@ class UITabbedDetailScaffold extends StatelessWidget {
       tabViewPhysics: tabViewPhysics ?? this.tabViewPhysics,
       centerTitle: centerTitle ?? this.centerTitle,
       appBarActions: appBarActions ?? this.appBarActions,
+      backTooltip: backTooltip ?? this.backTooltip,
     );
   }
 
@@ -114,6 +123,9 @@ class UITabbedDetailScaffold extends StatelessWidget {
           automaticallyImplyLeading: false,
           centerTitle: centerTitle,
           leading: IconButton(
+            tooltip:
+                backTooltip ??
+                MaterialLocalizations.of(context).backButtonTooltip,
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               color: onBar,
