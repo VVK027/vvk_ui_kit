@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_cupertino_text_button.dart';
+import '../buttons/ui_cupertino_text_button.dart';
 
 /// Shows a fixed-height modal bottom sheet for picker UIs.
 Future<T?> showPickerBottomSheet<T>({

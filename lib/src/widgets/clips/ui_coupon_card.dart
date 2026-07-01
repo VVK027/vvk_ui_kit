@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/clips/ui_ticket_clip.dart'
-    show UITicketClip;
+import 'ui_ticket_clip.dart' show UITicketClip;
 
 import 'ui_coupon_clipper.dart';
 import 'ui_coupon_decoration_painter.dart';

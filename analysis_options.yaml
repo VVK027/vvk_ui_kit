@@ -9,6 +9,7 @@ linter:
     - avoid_print
     - prefer_const_constructors
     - prefer_const_literals_to_create_immutables
+    - prefer_relative_imports
 
 analyzer:
   exclude:
@@ -16,4 +17,4 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
   errors:
-    public_member_api_docs: info
+    public_member_api_docs: warning

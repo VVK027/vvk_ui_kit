@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_theme.dart';
+import 'ui_glass_surface.dart';
+import 'ui_glass_theme.dart';
 
 /// Scaffold with a gradient background and optional glass chrome wrappers.
 ///

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/icons/ui_svg_image.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_skeleton_placeholder.dart';
-import 'package:vvk_ui_kit/src/widgets/media/ui_image_scope.dart';
+import '../../icons/ui_svg_image.dart';
+import '../feedback/ui_skeleton_placeholder.dart';
+import 'ui_image_scope.dart';
 
 /// Unified image widget for assets, network URLs, SVG, and base64 sources.
 class UIImage extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/carousel/ui_carousel_controls.dart';
+import 'ui_carousel_controls.dart';
 
 export 'package:vvk_ui_kit/src/widgets/carousel/ui_carousel_layout.dart';
 

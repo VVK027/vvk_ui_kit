@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_spotlight_overlay.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_step.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_tooltip_card.dart';
+import 'ui_spotlight_overlay.dart';
+import 'ui_tour_step.dart';
+import 'ui_tour_tooltip_card.dart';
 
 /// Orchestrates a multi-step product tour with spotlight overlays and tooltips.
 ///

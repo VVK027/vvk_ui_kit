@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/ui_widget_props.dart';
+import '../text/ui_text.dart';
+import '../ui_widget_props.dart';
 
 /// Card-style status row with a leading widget, title, subtitle, and optional tap.
 class UIStatusBanner extends StatelessWidget {

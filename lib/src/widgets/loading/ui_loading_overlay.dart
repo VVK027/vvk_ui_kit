@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/loading/ui_loading_indicator.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_loading_indicator.dart';
+import '../text/ui_text.dart';
 
 /// Full-screen scrim with a centered loading card while [visible] is true.
 class UILoadingOverlay extends StatelessWidget {

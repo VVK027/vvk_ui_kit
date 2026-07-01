@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/navigation/ui_page_transitions.dart';
+import '../navigation/ui_page_transitions.dart';
 
 /// Imperative navigation helpers using Flutter's [Navigator].
 ///

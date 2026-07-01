@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// One navigation slot in [UIFloatingBottomBar].
 class UIFloatingBottomBarItem {

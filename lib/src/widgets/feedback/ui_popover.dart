@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_portal.dart';
+import '../layout/ui_portal.dart';
 
 /// Where the popover panel opens relative to its anchor.
 enum UIPopoverDirection { above, below, left, right }

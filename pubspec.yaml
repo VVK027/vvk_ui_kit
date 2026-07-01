@@ -15,9 +15,25 @@ topics:
   - theme
   - flutter-ui
 
+platforms:
+  android:
+  ios:
+  web:
+  macos:
+  windows:
+  linux:
+
+screenshots:
+  - description: "Themed components across the built-in light/dark palettes."
+    path: doc/screenshots/showcase-theming.png
+  - description: "Buttons, inputs, and form widgets from the kit."
+    path: doc/screenshots/showcase-components.png
+  - description: "Glass surfaces, cards, and feedback widgets."
+    path: doc/screenshots/showcase-glass.png
+
 environment:
   sdk: ^3.8.0
-  flutter: ">=3.0.0"
+  flutter: ">=3.32.0"
 
 dependencies:
   flutter:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/utils/string_util.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../../core/utils/string_util.dart';
+import '../text/ui_text.dart';
 
 /// Individual password requirement checked by [UIPasswordStrengthIndicator].
 enum UIPasswordRule {

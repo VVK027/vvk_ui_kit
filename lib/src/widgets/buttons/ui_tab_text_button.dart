@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_button_props.dart';
+import '../text/ui_text.dart';
 
 /// Text button styled for use inside tab bars or segmented controls.
 class UITabTextButton extends StatelessWidget {

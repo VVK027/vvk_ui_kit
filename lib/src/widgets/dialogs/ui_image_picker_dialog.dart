@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_text_button.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/ui_widget_props.dart';
+import '../buttons/ui_text_button.dart';
+import '../text/ui_text.dart';
+import '../ui_widget_props.dart';
 
 /// Dialog for choosing an image from the gallery or camera.
 class UIImagePickerDialog extends StatelessWidget {

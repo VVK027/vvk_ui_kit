@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_breakpoints.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_scrollable_screen.dart';
+import '../../core/theme/ui_breakpoints.dart';
+import 'ui_scrollable_screen.dart';
 
 /// Scaffold page with safe area, scrollable body, and optional max content width.
 ///

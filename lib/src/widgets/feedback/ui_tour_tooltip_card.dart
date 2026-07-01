@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_enums.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_progress_indicator.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_step.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_tour_enums.dart';
+import 'ui_tour_progress_indicator.dart';
+import 'ui_tour_step.dart';
+import '../text/ui_text.dart';
 
 enum _UITourArrowDirection { up, down, left, right }
 

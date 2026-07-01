@@ -1,5 +1,4 @@
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_progress_indicator.dart'
-    show UITourProgressIndicator;
+import 'ui_tour_progress_indicator.dart' show UITourProgressIndicator;
 
 /// Animation applied when a tour tooltip appears.
 enum UITourStepAnimation {

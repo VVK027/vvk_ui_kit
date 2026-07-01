@@ -6,7 +6,7 @@ This guide explains how to integrate `vvk_ui_kit` into a host Flutter app or pac
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^1.0.0
+  vvk_ui_kit: ^1.1.0
 ```
 
 ```dart
@@ -222,7 +222,7 @@ Tests live under `test/` and mirror the widget categories in `lib/vvk_ui_kit.dar
 | `test/widgets/responsive/` | `ResponsiveLayout`, `Responsive` |
 | `test/widgets/states/` | Error info |
 
-As of 1.0.0 the suite includes **301 tests** across **30 test files**.
+As of 1.1.0 the suite includes **326 tests** across **32 test files**.
 
 ## Example app
 

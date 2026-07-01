@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:vvk_ui_kit/src/icons/ui_social_auth_icon.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_social_auth_provider.dart';
+import '../../icons/ui_social_auth_icon.dart';
+import 'ui_social_auth_provider.dart';
 
 export 'ui_social_auth_provider.dart';
 

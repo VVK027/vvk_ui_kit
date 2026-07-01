@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_context_menu.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../navigation/ui_context_menu.dart';
+import '../text/ui_text.dart';
 
 /// One action in the menu opened by [UISplitButton].
 class UISplitButtonMenuItem {

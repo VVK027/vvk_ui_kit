@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_component_themes.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
+import '../../core/theme/ui_component_themes.dart';
+import 'ui_button_props.dart';
 import '../ui_button_helpers.dart';
 
 /// Visual configuration for [UIStyledButton].

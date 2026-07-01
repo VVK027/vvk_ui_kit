@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// A horizontal scrollable tab bar with customizable styles and indicators.
 class UITabBar<T> extends StatelessWidget {

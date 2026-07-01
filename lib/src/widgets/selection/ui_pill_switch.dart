@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/utils/adaptive_platform_util.dart';
+import '../../core/utils/adaptive_platform_util.dart';
 
 /// A customizable pill-shaped toggle switch with optional ON/OFF labels.
 ///

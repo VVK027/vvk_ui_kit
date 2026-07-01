@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
+import 'ui_button_props.dart';
 
 /// A simple icon button wrapper around Material [IconButton].
 class UIIconButton extends StatelessWidget {

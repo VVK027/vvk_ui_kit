@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/clips/ui_coupon_card.dart'
-    show UICouponCard;
+import 'ui_coupon_card.dart' show UICouponCard;
 
 /// Paints shadow and border along a coupon clip path for [UICouponCard].
 class UICouponDecorationPainter extends CustomPainter {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_glass_surface.dart';
+import '../text/ui_text.dart';
 
 /// Frosted-glass button with optional icon, label, and press-scale animation.
 class UIGlassButton extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_theme.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../../core/theme/ui_theme.dart';
+import '../text/ui_text.dart';
 
 /// Represents a single statistic item with a label and a value.
 class UIStatSummaryItem {

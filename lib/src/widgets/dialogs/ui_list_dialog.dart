@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_primary_text_button.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_text_button.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
-import 'package:vvk_ui_kit/src/widgets/ui_widget_props.dart';
+import '../buttons/ui_primary_text_button.dart';
+import '../buttons/ui_text_button.dart';
+import '../text/ui_text.dart';
+import '../ui_widget_props.dart';
 
 /// Scrollable single-select list presented as a dialog.
 class UIListDialog<T> extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_dynamic_overflow.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_context_menu.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../layout/ui_dynamic_overflow.dart';
+import '../navigation/ui_context_menu.dart';
+import '../text/ui_text.dart';
 
 /// One action displayed in [UICommandBar].
 class UICommandBarItem {

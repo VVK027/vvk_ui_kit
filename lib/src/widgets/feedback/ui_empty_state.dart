@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/media/ui_image.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../media/ui_image.dart';
+import '../text/ui_text.dart';
 
 /// Empty-state placeholder with optional icon, image, message, and child.
 class UIEmptyState extends StatelessWidget {

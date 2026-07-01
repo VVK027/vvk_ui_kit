@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_button_props.dart';
+import 'ui_button_props.dart';
 
 /// A button that displays an image.
 class UIImageButton extends StatelessWidget {

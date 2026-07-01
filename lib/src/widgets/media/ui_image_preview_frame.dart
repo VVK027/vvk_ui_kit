@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Fixed 16:9 frame for image previews.
 class UIImagePreviewFrame extends StatelessWidget {

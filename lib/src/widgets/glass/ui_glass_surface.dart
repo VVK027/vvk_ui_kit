@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_component_themes.dart';
-import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_theme.dart';
+import '../../core/theme/ui_component_themes.dart';
+import 'ui_glass_theme.dart';
 
 /// Frosted-glass surface using [BackdropFilter] (no extra dependencies).
 ///

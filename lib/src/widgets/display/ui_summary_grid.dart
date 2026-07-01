@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../text/ui_text.dart';
 
 /// Single cell in a [UISummaryGrid] with icon, label, and value.
 class UISummaryGridItem {

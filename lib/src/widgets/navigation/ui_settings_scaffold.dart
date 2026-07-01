@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/display/ui_info_banner.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_detail_date_navigator.dart';
-import 'package:vvk_ui_kit/src/widgets/layout/ui_fixed_section_list.dart';
-import 'package:vvk_ui_kit/src/widgets/inputs/ui_settings_tiles.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_app_bar.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../display/ui_info_banner.dart';
+import 'ui_detail_date_navigator.dart';
+import '../layout/ui_fixed_section_list.dart';
+import '../inputs/ui_settings_tiles.dart';
+import 'ui_app_bar.dart';
+import '../text/ui_text.dart';
 
 /// Scaffold layout for settings screens with app bar and optional save FAB.
 class UISettingsPageScaffold extends StatelessWidget {

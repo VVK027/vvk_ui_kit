@@ -50,6 +50,26 @@ void main() {
       expect(theme.brightness, Brightness.light);
       expect(theme.extensions.isNotEmpty, isTrue);
     });
+
+    test('fromSeed derives primary from the seed color', () {
+      const seed = Color(0xFF6750A4);
+      final light = UIAppTheme.fromSeed(seed);
+      final dark = UIAppTheme.fromSeed(seed, brightness: Brightness.dark);
+      final expected = ColorScheme.fromSeed(seedColor: seed);
+      expect(light.brightness, Brightness.light);
+      expect(light.colorScheme.primary, expected.primary);
+      expect(dark.brightness, Brightness.dark);
+      expect(dark.extensions.isNotEmpty, isTrue);
+    });
+
+    test('highContrast presets build light and dark themes', () {
+      final light = UIAppTheme.highContrast(Brightness.light);
+      final dark = UIAppTheme.highContrast(Brightness.dark);
+      expect(light.brightness, Brightness.light);
+      expect(light.scaffoldBackgroundColor, const Color(0xFFFFFFFF));
+      expect(dark.brightness, Brightness.dark);
+      expect(dark.scaffoldBackgroundColor, const Color(0xFF000000));
+    });
   });
 
   group('UITypography', () {

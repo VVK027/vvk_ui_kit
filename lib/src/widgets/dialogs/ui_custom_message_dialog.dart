@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_primary_text_button.dart';
-import 'package:vvk_ui_kit/src/widgets/buttons/ui_text_button.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../buttons/ui_primary_text_button.dart';
+import '../buttons/ui_text_button.dart';
+import '../text/ui_text.dart';
 
 /// Message dialog with title, body, and positive/negative action buttons.
 class UICustomMessageDialog extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/feedback/ui_tour_controller.dart'
-    show UITourController;
+import 'ui_tour_controller.dart' show UITourController;
 
 import 'ui_tour_enums.dart';
 

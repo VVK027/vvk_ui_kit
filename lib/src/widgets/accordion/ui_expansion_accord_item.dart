@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/accordion/ui_expansion_tile.dart';
+import 'ui_expansion_tile.dart';
 
 /// A single expandable section inside `UIExpansionAccord`.
 class UIExpansionAccordItem extends StatelessWidget {

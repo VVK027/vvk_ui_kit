@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/widgets/navigation/ui_app_bar.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import 'ui_app_bar.dart';
+import '../text/ui_text.dart';
 
 TabBar _buildDetailTabBar(
   BuildContext context, {

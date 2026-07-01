@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vvk_ui_kit/src/core/theme/ui_theme.dart';
-import 'package:vvk_ui_kit/src/widgets/text/ui_text.dart';
+import '../../core/theme/ui_theme.dart';
+import '../text/ui_text.dart';
 
 /// Centered info banner for detail screens.
 class UIDetailInfoBanner extends StatelessWidget {
