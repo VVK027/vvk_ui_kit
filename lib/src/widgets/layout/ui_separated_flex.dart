@@ -31,7 +31,6 @@ class UISeparatedColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return UISeparatedFlex(
       direction: Axis.vertical,
-      children: children,
       separatorBuilder: separatorBuilder,
       includeFirstSeparator: includeFirstSeparator,
       includeLastSeparator: includeLastSeparator,
@@ -41,6 +40,7 @@ class UISeparatedColumn extends StatelessWidget {
       textDirection: textDirection,
       verticalDirection: verticalDirection,
       textBaseline: textBaseline,
+      children: children,
     );
   }
 }
@@ -76,7 +76,6 @@ class UISeparatedRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return UISeparatedFlex(
       direction: Axis.horizontal,
-      children: children,
       separatorBuilder: separatorBuilder,
       includeFirstSeparator: includeFirstSeparator,
       includeLastSeparator: includeLastSeparator,
@@ -86,6 +85,7 @@ class UISeparatedRow extends StatelessWidget {
       textDirection: textDirection,
       verticalDirection: verticalDirection,
       textBaseline: textBaseline,
+      children: children,
     );
   }
 }

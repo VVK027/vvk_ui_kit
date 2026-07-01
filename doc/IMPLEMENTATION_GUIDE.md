@@ -28,6 +28,8 @@ MaterialApp(
 
 Access semantic tokens via `context.uiTheme` or `Theme.of(context).extension<UIThemeExtension>()`.
 
+The `UITypography` class provides a consistent type scale (`h1`, `h2`, `h3`, `h4`, `body`, `small`, etc.) that uses the kit's semantic colors.
+
 Glass widgets read blur/tint values from `UIGlassTheme` / `UIGlassTheme.of(context)`.
 
 ## Optional: image scope
@@ -121,6 +123,35 @@ Platform selection is centralized in `useAdaptiveCupertino()` (internal).
 ## Social auth icons
 
 Bundled at `packages/vvk_ui_kit/assets/icons/social/`. Use `UISocialAuthProvider` with `UISocialAuthButton` or `UISocialAuthIcon`.
+
+## Extensions & Utilities
+
+The package provides a set of extensions and utilities to simplify common tasks.
+
+### Extensions
+
+- **String**: `isEmail`, `isUrl`, `capitalize`, `toCamelCase`, `toSnakeCase`, etc.
+- **Color**: `darken`, `lighten`, `toHex`, `withOpacity`, etc.
+- **Iterable/List**: `groupBy`, `distinctBy`, `firstOrNull`, etc.
+- **Numbers**: `toCurrency`, `toFileSize`, `toPercentage`.
+- **Context**: `context.uiTheme`, `context.isDarkMode`, `context.screenWidth`, `context.mediaQuery`.
+
+### Utilities
+
+- **NavigationUtil**: Simplified navigation with `pushPage`, `pushReplacement`, `pop`, and named routes support.
+- **DialogUtil**: Easy access to show adaptive dialogs and sheets.
+- **DateTimeUtil**: Helpers for formatting dates, calculating time differences, and handling timezones.
+- **JsonUtils**: Safe JSON parsing and type conversion.
+- **SystemUIUtils**: Manage status bar and navigation bar styles.
+
+## Best Practices
+
+1. **Theme Consistency**: Always use `UIAppTheme` as your base. Avoid hardcoding colors; use `context.uiTheme.colors` or semantic tokens.
+2. **Component Composition**: Prefer using the provided widgets like `UIPageScaffold` and `UICard` to maintain a consistent look and feel across the app.
+3. **Adaptive UI**: Use `showUIAdaptiveAlertDialog` and `showUIAdaptiveActionSheet` to ensure your app feels native on both iOS and Android.
+4. **Image Handling**: Use `UIImage` for all your image needs and wrap your app in `UIImageScope` to provide custom network and SVG loaders.
+5. **Debouncing Taps**: Wrap critical buttons in `UITapGuard` to prevent accidental multiple triggers.
+6. **Responsive Design**: Use `ResponsiveLayout` and `context.screenWidth` extensions to handle different screen sizes gracefully.
 
 ## JSON, mapping & translations
 

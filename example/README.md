@@ -19,15 +19,15 @@ flutter run
 | **Accordion, cards & clips** | `UIExpansionAccord`, `UICard`, `UIAnimatedFlipCard`, `UICouponCard`, `UITicketClip`, `UIHexagon` |
 | **Carousel** | `UICarouselWithIndicator`, `UISectionCarousel`, `UICarouselControls` |
 | **Decoration** | `UIGradientBox`, `UIGradientText`, `UIGradientSvgIcon`, `UIDottedBorder`, `UICornerRibbon`, `UIGlassSurface` |
-| **Display** | `UIStatSummaryCard`, `UICommandBar`, `UIAnimatedCounter`, `UIBatteryIndicator`, `UISegmentedBar` |
+| **Display** | `UIStatSummaryCard`, `UICommandBar`, `UIAnimatedCounter`, `UIBatteryIndicator`, `UISegmentedBar`, `UIProgressBar` |
 | **Rating** | `UIRatingBar`, `UIRatingBarIndicator`, `UIRatingWidget` |
-| **Dialogs** | `showUIAdaptiveAlertDialog`, `showUIAdaptiveActionSheet`, `UIShellDialog`, `showUISheet` |
-| **Feedback** | `UISnackbar`, `UIEmptyState`, `UIPopover`, `UITourController`, `UIBadge`, `UILiveBadge` |
-| **Inputs** | `UITextFormField`, `UIForm`, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, `UIInputOTP` |
-| **Layout & responsive** | `ResponsiveLayout`, `UIPageScaffold`, `UIExpandableFloatingPanel`, `UIDynamicOverflow`, `UIPortal` |
-| **Loading** | `UIShimmer`, `UIShimmerLoadingContainer`, `UILoadingOverlay`, `UILoadMoreContainer` |
+| **Dialogs** | `showUIAdaptiveAlertDialog`, `showUIAdaptiveActionSheet`, `UIShellDialog`, `showUISheet`, `UIImagePickerDialog` |
+| **Feedback** | `UISnackbar`, `UIEmptyState`, `UIPopover`, `UITourController`, `UIBadge`, `UILiveBadge`, `UISkeletonPlaceholder` |
+| **Inputs** | `UITextFormField`, `UIForm`, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, `UIInputOTP`, `UIDatePicker` |
+| **Layout & responsive** | `ResponsiveLayout`, `UIPageScaffold`, `UIExpandableFloatingPanel`, `UIDynamicOverflow`, `UIPortal`, `UIKeyboardToolbar` |
+| **Loading** | `UIShimmer`, `UIShimmerLoadingContainer`, `UILoadingOverlay`, `UILoadMoreContainer`, `UIPageLoading` |
 | **Media** | `UIImage`, `UIImageScope`, `UISvgAssetIcon`, `UIImagePreviewFrame` |
-| **Navigation** | `UIAppBar`, `UIBottomNavyBar`, `UIFloatingBottomBar`, `UIGlassBottomNavBar`, `UIMenuBar`, `UITreeView`, `UISideMenu` |
+| **Navigation** | `UIAppBar`, `UIBottomNavyBar`, `UIFloatingBottomBar`, `UIGlassBottomNavBar`, `UIMenuBar`, `UITreeView`, `UISideMenu`, `UIBreadcrumb`, `UIAvatarWithEdit` |
 | **Selection & states** | `UIListTileSelect`, `UIPillSwitch`, `UIRadioGroup`, `UIRoundedCheckbox`, `UIErrorInfo` |
 | **Tabs** | `UITabBar`, `UISegmentedTabBar`, `UIButtonsTab` |
 | **Text & icons** | `UIText`, `UIRichText`, `UIReadMoreText`, `UIMarquee`, `UISvgImage`, `UISocialAuthIcon` |

@@ -4,8 +4,9 @@ import 'dart:math';
 extension SetExtension<E> on Set<E> {
   /// Random element; throws [StateError] when empty.
   E random([int? seed]) {
-    if (isEmpty)
+    if (isEmpty) {
       throw StateError('Cannot pick a random element from an empty set.');
+    }
     return elementAt(Random(seed).nextInt(length));
   }
 

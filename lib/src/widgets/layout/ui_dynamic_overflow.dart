@@ -4,7 +4,7 @@ import 'package:vvk_ui_kit/src/widgets/navigation/ui_context_menu.dart';
 /// Lays out [children] in a horizontal row and moves items that do not fit
 /// into an overflow control built by [overflowBuilder].
 class UIDynamicOverflow extends StatefulWidget {
-  UIDynamicOverflow({
+  const UIDynamicOverflow({
     super.key,
     required this.children,
     required this.overflowBuilder,

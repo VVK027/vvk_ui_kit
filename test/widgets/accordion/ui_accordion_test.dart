@@ -89,9 +89,9 @@ void main() {
     });
 
     testWidgets('allows multiple sections when enabled', (tester) async {
-      final style = UIExpansionTileStyle(
+      final style = const UIExpansionTileStyle(
         borderColor: Colors.grey,
-        titleStyle: const TextStyle(),
+        titleStyle: TextStyle(),
         iconColor: Colors.black,
       );
 

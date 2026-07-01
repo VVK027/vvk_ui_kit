@@ -211,7 +211,7 @@ class _UIColorPickerState extends State<UIColorPicker> {
                 for (final color in widget.palette)
                   _PaletteSwatch(
                     color: color,
-                    selected: color.value == current.value,
+                    selected: color.toARGB32() == current.toARGB32(),
                     size: widget.swatchSize,
                     enabled: widget.enabled,
                     onTap: () => _update(HSVColor.fromColor(color)),
@@ -350,7 +350,7 @@ class _SpectrumPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final hueColor = HSVColor.fromAHSV(1, hue, 1, 1).toColor();
     final black = Paint()
-      ..shader = LinearGradient(
+      ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [Colors.transparent, Colors.black],
@@ -385,7 +385,7 @@ class _HueBarPainter extends CustomPainter {
       Color(0xFFFF0000),
     ];
     final paint = Paint()
-      ..shader = LinearGradient(colors: colors).createShader(
+      ..shader = const LinearGradient(colors: colors).createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
     canvas.drawRRect(

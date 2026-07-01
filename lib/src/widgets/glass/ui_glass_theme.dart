@@ -1,6 +1,7 @@
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
+import 'package:vvk_ui_kit/src/widgets/glass/ui_glass_surface.dart' show UIGlassSurface;
 
 /// Default blur, opacity, and radius values for glass widgets.
 abstract final class UIGlassConstants {

@@ -122,7 +122,7 @@ class _UIFormScope extends InheritedWidget {
 
 /// Base form field integrated with [UIForm] value tracking.
 class UIFormField<T> extends FormField<T> {
-  UIFormField({
+  const UIFormField({
     super.key,
     required this.name,
     super.initialValue,

@@ -50,12 +50,12 @@ void main() {
   group('UICouponCard', () {
     testWidgets('renders both coupon sections', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: UICouponCard(
               backgroundColor: Colors.white,
-              firstChild: const Center(child: Text('Header')),
-              secondChild: const Center(child: Text('Body')),
+              firstChild: Center(child: Text('Header')),
+              secondChild: Center(child: Text('Body')),
             ),
           ),
         ),
