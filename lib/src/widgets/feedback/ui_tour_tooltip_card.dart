@@ -410,6 +410,7 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                   if (widget.step.showCloseButton)
                     IconButton(
                       onPressed: widget.onSkip,
+                      tooltip: widget.step.skipButtonLabel ?? 'Skip',
                       icon: const Icon(Icons.close),
                       iconSize: 18,
                       padding: EdgeInsets.zero,
@@ -481,6 +482,7 @@ class _UITourTooltipCardState extends State<UITourTooltipCard>
                   if (!isFirstStep && widget.step.showPreviousButton)
                     IconButton(
                       onPressed: widget.onPrevious,
+                      tooltip: widget.step.previousButtonLabel ?? 'Previous',
                       icon: const Icon(Icons.chevron_left),
                       iconSize: 20,
                       color: textColor,

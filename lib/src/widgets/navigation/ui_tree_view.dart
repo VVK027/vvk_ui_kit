@@ -61,6 +61,8 @@ class UITreeView extends StatefulWidget {
     this.selectedColor,
     this.iconColor,
     this.textStyle,
+    this.expandTooltip = 'Expand',
+    this.collapseTooltip = 'Collapse',
   });
 
   final List<UITreeNode> nodes;
@@ -76,6 +78,12 @@ class UITreeView extends StatefulWidget {
   final Color? selectedColor;
   final Color? iconColor;
   final TextStyle? textStyle;
+
+  /// Tooltip / semantic label for a node's expand button when collapsed.
+  final String expandTooltip;
+
+  /// Tooltip / semantic label for a node's collapse button when expanded.
+  final String collapseTooltip;
 
   factory UITreeView.fromTheme(
     BuildContext context, {
@@ -93,6 +101,8 @@ class UITreeView extends StatefulWidget {
     Color? selectedColor,
     Color? iconColor,
     TextStyle? textStyle,
+    String expandTooltip = 'Expand',
+    String collapseTooltip = 'Collapse',
   }) {
     final scheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
@@ -111,6 +121,8 @@ class UITreeView extends StatefulWidget {
       selectedColor: selectedColor ?? scheme.primaryContainer,
       iconColor: iconColor ?? scheme.onSurfaceVariant,
       textStyle: textStyle ?? theme.textTheme.bodyMedium,
+      expandTooltip: expandTooltip,
+      collapseTooltip: collapseTooltip,
     );
   }
 
@@ -238,6 +250,9 @@ class _UITreeViewState extends State<UITreeView> {
                       child: node.hasChildren
                           ? IconButton(
                               padding: EdgeInsets.zero,
+                              tooltip: isExpanded
+                                  ? widget.collapseTooltip
+                                  : widget.expandTooltip,
                               constraints: const BoxConstraints(
                                 minWidth: 28,
                                 minHeight: 28,

@@ -7,6 +7,10 @@ class UISearchBar extends StatefulWidget {
     required this.onChanged,
     this.controller,
     this.hintText = 'Search',
+    this.clearTooltip = 'Clear',
+    this.ascendingTooltip = 'Ascending',
+    this.descendingTooltip = 'Descending',
+    this.filterTooltip = 'Filter',
     this.onFilterTap,
     this.onSortDirectionChanged,
     this.backgroundColor,
@@ -21,6 +25,19 @@ class UISearchBar extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController? controller;
   final String hintText;
+
+  /// Tooltip / semantic label for the clear-text button.
+  final String clearTooltip;
+
+  /// Tooltip shown on the sort button when the current order is ascending.
+  final String ascendingTooltip;
+
+  /// Tooltip shown on the sort button when the current order is descending.
+  final String descendingTooltip;
+
+  /// Tooltip / semantic label for the filter button.
+  final String filterTooltip;
+
   final VoidCallback? onFilterTap;
   final ValueChanged<bool>? onSortDirectionChanged;
   final Color? backgroundColor;
@@ -38,6 +55,10 @@ class UISearchBar extends StatefulWidget {
     required ValueChanged<String> onChanged,
     TextEditingController? controller,
     String hintText = 'Search',
+    String clearTooltip = 'Clear',
+    String ascendingTooltip = 'Ascending',
+    String descendingTooltip = 'Descending',
+    String filterTooltip = 'Filter',
     VoidCallback? onFilterTap,
     ValueChanged<bool>? onSortDirectionChanged,
     Color? backgroundColor,
@@ -54,6 +75,10 @@ class UISearchBar extends StatefulWidget {
       onChanged: onChanged,
       controller: controller,
       hintText: hintText,
+      clearTooltip: clearTooltip,
+      ascendingTooltip: ascendingTooltip,
+      descendingTooltip: descendingTooltip,
+      filterTooltip: filterTooltip,
       onFilterTap: onFilterTap,
       onSortDirectionChanged: onSortDirectionChanged,
       backgroundColor: backgroundColor ?? scheme.surfaceContainerHighest,
@@ -165,6 +190,7 @@ class _UISearchBarState extends State<UISearchBar>
                 suffixIcon: _hasText
                     ? IconButton(
                         key: const Key('ui_search_bar_clear'),
+                        tooltip: widget.clearTooltip,
                         icon: Icon(
                           Icons.clear_rounded,
                           color: scheme.onSurfaceVariant,
@@ -197,7 +223,9 @@ class _UISearchBarState extends State<UISearchBar>
               ),
               child: IconButton(
                 key: const Key('ui_search_bar_sort'),
-                tooltip: _sortAscending ? 'Ascending' : 'Descending',
+                tooltip: _sortAscending
+                    ? widget.ascendingTooltip
+                    : widget.descendingTooltip,
                 onPressed: widget.enabled ? _toggleSort : null,
                 icon: Icon(
                   Icons.arrow_downward_rounded,
@@ -209,7 +237,7 @@ class _UISearchBarState extends State<UISearchBar>
           if (widget.onFilterTap != null) ...[
             IconButton(
               key: const Key('ui_search_bar_filter'),
-              tooltip: 'Filter',
+              tooltip: widget.filterTooltip,
               onPressed: widget.enabled ? widget.onFilterTap : null,
               icon: Icon(
                 Icons.tune_rounded,

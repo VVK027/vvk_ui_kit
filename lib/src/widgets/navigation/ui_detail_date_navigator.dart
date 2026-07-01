@@ -10,6 +10,8 @@ class UIDetailDateNavigator extends StatelessWidget {
     required this.isNextDisabled,
     required this.onPrevious,
     required this.onNext,
+    this.previousTooltip = 'Previous',
+    this.nextTooltip = 'Next',
   }) : assert(
          dateTitleChild != null || dateTitle != null,
          'Either dateTitle or dateTitleChild must be provided.',
@@ -21,6 +23,12 @@ class UIDetailDateNavigator extends StatelessWidget {
   final VoidCallback onPrevious;
   final VoidCallback? onNext;
 
+  /// Tooltip / semantic label for the previous button.
+  final String previousTooltip;
+
+  /// Tooltip / semantic label for the next button.
+  final String nextTooltip;
+
   UIDetailDateNavigator copyWith({
     Key? key,
     String? dateTitle,
@@ -28,6 +36,8 @@ class UIDetailDateNavigator extends StatelessWidget {
     bool? isNextDisabled,
     VoidCallback? onPrevious,
     VoidCallback? onNext,
+    String? previousTooltip,
+    String? nextTooltip,
   }) {
     return UIDetailDateNavigator(
       key: key ?? this.key,
@@ -36,6 +46,8 @@ class UIDetailDateNavigator extends StatelessWidget {
       isNextDisabled: isNextDisabled ?? this.isNextDisabled,
       onPrevious: onPrevious ?? this.onPrevious,
       onNext: onNext ?? this.onNext,
+      previousTooltip: previousTooltip ?? this.previousTooltip,
+      nextTooltip: nextTooltip ?? this.nextTooltip,
     );
   }
 
@@ -51,12 +63,14 @@ class UIDetailDateNavigator extends StatelessWidget {
       children: [
         IconButton(
           iconSize: 20,
+          tooltip: previousTooltip,
           onPressed: onPrevious,
           icon: Icon(Icons.arrow_back_ios_outlined, color: onSurface),
         ),
         titleWidget,
         IconButton(
           iconSize: 20,
+          tooltip: nextTooltip,
           onPressed: isNextDisabled ? null : onNext,
           icon: Icon(
             Icons.arrow_forward_ios_outlined,

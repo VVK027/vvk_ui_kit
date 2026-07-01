@@ -19,6 +19,8 @@ class UINumberField extends StatefulWidget {
     this.backgroundColor,
     this.borderColor,
     this.textStyle,
+    this.decrementTooltip = 'Decrease',
+    this.incrementTooltip = 'Increase',
   }) : assert(step > 0, 'step must be positive');
 
   final num value;
@@ -34,6 +36,12 @@ class UINumberField extends StatefulWidget {
   final Color? backgroundColor;
   final Color? borderColor;
   final TextStyle? textStyle;
+
+  /// Tooltip / semantic label for the decrement (−) button.
+  final String decrementTooltip;
+
+  /// Tooltip / semantic label for the increment (+) button.
+  final String incrementTooltip;
 
   factory UINumberField.fromTheme(
     BuildContext context, {
@@ -51,6 +59,8 @@ class UINumberField extends StatefulWidget {
     Color? backgroundColor,
     Color? borderColor,
     TextStyle? textStyle,
+    String decrementTooltip = 'Decrease',
+    String incrementTooltip = 'Increase',
   }) {
     final scheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
@@ -69,6 +79,8 @@ class UINumberField extends StatefulWidget {
       backgroundColor: backgroundColor ?? scheme.surfaceContainerHighest,
       borderColor: borderColor ?? scheme.outlineVariant,
       textStyle: textStyle ?? theme.textTheme.bodyLarge,
+      decrementTooltip: decrementTooltip,
+      incrementTooltip: incrementTooltip,
     );
   }
 
@@ -169,6 +181,7 @@ class _UINumberFieldState extends State<UINumberField> {
         children: [
           _StepperButton(
             icon: Icons.remove,
+            tooltip: widget.decrementTooltip,
             size: widget.buttonSize,
             enabled: _canDecrement,
             onPressed: () => _step(-widget.step),
@@ -200,6 +213,7 @@ class _UINumberFieldState extends State<UINumberField> {
           ),
           _StepperButton(
             icon: Icons.add,
+            tooltip: widget.incrementTooltip,
             size: widget.buttonSize,
             enabled: _canIncrement,
             onPressed: () => _step(widget.step),
@@ -234,12 +248,14 @@ class _StepperButton extends StatelessWidget {
     required this.size,
     required this.enabled,
     required this.onPressed,
+    this.tooltip,
   });
 
   final IconData icon;
   final double size;
   final bool enabled;
   final VoidCallback onPressed;
+  final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +265,7 @@ class _StepperButton extends StatelessWidget {
       height: size,
       child: IconButton(
         padding: EdgeInsets.zero,
+        tooltip: tooltip,
         onPressed: enabled ? onPressed : null,
         icon: Icon(
           icon,

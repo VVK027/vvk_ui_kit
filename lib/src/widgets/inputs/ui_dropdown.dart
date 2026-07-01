@@ -16,6 +16,12 @@ class UIDropdown extends StatefulWidget {
   final Color textColor;
   final String? placeholder;
 
+  /// Text appended after the title to mark a required field.
+  final String requiredMarker;
+
+  /// Whether to display the [requiredMarker] after the title.
+  final bool showRequiredMarker;
+
   const UIDropdown({
     super.key,
     this.selectedValue,
@@ -28,6 +34,8 @@ class UIDropdown extends StatefulWidget {
     required this.borderColor,
     required this.textColor,
     this.placeholder,
+    this.requiredMarker = ' *',
+    this.showRequiredMarker = true,
   });
 
   /// Creates a [UIDropdown] with colors derived from [Theme.of(context)].
@@ -44,6 +52,8 @@ class UIDropdown extends StatefulWidget {
     Color? backgroundColor,
     Color? borderColor,
     Color? textColor,
+    String requiredMarker = ' *',
+    bool showRequiredMarker = true,
   }) {
     final scheme = Theme.of(context).colorScheme;
     return UIDropdown(
@@ -58,6 +68,8 @@ class UIDropdown extends StatefulWidget {
       backgroundColor: backgroundColor ?? scheme.surface,
       borderColor: borderColor ?? scheme.outline,
       textColor: textColor ?? scheme.onSurface,
+      requiredMarker: requiredMarker,
+      showRequiredMarker: showRequiredMarker,
     );
   }
 
@@ -73,6 +85,8 @@ class UIDropdown extends StatefulWidget {
     Color? borderColor,
     Color? textColor,
     String? placeholder,
+    String? requiredMarker,
+    bool? showRequiredMarker,
   }) {
     return UIDropdown(
       key: key ?? this.key,
@@ -86,6 +100,8 @@ class UIDropdown extends StatefulWidget {
       borderColor: borderColor ?? this.borderColor,
       textColor: textColor ?? this.textColor,
       placeholder: placeholder ?? this.placeholder,
+      requiredMarker: requiredMarker ?? this.requiredMarker,
+      showRequiredMarker: showRequiredMarker ?? this.showRequiredMarker,
     );
   }
 
@@ -134,7 +150,13 @@ class _UIDropdownState extends State<UIDropdown> {
               FontWeight.w700,
               16,
             ),
-            textSpan(' *', widget.requiredMarkColor, FontWeight.w700, 16),
+            if (widget.showRequiredMarker)
+              textSpan(
+                widget.requiredMarker,
+                widget.requiredMarkColor,
+                FontWeight.w700,
+                16,
+              ),
           ],
         ),
         const SizedBox(height: 10),

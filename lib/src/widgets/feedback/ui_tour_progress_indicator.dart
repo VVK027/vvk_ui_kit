@@ -14,6 +14,8 @@ class UITourProgressIndicator extends StatelessWidget {
     this.dotSize = 8,
     this.dotSpacing = 4,
     this.textStyle,
+    this.labelBuilder,
+    this.compactLabelBuilder,
   });
 
   final int currentStep;
@@ -24,6 +26,18 @@ class UITourProgressIndicator extends StatelessWidget {
   final double dotSize;
   final double dotSpacing;
   final TextStyle? textStyle;
+
+  /// Builds the label for [UITourProgressStyle.text].
+  ///
+  /// Receives the 1-based current step and total step count. Defaults to
+  /// `'Step {step} of {total}'` when `null`.
+  final String Function(int step, int totalSteps)? labelBuilder;
+
+  /// Builds the label for [UITourProgressStyle.textCompact].
+  ///
+  /// Receives the 1-based current step and total step count. Defaults to
+  /// `'{step} / {total}'` when `null`.
+  final String Function(int step, int totalSteps)? compactLabelBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +70,14 @@ class UITourProgressIndicator extends StatelessWidget {
         );
       case UITourProgressStyle.text:
         return Text(
-          'Step ${currentStep + 1} of $totalSteps',
+          labelBuilder?.call(currentStep + 1, totalSteps) ??
+              'Step ${currentStep + 1} of $totalSteps',
           style: textStyle ?? Theme.of(context).textTheme.labelSmall,
         );
       case UITourProgressStyle.textCompact:
         return Text(
-          '${currentStep + 1} / $totalSteps',
+          compactLabelBuilder?.call(currentStep + 1, totalSteps) ??
+              '${currentStep + 1} / $totalSteps',
           style: textStyle ?? Theme.of(context).textTheme.labelSmall,
         );
       case UITourProgressStyle.none:

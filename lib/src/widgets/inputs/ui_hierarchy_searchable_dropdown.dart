@@ -152,6 +152,8 @@ class UIHierarchySearchableDropdown extends StatefulWidget {
     this.searchDecoration,
     this.searchBoxDecoration,
     this.searchStyle,
+    this.searchHintText = 'Search here...',
+    this.clearSearchTooltip = 'Clear search',
     this.targetAnchor = Alignment.bottomLeft,
     this.followerAnchor = Alignment.topLeft,
     this.showChips = false,
@@ -258,6 +260,12 @@ class UIHierarchySearchableDropdown extends StatefulWidget {
 
   /// Optional custom text style for the search field.
   final TextStyle? searchStyle;
+
+  /// Hint text shown inside the default search field.
+  final String searchHintText;
+
+  /// Tooltip / semantic label for the search field's clear button.
+  final String clearSearchTooltip;
 
   /// Optional target anchor for the dropdown panel position.
   final Alignment targetAnchor;
@@ -500,6 +508,8 @@ class _UIHierarchySearchableDropdownState
                     searchDecoration: widget.searchDecoration,
                     searchBoxDecoration: widget.searchBoxDecoration,
                     searchStyle: widget.searchStyle,
+                    searchHintText: widget.searchHintText,
+                    clearSearchTooltip: widget.clearSearchTooltip,
                     focusNode: _effectiveFocusNode,
                     autoFocus: widget.autoFocusSearch,
                     onSearchChanged: (q) {
@@ -1072,6 +1082,8 @@ class _DropdownPanel extends StatefulWidget {
     this.searchDecoration,
     this.searchBoxDecoration,
     this.searchStyle,
+    this.searchHintText = 'Search here...',
+    this.clearSearchTooltip = 'Clear search',
     this.focusNode,
     this.autoFocus = false,
     required this.onSearchChanged,
@@ -1109,6 +1121,8 @@ class _DropdownPanel extends StatefulWidget {
   final InputDecoration? searchDecoration;
   final BoxDecoration? searchBoxDecoration;
   final TextStyle? searchStyle;
+  final String searchHintText;
+  final String clearSearchTooltip;
   final FocusNode? focusNode;
   final bool autoFocus;
   final ValueChanged<String> onSearchChanged;
@@ -1201,6 +1215,8 @@ class _DropdownPanelState extends State<_DropdownPanel> {
                     decoration: widget.searchDecoration,
                     boxDecoration: widget.searchBoxDecoration,
                     style: widget.searchStyle,
+                    hintText: widget.searchHintText,
+                    clearTooltip: widget.clearSearchTooltip,
                     focusNode: widget.focusNode,
                     autoFocus: widget.autoFocus,
                   ),
@@ -1261,6 +1277,8 @@ class _DefaultSearchBar extends StatelessWidget {
     this.decoration,
     this.boxDecoration,
     this.style,
+    this.hintText = 'Search here...',
+    this.clearTooltip = 'Clear search',
     this.focusNode,
     this.autoFocus = false,
   });
@@ -1271,17 +1289,20 @@ class _DefaultSearchBar extends StatelessWidget {
   final InputDecoration? decoration;
   final BoxDecoration? boxDecoration;
   final TextStyle? style;
+  final String hintText;
+  final String clearTooltip;
   final FocusNode? focusNode;
   final bool autoFocus;
 
   @override
   Widget build(BuildContext context) {
     final defaultDecoration = InputDecoration(
-      hintText: 'Search here...',
+      hintText: hintText,
       hintStyle: const TextStyle(color: Colors.black38),
       prefixIcon: const Icon(Icons.search_rounded, color: Colors.black38),
       suffixIcon: query.isNotEmpty
           ? IconButton(
+              tooltip: clearTooltip,
               icon: const Icon(
                 Icons.close_rounded,
                 color: Colors.black38,
