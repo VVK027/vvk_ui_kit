@@ -38,16 +38,21 @@ class UISnackbarStyle {
   }) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final snackBarTheme = theme.snackBarTheme;
     return UISnackbarStyle(
-      backgroundColor: backgroundColor ?? scheme.surface,
+      backgroundColor:
+          backgroundColor ??
+          snackBarTheme.backgroundColor ??
+          scheme.inverseSurface,
       textStyle:
           textStyle ??
-          theme.textTheme.bodyMedium?.copyWith(color: scheme.onSurface) ??
-          TextStyle(color: scheme.onSurface),
+          snackBarTheme.contentTextStyle ??
+          theme.textTheme.bodyMedium?.copyWith(color: scheme.onInverseSurface) ??
+          TextStyle(color: scheme.onInverseSurface),
       successColor: successColor ?? scheme.primary,
       errorColor: errorColor ?? scheme.error,
-      closeIconColor: closeIconColor ?? scheme.onSurface,
-      borderRadius: borderRadius ?? 8.0,
+      closeIconColor: closeIconColor ?? scheme.onInverseSurface,
+      borderRadius: borderRadius ?? 4.0,
     );
   }
 
@@ -130,28 +135,36 @@ class UISnackbar {
     EdgeInsetsGeometry? padding,
   }) {
     final resolvedStyle = style ?? UISnackbarStyle.fromTheme(context);
-    final Color borderColor;
-    if (type == UISnackbarType.success) {
-      borderColor = resolvedStyle.successColor;
-    } else if (type == UISnackbarType.error) {
-      borderColor = resolvedStyle.errorColor;
-    } else {
-      borderColor = Theme.of(context).dividerColor;
-    }
+    final bool isDefaultType = type == UISnackbarType.showDefault;
+    final Color? borderColor = isDefaultType
+        ? null
+        : switch (type) {
+            UISnackbarType.success => resolvedStyle.successColor,
+            UISnackbarType.error => resolvedStyle.errorColor,
+            UISnackbarType.showDefault => null,
+          };
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: UIText(message, style: resolvedStyle.textStyle),
+        content: UIText(
+          message,
+          style: resolvedStyle.textStyle,
+          color: resolvedStyle.textStyle.color,
+        ),
         backgroundColor: resolvedStyle.backgroundColor,
         duration: duration,
         action: action,
         behavior: behavior,
         margin: margin,
         padding: padding,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(resolvedStyle.borderRadius),
-          side: BorderSide(color: borderColor, width: 1.2),
-        ),
+        shape: borderColor == null
+            ? RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(resolvedStyle.borderRadius),
+              )
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(resolvedStyle.borderRadius),
+                side: BorderSide(color: borderColor, width: 1.2),
+              ),
       ),
     );
   }

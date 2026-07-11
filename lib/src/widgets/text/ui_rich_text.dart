@@ -113,15 +113,12 @@ class UIRichText extends StatelessWidget {
             color: item['color'] as Color? ?? resolved.color,
           );
           if (item['clickable'] == true) {
-            return WidgetSpan(
-              child: GestureDetector(
-                onTap: () => onChildTap?.call(index),
-                child: Text(
-                  item['title'] as String,
-                  softWrap: true,
-                  style: childStyle,
-                ),
-              ),
+            final TapGestureRecognizer recognizer = TapGestureRecognizer()
+              ..onTap = () => onChildTap?.call(index);
+            return TextSpan(
+              text: item['title'] as String,
+              style: childStyle,
+              recognizer: recognizer,
             );
           }
           return TextSpan(text: item['title'] as String, style: childStyle);
