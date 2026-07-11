@@ -1,6 +1,7 @@
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
+import '../extensions/color_extension.dart';
 import 'ui_component_themes.dart';
 import 'ui_theme_palettes.dart';
 
@@ -382,16 +383,47 @@ ColorScheme _colorScheme(Brightness brightness, UIThemeColors colors) {
 /// Builds a Material 3 theme from semantic color tokens.
 ///
 /// Pass [fontFamily] only when the host app bundles that font.
+///
+/// When [extension] is omitted it is auto-selected by [brightness]
+/// ([UIThemeExtension.dark] for dark themes, [UIThemeExtension.light]
+/// otherwise) so dark themes never inherit light surface/chart tokens.
+///
+/// Pass [extraExtensions] to register app-specific [ThemeExtension]s (for
+/// example a palette of semantic brand colors) alongside the kit's own tokens,
+/// avoiding a manual `copyWith(extensions: [...])` merge:
+///
+/// ```dart
+/// buildUIKitTheme(
+///   brightness: brightness,
+///   colors: myColors,
+///   extraExtensions: [appColors],
+/// );
+/// ```
 ThemeData buildUIKitTheme({
   required Brightness brightness,
   required UIThemeColors colors,
-  UIThemeExtension extension = UIThemeExtension.light,
+  UIThemeExtension? extension,
   String? fontFamily,
   UIMetrics metrics = const UIMetrics(sectionHPad: 20),
+  List<ThemeExtension<dynamic>> extraExtensions = const [],
 }) {
   final isDark = brightness == Brightness.dark;
+  final resolvedExtension =
+      extension ?? (isDark ? UIThemeExtension.dark : UIThemeExtension.light);
   final scheme = _colorScheme(brightness, colors);
   final textTheme = _baseTextTheme(brightness, colors, fontFamily: fontFamily);
+
+  // Accessibility check (Debug only): Warn if primary action contrast is low.
+  assert(() {
+    final contrast = scheme.primary.contrastRatio(scheme.onPrimary);
+    if (contrast < 3.0) {
+      debugPrint(
+        'VVK_UI_KIT WARNING: Low contrast ratio ($contrast) between primary and onPrimary colors. '
+        'Consider adjusting your palette for better accessibility.',
+      );
+    }
+    return true;
+  }());
 
   final base = ThemeData(
     brightness: brightness,
@@ -425,7 +457,7 @@ ThemeData buildUIKitTheme({
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: colors.accent),
     cardTheme: CardThemeData(
-      elevation: extension.cardElevation,
+      elevation: resolvedExtension.cardElevation,
       color: colors.card,
       margin: const EdgeInsets.all(4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -434,12 +466,22 @@ ThemeData buildUIKitTheme({
       style: ElevatedButton.styleFrom(
         backgroundColor: scheme.primary,
         foregroundColor: scheme.onPrimary,
-        elevation: 1,
+        elevation: 0, // Material 3 flat look by default
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(foregroundColor: scheme.primary),
+      style: TextButton.styleFrom(
+        foregroundColor: scheme.primary,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: scheme.primary,
+        side: BorderSide(color: scheme.outline),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
     ),
     tabBarTheme: TabBarThemeData(
       labelColor: scheme.primary,
@@ -475,7 +517,7 @@ ThemeData buildUIKitTheme({
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     ),
     extensions: [
-      extension,
+      resolvedExtension,
       metrics,
       UIInputTheme.standard,
       UIButtonTheme.standard,
@@ -484,6 +526,7 @@ ThemeData buildUIKitTheme({
       UICardTheme.standard,
       UINavigationTheme.standard,
       UIGlassMetrics.standard,
+      ...extraExtensions,
     ],
   );
 
@@ -507,22 +550,25 @@ class UIAppTheme {
   );
 
   /// Creates a theme with custom colors while keeping kit component styling.
+  ///
+  /// Pass [extraExtensions] to attach app-specific [ThemeExtension]s (such as a
+  /// palette of semantic brand colors) without a manual
+  /// `copyWith(extensions: [...])` merge.
   static ThemeData custom({
     required Brightness brightness,
     required UIThemeColors colors,
     UIThemeExtension? extension,
     String? fontFamily,
     UIMetrics metrics = const UIMetrics(sectionHPad: 20),
+    List<ThemeExtension<dynamic>> extraExtensions = const [],
   }) {
-    final isDark = brightness == Brightness.dark;
     return buildUIKitTheme(
       brightness: brightness,
       colors: colors,
-      extension:
-          extension ??
-          (isDark ? UIThemeExtension.dark : UIThemeExtension.light),
+      extension: extension,
       fontFamily: fontFamily,
       metrics: metrics,
+      extraExtensions: extraExtensions,
     );
   }
 
@@ -567,11 +613,13 @@ class UIAppTheme {
     Brightness brightness = Brightness.light,
     String? fontFamily,
     UIMetrics metrics = const UIMetrics(sectionHPad: 20),
+    List<ThemeExtension<dynamic>> extraExtensions = const [],
   }) => custom(
     brightness: brightness,
     colors: UIThemePalette.fromSeed(seed, brightness: brightness),
     fontFamily: fontFamily,
     metrics: metrics,
+    extraExtensions: extraExtensions,
   );
 
   /// High-contrast accessibility themes for the given [brightness].

@@ -143,5 +143,70 @@ void main() {
       final updated = colors.copyWith(accent: Colors.red);
       expect(updated.accent, Colors.red);
     });
+
+    testWidgets('fromTheme derives colors from the ambient theme', (
+      tester,
+    ) async {
+      late UICarouselControlsColors colors;
+      final theme = UIAppTheme.dark;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: theme,
+          home: Builder(
+            builder: (context) {
+              colors = UICarouselControlsColors.fromTheme(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(colors.navBackground, theme.cardColor);
+      expect(colors.navBorderActive, theme.colorScheme.primary);
+      expect(colors.indicatorActive, theme.colorScheme.primary);
+      expect(colors.accent, theme.colorScheme.primary);
+    });
+  });
+
+  group('carouselPageHeightForCards', () {
+    test('adds body, footer, and controls footer', () {
+      expect(
+        carouselPageHeightForCards(cardBodyHeight: 300, cardFooterHeight: 40),
+        300 + 40 + kUICarouselControlsFooterHeight,
+      );
+    });
+
+    test('defaults footer to zero', () {
+      expect(
+        carouselPageHeightForCards(cardBodyHeight: 200),
+        200 + kUICarouselControlsFooterHeight,
+      );
+    });
+  });
+
+  group('UISectionCarousel.fromTheme', () {
+    testWidgets('applies theme-derived controls colors', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: UIAppTheme.light,
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => UISectionCarousel.fromTheme(
+                context,
+                pageCount: 2,
+                pageHeight: 120,
+                pageBuilder: (context, index) => Text('Page $index'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Page 0'), findsOneWidget);
+      final carousel = tester.widget<UISectionCarousel>(
+        find.byType(UISectionCarousel),
+      );
+      expect(carousel.controlsColors, isNotNull);
+    });
   });
 }

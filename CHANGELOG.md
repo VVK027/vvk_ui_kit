@@ -1,3 +1,75 @@
+## 1.3.0
+
+* **`TranslationCache.translationsFor(locale)`** — returns a ready-to-use
+  [Translations] instance from the cache (reduces `get` + `Translations(map)`
+  boilerplate in Riverpod providers).
+* **`TranslationCache.preload` path customization** — restored/fixed:
+  `pathBuilder`, `basePath`, `assetPrefix`, and `fileExtension` parameters
+  (plus docs clarifying `TranslationCache._()` is the static-only guard).
+* **`DialogUtil.showAnchoredPopup`** — lightweight popup anchored at an
+  `Offset` (transparent barrier, configurable elevation/radius/alignment) for
+  menus and pickers positioned relative to a tapped widget.
+* **`UIThemeTokens` `ThemeExtension`** — typed extended color slots (app-bar
+  background, gradient, selected/unselected, status colors, text colors) plus
+  an `extra` map for arbitrary named colors, with `ThemeData.withThemeTokens(...)`
+  / `ThemeData.themeTokens` helpers so apps can attach a custom palette to the
+  theme beyond [ColorScheme]. (Introduced as `UIBrandTokens` during 1.3.0
+  development; renamed before release.)
+* **`UIInputFormatters`** — ready-made `TextInputFormatter`s (`name`,
+  `alphanumeric`, `phone`, `phoneWithCountryCode`, `denySpecialChars`,
+  `decimal(...)`).
+* **`UIImage.allowExtensionlessUrl`** — opt-in flag to treat network URLs
+  without a recognized image extension (API/CDN URLs) as raster images.
+* **`LogUtil` is now exported** — the debug logger (`logDefaultMsg`, `logMsg`)
+  is part of the public API instead of an internal-only utility.
+
+## 1.2.0
+
+* **Theme-aware carousels** — `UICarouselControlsColors.fromTheme(context)`
+  derives nav/indicator colors from the ambient `Theme`, and
+  `UISectionCarousel.fromTheme(context, ...)` applies them automatically, so
+  carousels match the rest of the kit's theme-first widgets in light and dark
+  mode.
+* **`buildUIKitTheme` extension auto-selection (fix)** — when `extension` is
+  omitted, the matching `UIThemeExtension` (light/dark) is now chosen from
+  `brightness`. Previously dark themes built via `buildUIKitTheme` inherited
+  light surface/chart tokens. `UIAppTheme.custom` already did this; the builder
+  now mirrors it.
+* **`extraExtensions` on theme builders** — `buildUIKitTheme`,
+  `UIAppTheme.custom`, and `UIAppTheme.fromSeed` accept `extraExtensions` to
+  register app-specific `ThemeExtension`s (e.g. a semantic brand palette)
+  without a manual `copyWith(extensions: [...])` merge.
+* **Carousel layout helper** — new `carouselPageHeightForCards(...)` and public
+  `kUICarouselControlsFooterHeight` constant reduce the "card + footer +
+  controls" page-height boilerplate common in card carousels.
+* **Theme-aware image previews** — `UIImagePreviewFrame`, `imagePreviewImage`,
+  and `imagePreviewPlaceholder` now resolve their colors from the `Theme` when
+  overrides are omitted. `imagePreviewImage` is routed through `UIImage`, so it
+  inherits the kit's caching, `UIImageScope` builders, and error handling.
+* **Docs** — documented the "custom palette + custom extension" recipe, focused
+  (modular) import guidance for compile times, and `UISvgAssetIcon`'s scope as a
+  lightweight SVG renderer vs. `UIImage` + `UIImageScope`.
+
+### Breaking
+
+* `imagePreviewImage` no longer accepts `cacheWidth` / `cacheHeight`; `UIImage`
+  now derives memory cache dimensions automatically.
+
+## 1.1.1
+
+* **Form System Enhancements** — `UIForm` now supports advanced validation logic:
+  * **Auto-Focus on Error** — `validate()` now automatically identifies the first field with an error and requests focus (scrolling it into view).
+  * **Error Tracking** — New `errors` map in `UIFormState` providing instant access to all active validation messages.
+  * **Imperative Control** — Added `getFieldValue<T>()`, `resetField(name)`, and improved `reset()` to recapture initial state.
+* **Smart Glass Performance** — `UIGlassSurface` now intelligently detects device state in `auto` mode. It automatically falls back to `staticTint` if "Reduce Motion" or "Accessibility Navigation" is enabled at the OS level, ensuring smooth performance on all devices.
+* **Animation Wrapper** — New `UIAnimateWrapper` utility to easily apply professional staggered entrance animations (Slide + Fade + Scale) to any widget.
+* **Skeleton Loading** — Enhanced `UISkeletonPlaceholder` with dark-mode support and new convenience features:
+  * `UISkeletonPlaceholder.line()` and `UISkeletonPlaceholder.circle()` factories.
+  * `UISkeletonList` — A pre-built widget for displaying professional skeleton list loading states.
+* **Global Overlays** — New `UIOverlayUtil` for showing non-blocking global overlays (toasts, banners, etc.) without needing a `Navigator` context in every call.
+* **Accessibility & Contrast** — Added a built-in contrast ratio validator in the theme constructor. It now warns in the console during development if chosen palette colors (e.g., `primary` vs `onPrimary`) don't meet WCAG accessibility standards.
+* **Design Consistency** — Standardized all button metrics to an 8dp grid (56dp height, 12dp radius) and replaced hardcoded white text defaults with theme-aware `onPrimary` colors.
+
 ## 1.1.0
 
 * **Theming ergonomics** — new `UIAppTheme.fromSeed(Color)` and

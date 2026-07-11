@@ -42,6 +42,7 @@ class UIFormTextField extends StatelessWidget {
       validator: validator,
       enabled: enabled,
       builder: (state) {
+        final fieldState = state as UIFormFieldState<String>;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,6 +51,7 @@ class UIFormTextField extends StatelessWidget {
               const SizedBox(height: 8),
             ],
             TextFormField(
+              focusNode: fieldState.focusNode,
               initialValue: state.value,
               enabled: enabled,
               keyboardType: keyboardType,
@@ -129,6 +131,7 @@ class UIFormTextareaField extends StatelessWidget {
       validator: validator,
       enabled: enabled,
       builder: (state) {
+        final fieldState = state as UIFormFieldState<String>;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -137,6 +140,7 @@ class UIFormTextareaField extends StatelessWidget {
               const SizedBox(height: 8),
             ],
             TextFormField(
+              focusNode: fieldState.focusNode,
               initialValue: state.value,
               enabled: enabled,
               keyboardType: TextInputType.multiline,

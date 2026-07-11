@@ -70,6 +70,40 @@ void main() {
       expect(dark.brightness, Brightness.dark);
       expect(dark.scaffoldBackgroundColor, const Color(0xFF000000));
     });
+
+    test('buildUIKitTheme auto-picks the extension by brightness', () {
+      final dark = buildUIKitTheme(
+        brightness: Brightness.dark,
+        colors: UIThemePalette.dark,
+      );
+      final light = buildUIKitTheme(
+        brightness: Brightness.light,
+        colors: UIThemePalette.light,
+      );
+
+      expect(
+        dark.extension<UIThemeExtension>()!.chartBackground,
+        UIThemeExtension.dark.chartBackground,
+      );
+      expect(
+        light.extension<UIThemeExtension>()!.chartBackground,
+        UIThemeExtension.light.chartBackground,
+      );
+    });
+
+    test('extraExtensions are registered on the theme', () {
+      const metrics = UIMetrics(sectionHPad: 99);
+      final theme = UIAppTheme.custom(
+        brightness: Brightness.light,
+        colors: UIThemePalette.light,
+        extraExtensions: const [_AppTokens(brand: Color(0xFF123456))],
+      );
+
+      expect(theme.extension<_AppTokens>()?.brand, const Color(0xFF123456));
+      // Sanity: kit extensions still present alongside the extra one.
+      expect(theme.extension<UIThemeExtension>(), isNotNull);
+      expect(metrics.sectionHPad, 99);
+    });
   });
 
   group('UITypography', () {
@@ -106,4 +140,19 @@ void main() {
       expect(navTheme?.breadcrumbSpacing, 4);
     });
   });
+}
+
+class _AppTokens extends ThemeExtension<_AppTokens> {
+  const _AppTokens({required this.brand});
+
+  final Color brand;
+
+  @override
+  _AppTokens copyWith({Color? brand}) => _AppTokens(brand: brand ?? this.brand);
+
+  @override
+  _AppTokens lerp(ThemeExtension<_AppTokens>? other, double t) {
+    if (other is! _AppTokens) return this;
+    return _AppTokens(brand: Color.lerp(brand, other.brand, t)!);
+  }
 }

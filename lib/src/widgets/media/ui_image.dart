@@ -28,6 +28,7 @@ class UIImage extends StatelessWidget {
     this.placeholderPath,
     this.placeholderColor,
     this.showPlaceholder = false,
+    this.allowExtensionlessUrl = false,
     this.networkImageBuilder,
     this.svgBuilder,
   });
@@ -46,6 +47,12 @@ class UIImage extends StatelessWidget {
   final String? placeholderPath;
   final Color? placeholderColor;
   final bool showPlaceholder;
+
+  /// When `true`, network URLs without a recognized image file extension are
+  /// still treated as raster images (e.g. API/CDN URLs like
+  /// `https://cdn.example.com/media/abc123`). Defaults to `false`, which only
+  /// accepts URLs matching a known image extension.
+  final bool allowExtensionlessUrl;
 
   /// Optional per-widget override for [UIImageScope.networkImageBuilder].
   final UIImageNetworkBuilder? networkImageBuilder;
@@ -69,6 +76,7 @@ class UIImage extends StatelessWidget {
     String? placeholderPath,
     Color? placeholderColor,
     bool? showPlaceholder,
+    bool? allowExtensionlessUrl,
     UIImageNetworkBuilder? networkImageBuilder,
     UIImageSvgBuilder? svgBuilder,
   }) {
@@ -88,6 +96,7 @@ class UIImage extends StatelessWidget {
       placeholderPath: placeholderPath ?? this.placeholderPath,
       placeholderColor: placeholderColor ?? this.placeholderColor,
       showPlaceholder: showPlaceholder ?? this.showPlaceholder,
+      allowExtensionlessUrl: allowExtensionlessUrl ?? this.allowExtensionlessUrl,
       networkImageBuilder: networkImageBuilder ?? this.networkImageBuilder,
       svgBuilder: svgBuilder ?? this.svgBuilder,
     );
@@ -97,7 +106,8 @@ class UIImage extends StatelessWidget {
   bool get _isAssetSource => isAsset ?? source.trim().startsWith('assets/');
   bool get _isSvg => source.toLowerCase().endsWith('.svg');
   bool get _isBase64 => source.startsWith('data:image');
-  bool get _isValidNetworkFormat => _imageExtRegExp.hasMatch(source);
+  bool get _isValidNetworkFormat =>
+      allowExtensionlessUrl || _imageExtRegExp.hasMatch(source);
 
   ColorFilter? get _colorFilter =>
       color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null;

@@ -23,6 +23,26 @@ class UICarouselControlsColors {
     this.accent = const Color(0xFF4F46E5),
   });
 
+  /// Derives carousel control colors from the ambient [Theme].
+  ///
+  /// Maps nav surfaces to the card/divider colors, and active borders,
+  /// indicators, and glow to the color scheme's primary, so carousels match
+  /// the rest of the kit's theme-first widgets in both light and dark mode.
+  factory UICarouselControlsColors.fromTheme(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return UICarouselControlsColors(
+      navBackground: theme.cardColor,
+      navBorder: theme.dividerColor,
+      navBorderActive: scheme.primary,
+      navIcon: scheme.onSurface,
+      navIconDisabled: scheme.onSurface.withValues(alpha: 0.38),
+      indicatorActive: scheme.primary,
+      indicatorInactive: theme.dividerColor,
+      accent: scheme.primary,
+    );
+  }
+
   UICarouselControlsColors copyWith({
     Color? navBackground,
     Color? navBorder,

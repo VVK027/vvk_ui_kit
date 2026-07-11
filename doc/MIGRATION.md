@@ -2,6 +2,54 @@
 
 How to upgrade between `vvk_ui_kit` versions and adopt new APIs.
 
+## 1.1.x → 1.2.x
+
+### `buildUIKitTheme` picks the extension by brightness (behavior fix)
+
+`buildUIKitTheme`'s `extension` parameter is now optional. When omitted it
+resolves to `UIThemeExtension.dark` for dark themes and `UIThemeExtension.light`
+otherwise. If you called `buildUIKitTheme(brightness: Brightness.dark, ...)`
+without passing `extension`, dark themes now correctly use the dark surface /
+chart tokens instead of the light ones. Pass `extension:` explicitly to keep the
+old value.
+
+### Register app tokens with `extraExtensions` (non-breaking)
+
+```dart
+// Before
+final base = buildUIKitTheme(brightness: brightness, colors: appColors);
+final theme = base.copyWith(extensions: [...base.extensions.values, appColors]);
+
+// After
+final theme = buildUIKitTheme(
+  brightness: brightness,
+  colors: appColors,
+  extraExtensions: [appColors],
+);
+```
+
+Also available on `UIAppTheme.custom(..., extraExtensions: [...])` and
+`UIAppTheme.fromSeed(..., extraExtensions: [...])`.
+
+### Theme-first carousels (non-breaking)
+
+```dart
+// Derive controls colors from the theme instead of wiring each field.
+UISectionCarousel.fromTheme(context, pageCount: n, pageHeight: h, pageBuilder: ...);
+// or
+UICarouselControls(colors: UICarouselControlsColors.fromTheme(context), ...);
+```
+
+### `imagePreviewImage` signature (breaking)
+
+`imagePreviewImage` is now routed through `UIImage` and no longer accepts
+`cacheWidth` / `cacheHeight` — cache dimensions are derived automatically. Its
+color parameters (and those of `UIImagePreviewFrame` / `imagePreviewPlaceholder`)
+are now optional and resolve from the theme when omitted. Remove any
+`cacheWidth:` / `cacheHeight:` arguments at call sites.
+
+---
+
 ## 1.0.x → 1.1.x
 
 ### Minimum Flutter version

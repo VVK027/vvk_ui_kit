@@ -93,9 +93,10 @@ class UIStyledButtonStyle {
     FontWeight fontWeight = FontWeight.w600,
   }) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final metrics = context.uiButtonMetrics;
-    final primary = backgroundColor ?? theme.colorScheme.primary;
-    final onPrimary = foregroundColor ?? theme.colorScheme.onPrimary;
+    final primary = backgroundColor ?? scheme.primary;
+    final onPrimary = foregroundColor ?? scheme.onPrimary;
     return UIStyledButtonStyle(
       height: height ?? metrics.primaryHeight,
       borderRadius: borderRadius ?? metrics.primaryRadius,
@@ -156,9 +157,10 @@ class UIStyledButtonStyle {
     FontWeight fontWeight = FontWeight.w500,
   }) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final metrics = context.uiButtonMetrics;
-    final bg = backgroundColor ?? theme.colorScheme.primary;
-    final fg = foregroundColor ?? Colors.white;
+    final bg = backgroundColor ?? scheme.primary;
+    final fg = foregroundColor ?? scheme.onPrimary;
     return UIStyledButtonStyle(
       height: height ?? metrics.elevatedHeight,
       borderRadius: borderRadius ?? metrics.elevatedRadius,
@@ -293,7 +295,7 @@ class UIStyledButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isButtonDisabled = isDisabled || isLoading;
     final content = _buildButtonContent(isButtonDisabled);
-    final buttonWidget = _buildButtonWidget(content, isButtonDisabled);
+    final buttonWidget = _buildButtonWidget(context, content, isButtonDisabled);
 
     Widget result = SizedBox(
       height: style.height,
@@ -337,7 +339,11 @@ class UIStyledButton extends StatelessWidget {
     );
   }
 
-  Widget _buildButtonWidget(Widget content, bool isButtonDisabled) {
+  Widget _buildButtonWidget(
+    BuildContext context,
+    Widget content,
+    bool isButtonDisabled,
+  ) {
     final VoidCallback? finalOnPressed = isButtonDisabled
         ? null
         : (onPressed ?? () {});
@@ -362,7 +368,9 @@ class UIStyledButton extends StatelessWidget {
           side: BorderSide(color: style.outlineBorderColor),
           padding: width != null
               ? EdgeInsets.zero
-              : const EdgeInsets.symmetric(horizontal: 16),
+              : EdgeInsets.symmetric(
+                horizontal: context.uiButtonMetrics.horizontalPadding,
+              ),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: shape,
           overlayColor: Colors.transparent,
@@ -379,7 +387,9 @@ class UIStyledButton extends StatelessWidget {
         foregroundColor: style.foregroundColor,
         padding: width != null
             ? EdgeInsets.zero
-            : const EdgeInsets.symmetric(horizontal: 16),
+            : EdgeInsets.symmetric(
+              horizontal: context.uiButtonMetrics.horizontalPadding,
+            ),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: shape,
         disabledBackgroundColor: style.disabledBackgroundColor,

@@ -38,6 +38,17 @@ class UIFormState extends State<UIForm> {
   final Map<String, UIFormFieldState<dynamic>> _fields = {};
   bool _hasInteracted = false;
 
+  /// Returns the current validation errors for all fields.
+  Map<String, String> get errors {
+    final Map<String, String> errorMap = {};
+    _fields.forEach((name, field) {
+      if (field.hasError) {
+        errorMap[name] = field.errorText!;
+      }
+    });
+    return errorMap;
+  }
+
   AutovalidateMode get _materialAutovalidateMode {
     return switch (widget.autovalidateMode) {
       UIAutovalidateMode.disabled => AutovalidateMode.disabled,
@@ -51,7 +62,7 @@ class UIFormState extends State<UIForm> {
 
   void registerField(String name, UIFormFieldState<dynamic> field) {
     _fields[name] = field;
-    widget.onChanged?.call();
+    // Don't call onChanged here as it might trigger rebuilds during build phase
   }
 
   void unregisterField(String name) {
@@ -66,17 +77,46 @@ class UIFormState extends State<UIForm> {
     widget.onChanged?.call();
   }
 
+  /// Returns the current value of a field by [name].
+  T? getFieldValue<T>(String name) => _values[name] as T?;
+
+  /// Returns unmodifiable view of all field values.
   Map<String, dynamic> get values => Map.unmodifiable(_values);
 
-  bool validate() => _formKey.currentState?.validate() ?? false;
+  /// Validates all fields and optionally scrolls to/focuses the first error.
+  bool validate({bool focusError = true}) {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    
+    if (!isValid && focusError) {
+      // Find the first field with an error and request focus
+      for (final field in _fields.values) {
+        if (field.hasError) {
+          field.requestFocus();
+          break;
+        }
+      }
+    }
+    
+    return isValid;
+  }
 
   void save() => _formKey.currentState?.save();
 
+  /// Resets all fields to their initial values.
   void reset() {
     _formKey.currentState?.reset();
     _values.clear();
     _hasInteracted = false;
+    // Recapture initial values if any
+    for (final field in _fields.entries) {
+      _values[field.key] = field.value.value;
+    }
     widget.onChanged?.call();
+  }
+
+  /// Resets a specific field by [name].
+  void resetField(String name) {
+    _fields[name]?.reset();
   }
 
   @override
@@ -142,10 +182,12 @@ class UIFormField<T> extends FormField<T> {
 class UIFormFieldState<T> extends FormFieldState<T> {
   UIFormField<T> get _field => widget as UIFormField<T>;
   _UIFormScope? _scope;
+  late final FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => _register());
   }
 
@@ -163,6 +205,7 @@ class UIFormFieldState<T> extends FormFieldState<T> {
   @override
   void dispose() {
     _scope?.unregisterField(_field.name);
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -178,4 +221,12 @@ class UIFormFieldState<T> extends FormFieldState<T> {
     super.didChange(value);
     _scope?.setFieldValue(_field.name, value);
   }
+
+  /// Requests focus for this field.
+  void requestFocus() {
+    _focusNode.requestFocus();
+  }
+
+  /// Provides access to the focus node for the field's child.
+  FocusNode get focusNode => _focusNode;
 }

@@ -212,13 +212,13 @@ class DateTimeUtil {
   }
 
   /// Returns string in calendar format "yyyyMMdd".
-  static String convertBandReadableCalender(DateTime dateTime) {
+  static String convertDateTimeYearMonthDay(DateTime dateTime) {
     String calenderDate = DateFormat('yyyyMMdd').format(dateTime);
     return calenderDate;
   }
 
-  /// Parses band calendar strings produced by [convertBandReadableCalender].
-  static DateTime parseBandReadableCalender(String calender) {
+  /// Parses yyyyMMdd calendar strings produced by [convertDateTimeYearMonthDay].
+  static DateTime parseCalenderToDateTime(String calender) {
     return DateFormat('yyyyMMdd').parse(calender.trim());
   }
 

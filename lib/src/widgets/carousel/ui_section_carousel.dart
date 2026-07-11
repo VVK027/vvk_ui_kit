@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'ui_carousel_controls.dart';
+import 'ui_carousel_layout.dart';
 
 export 'package:vvk_ui_kit/src/widgets/carousel/ui_carousel_layout.dart';
 
@@ -25,6 +26,35 @@ class UISectionCarousel extends StatefulWidget {
     this.autoPlayInterval = const Duration(seconds: 1),
     this.controlsColors = const UICarouselControlsColors(),
   });
+
+  /// Builds a [UISectionCarousel] whose controls default to
+  /// [UICarouselControlsColors.fromTheme], so the nav buttons and indicators
+  /// match the ambient [Theme] without wiring each color by hand.
+  ///
+  /// Pass [controlsColors] to override the theme-derived palette.
+  factory UISectionCarousel.fromTheme(
+    BuildContext context, {
+    Key? key,
+    required int pageCount,
+    required IndexedWidgetBuilder pageBuilder,
+    required double pageHeight,
+    EdgeInsetsGeometry? padding,
+    bool autoPlay = false,
+    Duration autoPlayInterval = const Duration(seconds: 1),
+    UICarouselControlsColors? controlsColors,
+  }) {
+    return UISectionCarousel(
+      key: key,
+      pageCount: pageCount,
+      pageBuilder: pageBuilder,
+      pageHeight: pageHeight,
+      padding: padding,
+      autoPlay: autoPlay,
+      autoPlayInterval: autoPlayInterval,
+      controlsColors:
+          controlsColors ?? UICarouselControlsColors.fromTheme(context),
+    );
+  }
 
   UISectionCarousel copyWith({
     Key? key,
@@ -108,7 +138,7 @@ class _SectionCarouselState extends State<UISectionCarousel> {
   }
 
   /// Matches [UICarouselNavButton] height plus the gap above controls.
-  static const _controlsFooterHeight = 44.0 + 20.0;
+  static const _controlsFooterHeight = kUICarouselControlsFooterHeight;
 
   @override
   Widget build(BuildContext context) {

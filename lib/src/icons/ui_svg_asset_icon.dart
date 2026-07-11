@@ -16,6 +16,23 @@ import '../icons/ui_svg_image.dart';
 ///   color: Colors.blue,
 /// )
 /// ```
+///
+/// ## Capabilities & limitations
+///
+/// This is a **lightweight** SVG renderer built on the kit's own path parser —
+/// not a full [`flutter_svg`](https://pub.dev/packages/flutter_svg) replacement.
+/// It is tuned for simple, single-color icons (paths + basic shapes) such as
+/// brand/monochrome glyphs. Complex SVGs — gradients, masks, filters, embedded
+/// images, text nodes, or multi-color artwork — may render incorrectly or not
+/// at all.
+///
+/// Choosing a renderer:
+///
+/// * **`UISvgAssetIcon`** — simple, uniformly tinted icons where you want zero
+///   extra dependencies.
+/// * **`UIImage` + `UIImageScope`** — everything else. Wire a `flutter_svg`
+///   (or `cached_network_image`) builder through `UIImageScope` so `UIImage`
+///   handles complex/remote SVGs, caching, and error states consistently.
 class UISvgAssetIcon extends StatelessWidget {
   /// Creates a [UISvgAssetIcon].
   const UISvgAssetIcon({

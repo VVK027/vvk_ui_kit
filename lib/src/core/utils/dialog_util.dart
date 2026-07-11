@@ -5,6 +5,50 @@ import '../../widgets/dialogs/ui_list_dialog.dart';
 
 /// Utility class for showing common dialogs and overlays.
 class DialogUtil {
+  /// Shows [child] as a lightweight popup anchored at [position].
+  ///
+  /// Useful for anchored menus/pickers positioned relative to a tapped widget
+  /// (e.g. below a date-range selector). Uses a transparent barrier so taps
+  /// outside dismiss it. [elevation] and [borderRadius] style the surface;
+  /// [alignment] controls how [child] is anchored to [position].
+  static Future<T?> showAnchoredPopup<T>(
+    BuildContext context, {
+    required Widget child,
+    required Offset position,
+    double elevation = 4,
+    double borderRadius = 12,
+    Alignment alignment = Alignment.topLeft,
+    Color barrierColor = Colors.transparent,
+    bool barrierDismissible = true,
+    Duration transitionDuration = const Duration(milliseconds: 200),
+  }) {
+    return showGeneralDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      barrierLabel: 'Dismiss',
+      barrierColor: barrierColor,
+      transitionDuration: transitionDuration,
+      pageBuilder: (ctx, _, _) {
+        return Stack(
+          children: [
+            Positioned(
+              left: position.dx,
+              top: position.dy,
+              child: FractionalTranslation(
+                translation: Offset(-alignment.x.clamp(0.0, 1.0).toDouble(), 0),
+                child: Material(
+                  elevation: elevation,
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  child: child,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   /// Shows a generic [widget] as a dialog.
   static Future<T?> showWidgetAsDialog<T>(
     BuildContext context,
