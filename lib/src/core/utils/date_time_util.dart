@@ -3,6 +3,17 @@ import 'package:intl/intl.dart';
 
 import 'log_util.dart';
 
+final Map<String, DateFormat> _dateFormatCache = {};
+final NumberFormat _numberFormatEnUs = NumberFormat('#,###', 'en_US');
+
+DateFormat _cachedDateFormat(String pattern, [String? locale]) {
+  final key = '$pattern|${locale ?? ''}';
+  return _dateFormatCache.putIfAbsent(
+    key,
+    () => DateFormat(pattern, locale),
+  );
+}
+
 /// Utility class for date and time formatting and manipulation.
 class DateTimeUtil {
   /// Default format for dates: yyyy-MM-dd
@@ -38,9 +49,42 @@ class DateTimeUtil {
   /// Short month name format.
   static const String formatMMM = 'MMM';
 
+  static final RegExp _timezoneSuffixPattern =
+      RegExp(r'([zZ]|[+-]\d{2}:?\d{2})$');
+
   /// Converts a UTC [DateTime] to local time.
-  static DateTime convertDateToLocal(DateTime dateTime) {
-    return DateTime.parse('$dateTime${'Z'}').toLocal();
+  static DateTime convertDateToLocal(DateTime dateTime) =>
+      dateTime.isUtc ? dateTime.toLocal() : dateTime;
+
+  /// Parses API date strings that may already include a UTC suffix.
+  static DateTime parseUtcDateTime(
+    String value, {
+    bool localized = true,
+  }) {
+    final String normalized = normalizeUtcDateString(value, localized: localized);
+    return DateTime.parse(normalized);
+  }
+
+  /// Ensures UTC strings are parseable without duplicating timezone suffixes.
+  static String normalizeUtcDateString(
+    String value, {
+    bool localized = true,
+  }) {
+    var trimmed = value.trim();
+    if (trimmed.isEmpty) {
+      return trimmed;
+    }
+
+    if (!localized) {
+      return trimmed;
+    }
+
+    while (trimmed.endsWith('ZZ') || trimmed.endsWith('zz')) {
+      trimmed = trimmed.substring(0, trimmed.length - 1);
+    }
+
+    final bool hasTimezone = _timezoneSuffixPattern.hasMatch(trimmed);
+    return hasTimezone ? trimmed : '${trimmed}Z';
   }
 
   /// Returns a formatted date string.
@@ -50,17 +94,16 @@ class DateTimeUtil {
     bool localized = true,
     String? locale,
   }) {
+    if (dateTime == null) {
+      return '';
+    }
     try {
-      return getFormatDayMonthYearHourMinSec(
-        dateTime.toString(),
-        format: format,
-        localized: localized,
-        locale: locale,
-      );
+      final value = localized && dateTime.isUtc ? dateTime.toLocal() : dateTime;
+      return _cachedDateFormat(format, locale).format(value);
     } catch (e) {
       LogUtil.logDefaultMsg('DateTimeUtil.getFormattedDate', e);
+      return dateTime.toString();
     }
-    return dateTime?.toString() ?? '';
   }
 
   /// Parses and formats a date string.
@@ -72,10 +115,9 @@ class DateTimeUtil {
   }) {
     try {
       if (dateTime != null) {
-        return DateFormat(
-          format,
-          locale,
-        ).format(DateTime.parse('$dateTime${localized ? 'Z' : ''}').toLocal());
+        return _cachedDateFormat(format, locale).format(
+          parseUtcDateTime(dateTime, localized: localized).toLocal(),
+        );
       }
     } catch (e) {
       LogUtil.logDefaultMsg('DateTimeUtil.getFormatDayMonthYearHourMinSec', e);
@@ -85,7 +127,7 @@ class DateTimeUtil {
 
   /// Formats a [DateTime] using [formatYearMonthDayHourMinSec].
   static String getFormatYearMonthDayHourMinSec(DateTime dateTime) {
-    return DateFormat(formatYearMonthDayHourMinSec).format(dateTime);
+    return _cachedDateFormat(formatYearMonthDayHourMinSec).format(dateTime);
   }
 
   /// Adds a number of months to a [DateTime].
@@ -113,12 +155,14 @@ class DateTimeUtil {
 
   /// Returns the current local time formatted as [formatHourMinAmPm].
   static String getCurrentHourMin() {
-    return DateFormat(formatHourMinAmPm).format(DateTime.now().toLocal());
+    return _cachedDateFormat(formatHourMinAmPm).format(DateTime.now().toLocal());
   }
 
   /// Returns the current UTC time formatted as [defaultDateTimeParseFormat].
   static String getCurrentUTCDateTime() {
-    return DateFormat(defaultDateTimeParseFormat).format(DateTime.timestamp());
+    return _cachedDateFormat(defaultDateTimeParseFormat).format(
+      DateTime.timestamp(),
+    );
   }
 
   /// Checks if two dates fall in the same month and year.
@@ -213,13 +257,12 @@ class DateTimeUtil {
 
   /// Returns string in calendar format "yyyyMMdd".
   static String convertDateTimeYearMonthDay(DateTime dateTime) {
-    String calenderDate = DateFormat('yyyyMMdd').format(dateTime);
-    return calenderDate;
+    return _cachedDateFormat('yyyyMMdd').format(dateTime);
   }
 
   /// Parses yyyyMMdd calendar strings produced by [convertDateTimeYearMonthDay].
   static DateTime parseCalenderToDateTime(String calender) {
-    return DateFormat('yyyyMMdd').parse(calender.trim());
+    return _cachedDateFormat('yyyyMMdd').parse(calender.trim());
   }
 
   /// Converts minutes to "HH:mm" format.
@@ -239,10 +282,7 @@ class DateTimeUtil {
   }
 
   /// Formats a number with comma separators.
-  static String formatNumber(int number) {
-    var f = NumberFormat("#,###", "en_US");
-    return f.format(number);
-  }
+  static String formatNumber(int number) => _numberFormatEnUs.format(number);
 
   /// Returns the current Unix timestamp in seconds.
   static int currentTimeStamp() =>
@@ -419,13 +459,13 @@ extension DateTimeExtension on DateTime {
   ///
   /// Set [isHalfName] to `true` for abbreviated names (e.g. "Mon").
   String weekdayName({bool isHalfName = false}) =>
-      DateFormat(isHalfName ? 'EEE' : 'EEEE').format(this);
+      _cachedDateFormat(isHalfName ? 'EEE' : 'EEEE').format(this);
 
   /// Returns the month name for this date.
   ///
   /// Set [isHalfName] to `true` for abbreviated names (e.g. "Jan").
   String monthName({bool isHalfName = false}) =>
-      DateFormat(isHalfName ? 'MMM' : 'MMMM').format(this);
+      _cachedDateFormat(isHalfName ? 'MMM' : 'MMMM').format(this);
 
   /// Returns the time in 12-hour AM/PM format (e.g. "02:30 Pm").
   String toTimeAmPm() {
@@ -486,18 +526,28 @@ extension DateTimeExtension on DateTime {
 
   /// Returns elapsed months between this date and [differenceDateTime].
   int countMonths([DateTime? differenceDateTime]) {
-    final difference =
-        (differenceDateTime ?? DateTime.now()).millisecondsSinceEpoch -
-        millisecondsSinceEpoch;
-    return (difference / 2628003000).round();
+    final other = differenceDateTime ?? DateTime.now();
+    final sign = isAfter(other) ? -1 : 1;
+    final from = sign < 0 ? other : this;
+    final to = sign < 0 ? this : other;
+    var months = (to.year - from.year) * 12 + (to.month - from.month);
+    if (to.day < from.day) {
+      months--;
+    }
+    return sign * months;
   }
 
   /// Returns elapsed years between this date and [differenceDateTime].
   int countYears([DateTime? differenceDateTime]) {
-    final difference =
-        (differenceDateTime ?? DateTime.now()).millisecondsSinceEpoch -
-        millisecondsSinceEpoch;
-    return (difference / 31536000000).truncate();
+    final other = differenceDateTime ?? DateTime.now();
+    final sign = isAfter(other) ? -1 : 1;
+    final from = sign < 0 ? other : this;
+    final to = sign < 0 ? this : other;
+    var years = to.year - from.year;
+    if (to.month < from.month || (to.month == from.month && to.day < from.day)) {
+      years--;
+    }
+    return sign * years;
   }
 
   /// Builds a UTC [DateTime] using this date's components.

@@ -36,6 +36,38 @@ void main() {
       expect(DateTimeUtil.formatNumber(1000), '1,000');
       expect(DateTimeUtil.formatNumber(1000000), '1,000,000');
     });
+
+    test('convertDateToLocal converts UTC without string round-trip', () {
+      final utc = DateTime.utc(2023, 10, 27, 10, 30);
+      final local = DateTimeUtil.convertDateToLocal(utc);
+      expect(local.isUtc, isFalse);
+      expect(local, utc.toLocal());
+
+      final alreadyLocal = DateTime(2023, 10, 27, 10, 30);
+      expect(DateTimeUtil.convertDateToLocal(alreadyLocal), alreadyLocal);
+    });
+
+    test('getFormattedDate formats DateTime directly', () {
+      final dateTime = DateTime(2023, 10, 27, 14, 30);
+      final formatted = DateTimeUtil.getFormattedDate(
+        dateTime,
+        format: DateTimeUtil.formatYearMonthDayHourMinSec,
+        localized: false,
+      );
+      expect(formatted, '2023-10-27 14:30:00');
+    });
+
+    test('countMonths and countYears use calendar math', () {
+      final from = DateTime(2022, 1, 15);
+      final to = DateTime(2024, 3, 15);
+
+      expect(from.countMonths(to), 26);
+      expect(from.countYears(to), 2);
+      expect(to.countMonths(from), -26);
+      expect(to.countYears(from), -2);
+
+      expect(from.countMonths(DateTime(2024, 3, 10)), 25);
+    });
   });
 
   group('JsonUtils', () {
