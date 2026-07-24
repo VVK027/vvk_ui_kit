@@ -24,6 +24,16 @@ extension ColorExtensions on Color {
   /// `true` when perceived luminance is at or above 0.5.
   bool get isLight => !isDark;
 
+  /// Calculates the contrast ratio between this color and [other] according to
+  /// WCAG 2.0. The result is between 1.0 (no contrast) and 21.0 (max contrast).
+  double contrastRatio(Color other) {
+    final l1 = computeLuminance();
+    final l2 = other.computeLuminance();
+    final brightest = l1 > l2 ? l1 : l2;
+    final darkest = l1 > l2 ? l2 : l1;
+    return (brightest + 0.05) / (darkest + 0.05);
+  }
+
   /// Returns this color as a hex string (e.g. `#FF112233`).
   ///
   /// Set [includeAlpha] to `false` to omit the alpha channel.

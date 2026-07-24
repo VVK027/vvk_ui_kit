@@ -10,6 +10,7 @@
 /// ```
 library;
 
+export 'src/core/theme/ui_theme_tokens.dart';
 export 'src/core/theme/ui_breakpoints.dart';
 export 'src/core/theme/ui_component_themes.dart';
 export 'src/core/theme/ui_shadows.dart';

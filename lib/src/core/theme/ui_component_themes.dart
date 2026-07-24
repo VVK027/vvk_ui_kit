@@ -62,12 +62,12 @@ class UIButtonTheme extends ThemeExtension<UIButtonTheme> {
     this.borderRadius = 12,
     this.height = 48,
     this.horizontalPadding = 20,
-    this.primaryHeight = 61,
-    this.primaryRadius = 5,
-    this.outlinedHeight = 61,
-    this.outlinedRadius = 5,
+    this.primaryHeight = 56, // Standard large button height
+    this.primaryRadius = 12,
+    this.outlinedHeight = 56,
+    this.outlinedRadius = 12,
     this.elevatedHeight = 56,
-    this.elevatedRadius = 8,
+    this.elevatedRadius = 12,
     this.textHeight = 44,
     this.textRadius = 8,
   });

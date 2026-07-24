@@ -316,7 +316,7 @@ class _InputsShowcaseState extends State<InputsShowcase> {
             child: UISettingsNavigationTile(
               title: 'Account',
               onTap: () {},
-              leading: settingsMaterialIconLeading(context, icon: Icons.person),
+              leading: UISettingsTiles.materialIconLeading(context, icon: Icons.person),
             ),
           ),
           ShowcaseTile(

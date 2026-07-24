@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../text/ui_text.dart';
 
 /// Message category for [UISnackbar].
-enum UISnackbarType { success, error }
+enum UISnackbarType { showDefault, success, error }
 
 /// Visual styling for [UISnackbar].
 class UISnackbarStyle {
@@ -14,6 +14,7 @@ class UISnackbarStyle {
     required this.successColor,
     required this.errorColor,
     required this.closeIconColor,
+    this.borderRadius = 8.0,
   });
 
   final Color backgroundColor;
@@ -21,6 +22,7 @@ class UISnackbarStyle {
   final Color successColor;
   final Color errorColor;
   final Color closeIconColor;
+  final double borderRadius;
 
   /// Builds a theme-driven style from the ambient [Theme], keeping [UISnackbar]
   /// consistent with the kit's theme-first factory convention. Any parameter
@@ -32,18 +34,25 @@ class UISnackbarStyle {
     Color? successColor,
     Color? errorColor,
     Color? closeIconColor,
+    double? borderRadius,
   }) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final snackBarTheme = theme.snackBarTheme;
     return UISnackbarStyle(
-      backgroundColor: backgroundColor ?? scheme.surface,
+      backgroundColor:
+          backgroundColor ??
+          snackBarTheme.backgroundColor ??
+          scheme.inverseSurface,
       textStyle:
           textStyle ??
-          theme.textTheme.bodyMedium?.copyWith(color: scheme.onSurface) ??
-          TextStyle(color: scheme.onSurface),
+          snackBarTheme.contentTextStyle ??
+          theme.textTheme.bodyMedium?.copyWith(color: scheme.onInverseSurface) ??
+          TextStyle(color: scheme.onInverseSurface),
       successColor: successColor ?? scheme.primary,
       errorColor: errorColor ?? scheme.error,
-      closeIconColor: closeIconColor ?? scheme.onSurface,
+      closeIconColor: closeIconColor ?? scheme.onInverseSurface,
+      borderRadius: borderRadius ?? 4.0,
     );
   }
 
@@ -53,6 +62,7 @@ class UISnackbarStyle {
     Color? successColor,
     Color? errorColor,
     Color? closeIconColor,
+    double? borderRadius,
   }) {
     return UISnackbarStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -60,6 +70,7 @@ class UISnackbarStyle {
       successColor: successColor ?? this.successColor,
       errorColor: errorColor ?? this.errorColor,
       closeIconColor: closeIconColor ?? this.closeIconColor,
+      borderRadius: borderRadius ?? this.borderRadius,
     );
   }
 }
@@ -106,6 +117,65 @@ class UISnackbar {
 
     _entry = entry;
     overlay.insert(entry);
+  }
+
+  /// Shows a standard [ScaffoldMessenger] snackbar (typically at the bottom).
+  ///
+  /// This integrates with Flutter's native snackbar system while using the kit's
+  /// [UISnackbarStyle].
+  static void showMessenger({
+    required BuildContext context,
+    required String message,
+    UISnackbarStyle? style,
+    UISnackbarType type = UISnackbarType.showDefault,
+    SnackBarAction? action,
+    Duration duration = const Duration(seconds: 4),
+    SnackBarBehavior behavior = SnackBarBehavior.floating,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+  }) {
+    final resolvedStyle = style ?? UISnackbarStyle.fromTheme(context);
+    final bool isDefaultType = type == UISnackbarType.showDefault;
+    final Color? borderColor = isDefaultType
+        ? null
+        : switch (type) {
+            UISnackbarType.success => resolvedStyle.successColor,
+            UISnackbarType.error => resolvedStyle.errorColor,
+            UISnackbarType.showDefault => null,
+          };
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: UIText(
+          message,
+          style: resolvedStyle.textStyle,
+          color: resolvedStyle.textStyle.color,
+        ),
+        backgroundColor: resolvedStyle.backgroundColor,
+        duration: duration,
+        action: action,
+        behavior: behavior,
+        margin: margin,
+        padding: padding,
+        shape: borderColor == null
+            ? RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(resolvedStyle.borderRadius),
+              )
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(resolvedStyle.borderRadius),
+                side: BorderSide(color: borderColor, width: 1.2),
+              ),
+      ),
+    );
+  }
+
+  /// Alias for [showMessenger] to show a default bottom-aligned snackbar.
+  static void showDefault({
+    required BuildContext context,
+    required String message,
+    UISnackbarType type = UISnackbarType.showDefault,
+  }) {
+    showMessenger(context: context, message: message, type: type);
   }
 
   static void dismiss() {
@@ -185,9 +255,14 @@ class _UISnackbarOverlayState extends State<_UISnackbarOverlay>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.type == UISnackbarType.success
-        ? widget.style.successColor
-        : widget.style.errorColor;
+    final Color borderColor;
+    if (widget.type == UISnackbarType.success) {
+      borderColor = widget.style.successColor;
+    } else if (widget.type == UISnackbarType.error) {
+      borderColor = widget.style.errorColor;
+    } else {
+      borderColor = Theme.of(context).dividerColor;
+    }
 
     return Positioned(
       top: 0,
@@ -210,8 +285,8 @@ class _UISnackbarOverlayState extends State<_UISnackbarOverlay>
                   ),
                   decoration: BoxDecoration(
                     color: widget.style.backgroundColor,
-                    border: Border.all(color: color, width: 1.2),
-                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: borderColor, width: 1.2),
+                    borderRadius: BorderRadius.circular(widget.style.borderRadius),
                   ),
                   child: Row(
                     children: [

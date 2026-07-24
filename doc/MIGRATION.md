@@ -2,6 +2,127 @@
 
 How to upgrade between `vvk_ui_kit` versions and adopt new APIs.
 
+## 1.3.x → 1.4.x
+
+### DWM tab helpers (non-breaking)
+
+Day / Week / Month tab utilities are now part of the public API:
+
+```dart
+import 'package:vvk_ui_kit/tabs.dart'; // or vvk_ui_kit.dart
+
+final tabs = buildDwmTabs(dayLabel: 'Day', weekLabel: 'Week', monthLabel: 'Month');
+final tabBar = buildDwmTabBar(context, tabs: tabs);
+```
+
+Remove any local copies of these helpers from host apps.
+
+### `UILoadingOverlay.scoped` (non-breaking)
+
+For blocking overlays without underlying content:
+
+```dart
+UILoadingOverlay.scoped(
+  visible: isLoading,
+  message: 'Please wait…',
+)
+```
+
+### Dark theme contrast (behavior fix)
+
+`buildUIKitTheme` now derives `onPrimary` / `onSecondary` from accent luminance
+instead of reusing `textPrimary` in dark mode. Primary buttons and FABs should
+meet WCAG contrast expectations without per-app overrides.
+
+### API naming consistency (non-breaking deprecations)
+
+| Deprecated | Replacement | Removed in |
+|------------|-------------|------------|
+| `SegmentOrder` | `UISegmentOrder` | 2.0.0 |
+| `BatteryIndicatorStyle` | `UIBatteryIndicatorStyle` | 2.0.0 |
+| `settingsMaterialIconLeading` | `UISettingsTiles.materialIconLeading` | 2.0.0 |
+
+### App bar typedefs (non-breaking)
+
+```dart
+UIAppBar.accent(title: 'Details', accentColor: color); // preferred
+// UIAccentAppBar is a typedef alias for discoverability
+```
+
+---
+
+## Migrating from `flutter_ui_kit`
+
+If you previously used the older `flutter_ui_kit` package (unprefixed widget
+names and product-specific theme types), adopt these replacements:
+
+| Old (`flutter_ui_kit`) | New (`vvk_ui_kit`) |
+|------------------------|-------------------|
+| `BandFitTheme` / `AppTheme` wrapper | `UIAppTheme` |
+| `BandFitColors` | `UIThemePalette` or app `ThemeExtension` via `extraExtensions` |
+| `BandFitThemeExtension` | `UIThemeExtension` / `context.uiTheme` |
+| `StatusBanner` | `UIStatusBanner` |
+| `LoadingOverlay` | `UILoadingOverlay` |
+| `ScopedLoadingOverlay` | `UILoadingOverlay.scoped` |
+| `AccentAppBar` / `BrandAppBar` | `UIAppBar.accent` / `UIAppBar.brand` |
+| `buildDwmTabs` (local copy) | `buildDwmTabs` from `package:vvk_ui_kit/tabs.dart` |
+| `convertBandReadableCalender` | `DateTimeUtil.convertDateTimeYearMonthDay` |
+| `parseBandReadableCalender` | `DateTimeUtil.parseCalenderToDateTime` |
+
+Host apps should keep product-specific wrappers (e.g. `VitalStatCard`) in the
+app layer — do not expect domain widgets in the kit. See
+[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md#host-app-adapters).
+
+---
+
+## 1.1.x → 1.2.x
+
+### `buildUIKitTheme` picks the extension by brightness (behavior fix)
+
+`buildUIKitTheme`'s `extension` parameter is now optional. When omitted it
+resolves to `UIThemeExtension.dark` for dark themes and `UIThemeExtension.light`
+otherwise. If you called `buildUIKitTheme(brightness: Brightness.dark, ...)`
+without passing `extension`, dark themes now correctly use the dark surface /
+chart tokens instead of the light ones. Pass `extension:` explicitly to keep the
+old value.
+
+### Register app tokens with `extraExtensions` (non-breaking)
+
+```dart
+// Before
+final base = buildUIKitTheme(brightness: brightness, colors: appColors);
+final theme = base.copyWith(extensions: [...base.extensions.values, appColors]);
+
+// After
+final theme = buildUIKitTheme(
+  brightness: brightness,
+  colors: appColors,
+  extraExtensions: [appColors],
+);
+```
+
+Also available on `UIAppTheme.custom(..., extraExtensions: [...])` and
+`UIAppTheme.fromSeed(..., extraExtensions: [...])`.
+
+### Theme-first carousels (non-breaking)
+
+```dart
+// Derive controls colors from the theme instead of wiring each field.
+UISectionCarousel.fromTheme(context, pageCount: n, pageHeight: h, pageBuilder: ...);
+// or
+UICarouselControls(colors: UICarouselControlsColors.fromTheme(context), ...);
+```
+
+### `imagePreviewImage` signature (breaking)
+
+`imagePreviewImage` is now routed through `UIImage` and no longer accepts
+`cacheWidth` / `cacheHeight` — cache dimensions are derived automatically. Its
+color parameters (and those of `UIImagePreviewFrame` / `imagePreviewPlaceholder`)
+are now optional and resolve from the theme when omitted. Remove any
+`cacheWidth:` / `cacheHeight:` arguments at call sites.
+
+---
+
 ## 1.0.x → 1.1.x
 
 ### Minimum Flutter version
@@ -62,6 +183,9 @@ import '../test_assets.dart'; // kTestSvgAsset
 | `UIAppBar.secondary` | `UIAppBar.brand` | 0.0.3 |
 | `UICustomMessageDialog.show` | `UICustomMessageDialog.simple` | 0.0.3 |
 | `StringUtils.removeTrailingDot` | `StringUtils.removeTrailingDots` | 0.0.2 |
+| `SegmentOrder` | `UISegmentOrder` | 1.4.0 |
+| `BatteryIndicatorStyle` | `UIBatteryIndicatorStyle` | 1.4.0 |
+| `settingsMaterialIconLeading` | `UISettingsTiles.materialIconLeading` | 1.4.0 |
 
 Search your codebase:
 

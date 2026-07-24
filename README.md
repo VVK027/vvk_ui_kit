@@ -13,15 +13,15 @@ See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for integration p
 ## Features
 
 - **Theming** — `UIAppTheme` with semantic color tokens (`UIThemePalette`, `UIThemeExtension`, `UIMetrics`) and built-in light/dark presets (teal, zinc, slate, stone). Includes easy-to-use typography and shadow presets.
-- **Animation** — `UITapGuard` for debouncing taps, `UIAvatarGlow`, `AnimatedGestureDetector`, and staggered entrance animations for lists and grids.
+- **Animation** — `UIAnimateWrapper` for entry animations, `UITapGuard` for debouncing taps, `UIAvatarGlow`, `AnimatedGestureDetector`, and staggered entrance animations for lists and grids.
 - **Buttons** — `UIStyledButton` with variants, plus primary/elevated/icon/image buttons, `UIGradientButton`, `UISliderButton`, `UISplitButton`, `UIGlassButton`, and `UISocialAuthButton`.
 - **Accordion, cards & clips** — expansion accordions, `UICard`, `UIAnimatedFlipCard`, `UIHexagon`, `UISharpCorners`, `UITicketClip`, `UICouponClip`, `UICouponCard`.
 - **Carousel** — `UICarouselWithIndicator`, `UISectionCarousel`, `UICarouselControls`, nav buttons, and page indicators.
-- **Decoration & glass** — gradient widgets, dotted borders, corner ribbons, and frosted `UIGlassSurface` / `UIGlassCard` / `UIGlassScaffold` family.
+- **Decoration & glass** — gradient widgets, dotted borders, corner ribbons, and frosted `UIGlassSurface` / `UIGlassCard` / `UIGlassScaffold` family with smart performance auto-fallback.
 - **Display & rating** — stat cards, banners, progress bars, `UICommandBar`, `UIAnimatedCounter`, `UITextAvatar`, `UIStackBadge`, `UITimerBuilder`, `UIBatteryIndicator`, and `UIRatingBar`.
 - **Dialogs** — shell dialogs, adaptive alert/action sheets, Cupertino sheets, image picker, and bottom sheets.
-- **Feedback** — snackbars, badges, empty states, tooltips, `UIPopover`, and guided `UITourController` with spotlight overlay.
-- **Forms & inputs** — form fields, `UIForm`, dropdowns, searchable hierarchy dropdowns, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, OTP, sliders, calendar/date/time pickers, and settings tiles.
+- **Feedback** — snackbars, badges, empty states, tooltips, `UIPopover`, `UISkeletonList`, and guided `UITourController` with spotlight overlay.
+- **Forms & inputs** — `UIForm` with auto-focus error tracking, form fields, dropdowns, searchable hierarchy dropdowns, `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, OTP, sliders, calendar/date/time pickers, and settings tiles.
 - **Layout & responsive** — dividers, separated rows/columns, `UIPageScaffold`, `UIExpandableFloatingPanel`, `UIDynamicOverflow`, keyboard dismiss area, `UIPortal` for overlays, and `Responsive` helpers.
 - **Lists** — `UISwipeActionTile` with custom drag actions.
 - **Loading** — shimmer containers, overlays, page loading, and load-more helpers.
@@ -30,7 +30,7 @@ See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for integration p
 - **Selection & states** — list tile select, pill switch, rounded checkbox, radio groups, error states.
 - **Tabs** — `UITabBar`, `UISegmentedTabBar`, `UIButtonsTab`.
 - **Text & icons** — `UIText`, rich/read-more/marquee text, SVG rendering, social auth icons, and text row helpers.
-- **Utilities** — `NavigationUtil`, `DialogUtil`, `DateTimeUtil`, `JsonUtils`, `JsonHelper`, `Mapper`, `Translations`, `TranslationCache`, and Dart extensions.
+- **Utilities** — `UIOverlayUtil`, `NavigationUtil`, `DialogUtil`, `DateTimeUtil`, `JsonUtils`, `JsonHelper`, `Mapper`, `Translations`, `TranslationCache`, and Dart extensions.
 
 ## Getting started
 
@@ -49,7 +49,7 @@ Showcase sections: Core utilities, Buttons, Animation, Accordion/cards/clips, Ca
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^1.1.0
+  vvk_ui_kit: latest
 ```
 
 ### Theme setup
@@ -199,19 +199,19 @@ Tests are organized under `test/` by category — buttons, inputs, dialogs, feed
 | Category | Key components |
 | :--- | :--- |
 | **Theming** | `UIAppTheme`, `UIThemePalette`, `UIThemeExtension`, `UIMetrics`, `UITypography` |
-| **Animation** | `UITapGuard`, `UIAvatarGlow`, `AnimatedGestureDetector`, `UIEntranceAnimation` |
+| **Animation** | `UIAnimateWrapper`, `UITapGuard`, `UIAvatarGlow`, `AnimatedGestureDetector`, `UIEntranceAnimation` |
 | **Buttons** | `UIStyledButton`, `UISplitButton`, `UIGlassButton`, `UISocialAuthButton`, `UISliderButton` |
 | **Cards & clips** | `UICard`, `UIAnimatedFlipCard`, `UICouponCard`, `UITicketClip`, `UIHexagon` |
 | **Glass** | `UIGlassSurface`, `UIGlassCard`, `UIGlassScaffold`, `UIGlassAppBar`, `UIGlassBottomNavBar` |
 | **Display & rating** | `UICommandBar`, `UIAnimatedCounter`, `UIRatingBar`, `UITextAvatar`, `UIBatteryIndicator` |
-| **Feedback** | `UITourController`, `UIPopover`, `UIBadge`, `UISkeletonPlaceholder`, `UISnackbar` |
+| **Feedback** | `UITourController`, `UIPopover`, `UIBadge`, `UISkeletonPlaceholder`, `UISkeletonList`, `UISnackbar` |
 | **Dialogs** | `showUIAdaptiveAlertDialog`, `showUIAdaptiveActionSheet`, `showUISheet`, `UIShellDialog` |
 | **Inputs** | `UISearchBar`, `UITagInput`, `UINumberField`, `UIColorPicker`, `UIForm`, `UIInputOTP` |
 | **Layout** | `UIPageScaffold`, `UISeparatedRow`, `UIExpandableFloatingPanel`, `UIPortal`, `UIDynamicOverflow` |
 | **Navigation** | `UIBottomNavyBar`, `UIMenuBar`, `UITreeView`, `UIDoubleBackToExit`, `UIFloatingBottomBar` |
 | **Media** | `UIImage`, `UIImageScope`, `UIImagePreviewFrame`, `UISvgImage` |
 | **Lists** | `UISwipeActionTile` |
-| **Utilities** | `NavigationUtil`, `JsonUtils`, `JsonHelper`, `Mapper`, `Translations`, `DateTimeUtil` |
+| **Utilities** | `UIOverlayUtil`, `NavigationUtil`, `JsonUtils`, `JsonHelper`, `Mapper`, `Translations`, `DateTimeUtil` |
 
 ## Public API
 
@@ -219,7 +219,11 @@ All public symbols are exported from `package:vvk_ui_kit/vvk_ui_kit.dart`. Inter
 
 ### Modular imports
 
-Import only what you need:
+The full barrel (`vvk_ui_kit.dart`) re-exports every widget, so a file that only
+needs theming still pulls the whole surface into analysis. In larger apps,
+prefer the focused entry points below — e.g. `theme.dart`, `widgets.dart`
+(carousel/display/cards), `media.dart`, and `navigation.dart` — to keep imports
+tight and help incremental compile times. Import only what you need:
 
 | Entry point | Contents |
 |-------------|----------|
@@ -236,6 +240,12 @@ Import only what you need:
 | `package:vvk_ui_kit/core.dart` | Extensions, JSON/navigation/translation utils |
 
 See [doc/IMPLEMENTATION_GUIDE.md](doc/IMPLEMENTATION_GUIDE.md) for detailed integration guidance and [doc/MIGRATION.md](doc/MIGRATION.md) for upgrade notes.
+
+## Support
+
+If this package helps you ship faster, consider supporting its development:
+
+<a href="https://buymeacoffee.com/vvk27" target="_blank">☕ Buy Me a Coffee</a>
 
 ## License
 

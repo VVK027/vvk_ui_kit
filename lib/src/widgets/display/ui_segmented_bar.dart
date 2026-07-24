@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Sort order applied when painting [UISegmentedBar] segments.
-enum SegmentOrder { ascending, descending, none }
+enum UISegmentOrder { ascending, descending, none }
 
 /// One proportional segment in a [UISegmentedBar].
 class UISegmentValue {
@@ -33,7 +33,7 @@ class UISegmentedBar extends StatelessWidget {
   final double radius;
   final List<UISegmentValue> segments;
   final double segmentLimit;
-  final SegmentOrder order;
+  final UISegmentOrder order;
   final Color background;
 
   UISegmentedBar copyWith({
@@ -43,7 +43,7 @@ class UISegmentedBar extends StatelessWidget {
     double? radius,
     List<UISegmentValue>? segments,
     double? segmentLimit,
-    SegmentOrder? order,
+    UISegmentOrder? order,
     Color? background,
   }) {
     return UISegmentedBar(
@@ -69,11 +69,11 @@ class UISegmentedBar extends StatelessWidget {
   List<UISegmentValue> _orderedSegments() {
     final ordered = List<UISegmentValue>.from(segments);
     switch (order) {
-      case SegmentOrder.ascending:
+      case UISegmentOrder.ascending:
         ordered.sort((a, b) => a.size.compareTo(b.size));
-      case SegmentOrder.descending:
+      case UISegmentOrder.descending:
         ordered.sort((a, b) => b.size.compareTo(a.size));
-      case SegmentOrder.none:
+      case UISegmentOrder.none:
         break;
     }
     return ordered;

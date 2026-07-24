@@ -18,6 +18,7 @@ export 'src/widgets/navigation/ui_title_with_bordered_line.dart';
 export 'src/widgets/navigation/ui_title_with_switch.dart';
 export 'src/widgets/navigation/ui_tree_view.dart';
 export 'src/widgets/tabs/ui_buttons_tab.dart';
+export 'src/widgets/tabs/ui_dwm_tabs.dart';
 export 'src/widgets/tabs/ui_segmented_tab_bar.dart';
 export 'src/widgets/tabs/ui_tab_bar.dart';
 export 'src/widgets/glass/ui_glass_app_bar.dart';

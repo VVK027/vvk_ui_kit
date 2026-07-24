@@ -375,6 +375,55 @@ void main() {
 
       expect(find.text('Saved successfully'), findsNothing);
     });
+
+    testWidgets('shows messenger snackbar (bottom)', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: ElevatedButton(
+                onPressed: () => UISnackbar.showMessenger(
+                  context: context,
+                  message: 'Bottom message',
+                  style: style,
+                ),
+                child: const Text('Show'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pump(); // Start animation
+      await tester.pump(); // Halfway
+
+      expect(find.text('Bottom message'), findsOneWidget);
+    });
+
+    testWidgets('showDefault uses showMessenger logic', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: UIAppTheme.light,
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: ElevatedButton(
+                onPressed: () => UISnackbar.showDefault(
+                  context: context,
+                  message: 'Default message',
+                ),
+                child: const Text('Show'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pump();
+
+      expect(find.text('Default message'), findsOneWidget);
+    });
   });
 
   group('UISkeletonPlaceholder', () {

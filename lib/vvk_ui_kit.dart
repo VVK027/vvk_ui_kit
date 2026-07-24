@@ -17,13 +17,13 @@
 ///
 /// ## Package contents
 ///
-/// * **Core** — navigation, dialog, date/time, string and translation utilities,
-///   JsonHelper, Mapper, Translations, TranslationCache, JsonUtils; theme tokens,
-///   palette presets (teal, zinc, slate, stone), typography, shadows, breakpoints,
-///   page transitions, and extensions for strings, collections, numbers, colors,
-///   alignment, and listenables.
-/// * **Animation** — tap guard, avatar glow, gesture helpers, and staggered
-///   list/grid entrance animations.
+/// * **Core** — navigation, overlay utility, dialog, date/time, string and 
+///   translation utilities, JsonHelper, Mapper, Translations, TranslationCache, 
+///   JsonUtils; theme tokens, palette presets (teal, zinc, slate, stone), 
+///   typography, shadows, breakpoints, page transitions, and extensions for 
+///   strings, collections, numbers, colors, alignment, and listenables.
+/// * **Animation** — tap guard, avatar glow, gesture helpers, `UIAnimateWrapper` 
+///   for entrance animations, and staggered list/grid entrance animations.
 /// * **Buttons** — styled, primary, elevated, icon, image, slider confirm,
 ///   gradient, split, glass, social auth, and platform buttons.
 /// * **Accordion, cards & clips** — expansion accordions, cards, animated flip
@@ -35,13 +35,13 @@
 ///   builders, stack badges, badges/alerts, tooltips, and progress bars.
 /// * **Dialogs** — message dialogs, adaptive alert/action sheets, confirm
 ///   presets, shell dialogs, sheets, and Cupertino action sheets.
-/// * **Feedback & tours** — popover, skeleton placeholders, and guided product
-///   tours with spotlight overlay.
+/// * **Feedback & tours** — popover, skeleton placeholders, `UISkeletonList`, 
+///   and guided product tours with spotlight overlay.
 /// * **Glass** — frosted surface, card, button, app bar, bottom nav bar, and scaffold.
-/// * **Inputs** — form fields, `UIForm` with named field tracking, dropdowns,
-///   hierarchy searchable dropdown, calendar/date/time pickers, search bar, tag
-///   input, number field, color picker, password strength, pill switch, rounded
-///   checkboxes, textarea, OTP input, and value sliders.
+/// * **Inputs** — form fields, `UIForm` with auto-focus error tracking, 
+///   dropdowns, hierarchy searchable dropdown, calendar/date/time pickers, 
+///   search bar, tag input, number field, color picker, password strength, 
+///   pill switch, rounded checkboxes, textarea, OTP input, and value sliders.
 /// * **Layout & loading** — responsive helpers, scroll screens, page scaffold,
 ///   expandable floating panel, dynamic overflow, keyboard dismiss, keyboard
 ///   toolbar host, portal overlays, separated rows/columns, dashed dividers,
@@ -72,6 +72,7 @@ export 'src/core/extensions/set_extension.dart';
 export 'src/core/extensions/string_extension.dart';
 export 'src/core/helpers/json_helper.dart';
 export 'src/core/helpers/mapper.dart';
+export 'src/core/theme/ui_theme_tokens.dart';
 export 'src/core/theme/ui_breakpoints.dart';
 export 'src/core/theme/ui_component_themes.dart';
 export 'src/core/theme/ui_shadows.dart';
@@ -81,12 +82,15 @@ export 'src/core/theme/ui_typography.dart';
 export 'src/core/utils/date_time_util.dart';
 export 'src/core/utils/dialog_util.dart';
 export 'src/core/utils/json_utils.dart';
+export 'src/core/utils/log_util.dart';
 export 'src/core/utils/navigation_util.dart';
+export 'src/core/utils/overlay_util.dart';
 export 'src/core/navigation/ui_page_transitions.dart';
 export 'src/core/utils/platform_util.dart';
 export 'src/core/utils/string_util.dart';
 export 'src/core/utils/system_ui_utils.dart';
 export 'src/core/utils/translation_util.dart';
+export 'src/core/utils/ui_input_formatters.dart';
 
 // Icons
 export 'src/icons/ui_social_auth_assets.dart';
@@ -99,6 +103,7 @@ export 'src/icons/ui_svg_path_parser.dart';
 export 'src/widgets/anim/animated_gesture_detector.dart';
 export 'src/widgets/anim/ui_animation_configuration.dart';
 export 'src/widgets/anim/ui_animation_limiter.dart';
+export 'src/widgets/anim/ui_animate_wrapper.dart';
 export 'src/widgets/anim/ui_avatar_glow.dart';
 export 'src/widgets/anim/ui_entrance_animations.dart';
 export 'src/widgets/anim/ui_tap_guard.dart';
@@ -305,6 +310,7 @@ export 'src/widgets/states/ui_error_info.dart';
 
 // Widgets — tabs
 export 'src/widgets/tabs/ui_buttons_tab.dart';
+export 'src/widgets/tabs/ui_dwm_tabs.dart';
 export 'src/widgets/tabs/ui_segmented_tab_bar.dart';
 export 'src/widgets/tabs/ui_tab_bar.dart';
 

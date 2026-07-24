@@ -14,6 +14,26 @@ class UILoadingOverlay extends StatelessWidget {
     this.horizontalPadding = 32,
   });
 
+  /// Overlay without underlying content — useful for blocking UI during async work.
+  ///
+  /// Equivalent to `UILoadingOverlay(visible: visible, child: SizedBox.shrink(), ...)`.
+  factory UILoadingOverlay.scoped({
+    Key? key,
+    required bool visible,
+    String? message,
+    String? subtitle,
+    double horizontalPadding = 32,
+  }) {
+    return UILoadingOverlay(
+      key: key,
+      visible: visible,
+      message: message,
+      subtitle: subtitle,
+      horizontalPadding: horizontalPadding,
+      child: const SizedBox.shrink(),
+    );
+  }
+
   final bool visible;
   final Widget child;
   final String? message;

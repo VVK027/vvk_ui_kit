@@ -43,12 +43,33 @@ class Translations {
     return value;
   }
 
-  /// Loads translations for [localeCode] from
-  /// `assets/translations/{localeCode}.arb`.
-  static Future<Translations> load(String localeCode) async {
-    final jsonStr = await rootBundle.loadString(
-      'assets/translations/$localeCode.arb',
+  /// Loads translations for [localeCode].
+  ///
+  /// By default reads `assets/translations/{localeCode}.arb`. Override the
+  /// resolved asset path with [pathBuilder] (takes precedence) or tweak the
+  /// default with [basePath], [assetPrefix], and [fileExtension].
+  ///
+  /// ```dart
+  /// // App ships app_en.arb / app_es.arb under assets/translations/
+  /// await Translations.load('en', assetPrefix: 'app_');
+  /// // or fully custom:
+  /// await Translations.load('en', pathBuilder: (l) => 'lang/$l.json');
+  /// ```
+  static Future<Translations> load(
+    String localeCode, {
+    String Function(String locale)? pathBuilder,
+    String basePath = 'assets/translations',
+    String assetPrefix = '',
+    String fileExtension = 'arb',
+  }) async {
+    final path = resolveAssetPath(
+      localeCode,
+      pathBuilder: pathBuilder,
+      basePath: basePath,
+      assetPrefix: assetPrefix,
+      fileExtension: fileExtension,
     );
+    final jsonStr = await rootBundle.loadString(path);
     final data = jsonDecode(jsonStr) as Map<String, dynamic>;
     final values = <String, String>{};
 
@@ -58,26 +79,65 @@ class Translations {
 
     return Translations(values);
   }
+
+  /// Builds the asset path for [localeCode].
+  ///
+  /// Returns `pathBuilder(localeCode)` when provided; otherwise
+  /// `{basePath}/{assetPrefix}{localeCode}.{fileExtension}`.
+  static String resolveAssetPath(
+    String localeCode, {
+    String Function(String locale)? pathBuilder,
+    String basePath = 'assets/translations',
+    String assetPrefix = '',
+    String fileExtension = 'arb',
+  }) {
+    if (pathBuilder != null) return pathBuilder(localeCode);
+    return '$basePath/$assetPrefix$localeCode.$fileExtension';
+  }
 }
 
 /// Static cache for preloaded locale translation maps.
+///
+/// This is a static-only utility — [TranslationCache._] prevents instantiation
+/// so callers use [preload], [get], and [translationsFor] directly.
 class TranslationCache {
   TranslationCache._();
 
   static final Map<String, Map<String, String>> _cache = {};
 
-  /// Preloads [supportedLocales] from `assets/translations/{locale}.arb`.
+  /// Preloads [supportedLocales].
+  ///
+  /// By default reads `assets/translations/{locale}.arb`. Customize the
+  /// resolved asset path with [pathBuilder] (takes precedence) or the default
+  /// with [basePath], [assetPrefix], and [fileExtension] — mirroring
+  /// [Translations.load].
+  ///
+  /// ```dart
+  /// // App ships app_en.arb / app_es.arb
+  /// await TranslationCache.preload(['en', 'es'], assetPrefix: 'app_');
+  /// ```
   ///
   /// Skips locales already present in the cache. Failures are logged via
   /// [LogUtil] and do not throw.
-  static Future<void> preload(List<String> supportedLocales) async {
+  static Future<void> preload(
+    List<String> supportedLocales, {
+    String Function(String locale)? pathBuilder,
+    String basePath = 'assets/translations',
+    String assetPrefix = '',
+    String fileExtension = 'arb',
+  }) async {
     try {
       await Future.wait(
         supportedLocales.map((locale) async {
           if (_cache.containsKey(locale)) return;
-          final jsonStr = await rootBundle.loadString(
-            'assets/translations/$locale.arb',
+          final path = Translations.resolveAssetPath(
+            locale,
+            pathBuilder: pathBuilder,
+            basePath: basePath,
+            assetPrefix: assetPrefix,
+            fileExtension: fileExtension,
           );
+          final jsonStr = await rootBundle.loadString(path);
           final data = jsonDecode(jsonStr) as Map<String, dynamic>;
           _cache[locale] = data.map((k, v) => MapEntry(k, v.toString()));
         }),
@@ -90,6 +150,11 @@ class TranslationCache {
   /// Returns cached translations for [localeCode], or an empty map.
   static Map<String, String> get(String localeCode) {
     return _cache[localeCode] ?? {};
+  }
+
+  /// Returns a [Translations] instance backed by the cached map for [localeCode].
+  static Translations translationsFor(String localeCode) {
+    return Translations(get(localeCode));
   }
 
   /// Clears all cached locale maps (useful in tests).

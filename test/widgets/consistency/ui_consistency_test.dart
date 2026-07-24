@@ -43,7 +43,7 @@ void main() {
             builder: (context) {
               final buttons = context.uiButtonMetrics;
               final glass = context.uiGlassMetrics;
-              expect(buttons.primaryHeight, 61);
+              expect(buttons.primaryHeight, 56);
               expect(glass.performanceMode, UIGlassPerformanceMode.auto);
               expect(glass.usesBlur, isTrue);
               return const SizedBox();

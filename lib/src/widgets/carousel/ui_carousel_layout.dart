@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// Vertical space `UISectionCarousel` reserves below its page area for the nav
+/// buttons (44) plus the gap above them (20).
+const double kUICarouselControlsFooterHeight = 44.0 + 20.0;
+
 int carouselPageCount(int itemCount, int itemsPerPage) {
   if (itemCount == 0) return 0;
   return (itemCount / itemsPerPage).ceil();
@@ -84,4 +88,28 @@ double carouselCardWidth(
 }) {
   final totalGaps = gap * (itemsPerPage - 1);
   return (width - pagePadding - totalGaps) / itemsPerPage - cardPadding;
+}
+
+/// Total height a card-based `UISectionCarousel` page needs to show a card of
+/// [cardBodyHeight] plus an optional [cardFooterHeight], leaving room for the
+/// carousel's own controls ([controlsFooterHeight]).
+///
+/// Reduces the repeated "card height + footer + controls" boilerplate that
+/// card carousels tend to compute locally.
+///
+/// ```dart
+/// UISectionCarousel(
+///   pageHeight: carouselPageHeightForCards(
+///     cardBodyHeight: 320,
+///     cardFooterHeight: maxCardFooterHeight,
+///   ),
+///   ...
+/// );
+/// ```
+double carouselPageHeightForCards({
+  required double cardBodyHeight,
+  double cardFooterHeight = 0,
+  double controlsFooterHeight = kUICarouselControlsFooterHeight,
+}) {
+  return cardBodyHeight + cardFooterHeight + controlsFooterHeight;
 }

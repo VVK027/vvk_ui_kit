@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../text/ui_text.dart';
 
 /// Visual style for [UIBatteryIndicator].
-enum BatteryIndicatorStyle {
+enum UIBatteryIndicatorStyle {
   /// Flat fill style.
   flat,
 
@@ -12,7 +12,7 @@ enum BatteryIndicatorStyle {
 
 /// Custom-painted battery level indicator.
 class UIBatteryIndicator extends StatefulWidget {
-  final BatteryIndicatorStyle style;
+  final UIBatteryIndicatorStyle style;
   final double ratio;
   final Color mainColor;
   final bool colorful;
@@ -26,7 +26,7 @@ class UIBatteryIndicator extends StatefulWidget {
   const UIBatteryIndicator({
     super.key,
     this.batteryLevel = 25,
-    this.style = BatteryIndicatorStyle.flat,
+    this.style = UIBatteryIndicatorStyle.flat,
     this.ratio = 2.5,
     this.mainColor = Colors.black,
     this.colorful = true,
@@ -40,7 +40,7 @@ class UIBatteryIndicator extends StatefulWidget {
   UIBatteryIndicator copyWith({
     Key? key,
     int? batteryLevel,
-    BatteryIndicatorStyle? style,
+    UIBatteryIndicatorStyle? style,
     double? ratio,
     Color? mainColor,
     bool? colorful,
@@ -102,7 +102,7 @@ class _BatteryIndicatorState extends State<UIBatteryIndicator> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(
-              right: widget.style == BatteryIndicatorStyle.flat
+              right: widget.style == UIBatteryIndicatorStyle.flat
                   ? 0.0
                   : widget.size * widget.ratio * 0.04,
             ),
@@ -128,14 +128,14 @@ class UIBatteryIndicatorPainter extends CustomPainter {
   );
 
   int batteryLv;
-  BatteryIndicatorStyle style;
+  UIBatteryIndicatorStyle style;
   bool colorful;
   bool showPercentSlide;
   Color mainColor;
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (style == BatteryIndicatorStyle.flat) {
+    if (style == UIBatteryIndicatorStyle.flat) {
       canvas.drawRRect(
         RRect.fromLTRBR(
           0.0,

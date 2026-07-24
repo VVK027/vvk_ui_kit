@@ -6,7 +6,7 @@ This guide explains how to integrate `vvk_ui_kit` into a host Flutter app or pac
 
 ```yaml
 dependencies:
-  vvk_ui_kit: ^1.1.0
+  vvk_ui_kit: latest
 ```
 
 ```dart
@@ -44,9 +44,112 @@ The `UITypography` class provides a consistent type scale (`h1`, `h2`, `h3`, `h4
 
 Glass widgets read blur/tint values from `UIGlassTheme` / `UIGlassTheme.of(context)`.
 
+### Recipe: custom palette + app-specific extension
+
+A common host-app setup combines **two** things:
+
+1. A class implementing `UIThemeColors` that feeds `buildUIKitTheme` / `UIAppTheme.custom` the kit's semantic tokens.
+2. A separate `ThemeExtension` (e.g. `AppColors`) carrying extra semantic fields the app needs — chart colors, carousel tokens, brand accents, etc.
+
+Register both in one call with `extraExtensions` — no manual `copyWith(extensions: [...])` merge required:
+
+```dart
+@immutable
+class AppColors extends ThemeExtension<AppColors> implements UIThemeColors {
+  const AppColors({
+    // ...UIThemeColors fields (scaffold, surface, accent, ...)
+    required this.chartLine,
+    required this.carouselNavBg,
+  });
+
+  // Extra, app-only semantic tokens:
+  final Color chartLine;
+  final Color carouselNavBg;
+
+  @override
+  AppColors copyWith({ /* ... */ }) => /* ... */;
+
+  @override
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) => /* ... */;
+}
+
+ThemeData appTheme(Brightness brightness, AppColors colors) {
+  return UIAppTheme.custom(
+    brightness: brightness,
+    colors: colors,          // used for the kit's UIThemeColors tokens
+    extraExtensions: [colors] // exposes the extra fields via Theme.of(context)
+  );
+}
+
+// Read anywhere:
+final appColors = Theme.of(context).extension<AppColors>()!;
+```
+
+`buildUIKitTheme` and `UIAppTheme.custom` also auto-select the matching
+`UIThemeExtension` (light/dark) from `brightness` when you don't pass one, so
+dark themes never inherit light surface/chart tokens.
+
 ## Optional: image scope
 
 Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_svg` for production image loading.
+
+## Host-app adapters
+
+`vvk_ui_kit` is a **generic** UI kit. Each host app should compose kit primitives
+into its own domain widgets rather than expecting product-specific components in
+the package.
+
+Recommended layout:
+
+```
+lib/
+  ui_adapters/          # thin wrappers: kit widget + app assets/labels
+  app/theme/            # AppColors, AppTheme aliases, ThemeExtension
+  features/             # screens use adapters or kit widgets directly
+```
+
+Example adapter (host app code, not in the kit):
+
+```dart
+class ProductStatCard extends StatelessWidget {
+  const ProductStatCard({required this.items});
+  final List<StatItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return UIStatSummaryCard(
+      items: items
+          .map((e) => UIStatSummaryItem(label: e.label, value: e.value))
+          .toList(),
+    );
+  }
+}
+```
+
+Keep kit imports on `package:vvk_ui_kit/vvk_ui_kit.dart` (or focused entry
+points). Do **not** import `lib/src/` paths — they are internal.
+
+## DateTimeUtil
+
+Use [DateTimeUtil] static methods directly for calendar keys, period navigation,
+and display formatting:
+
+```dart
+// Compact yyyyMMdd storage key
+final key = DateTimeUtil.convertDateTimeYearMonthDay(DateTime.now());
+final date = DateTimeUtil.parseCalenderToDateTime(key);
+
+// Detail screen day navigation
+final previous = DateTimeUtil.getOneDayBackward(selected);
+final next = DateTimeUtil.getOneDayForward(selected);
+
+// Display helpers
+DateTimeUtil.getTimeByIntegerMin(90); // "01:30"
+DateTimeUtil.formatNumber(8432);        // "8,432"
+```
+
+Avoid re-wrapping these in app utility classes unless you need domain-specific
+naming — that adds maintenance without benefit.
 
 ## Widget composition patterns
 
@@ -62,7 +165,7 @@ Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_sv
 
 - `UILabeledField` — generic label wrapper
 - `UITextFormField` — labeled field with formatters (`trimLeadingSpace`, `disallowSpaces`)
-- `UIForm` — named field tracking with `UIFormTextField`, date/time/textarea/checkbox fields
+- `UIForm` — named field tracking with `UIFormTextField`, date/time/textarea/checkbox fields. Supports **auto-focus on error** when `validate()` is called.
 
 ### Input widgets
 
@@ -99,12 +202,13 @@ All glass widgets compose on `UIGlassSurface`:
 UIGlassSurface → UIGlassCard, UIGlassButton, UIGlassAppBar, UIGlassBottomNavBar, UIGlassScaffold
 ```
 
-Apply a gradient or image behind glass surfaces for best visual effect.
+**Smart Performance**: `UIGlassSurface` detects OS-level performance settings (Reduce Motion/Low Power Mode) in `auto` mode and falls back to cheap rendering automatically.
 
 ### Feedback & tours
 
 - `UIPopover` — anchored popover with arrow (uses `UIPortal`)
 - `UITourController` — multi-step product tour with `UISpotlightOverlay` and tooltip card
+- `UISkeletonList` — pre-built loading list skeleton
 - `UIBadge` / `UILiveBadge` — prefer `UIBadge.live` over the `UILiveBadge` wrapper when possible
 
 ### Dialogs & sheets
@@ -150,9 +254,10 @@ The package provides a set of extensions and utilities to simplify common tasks.
 
 ### Utilities
 
+- **UIOverlayUtil**: Global non-blocking overlays (toasts, banners).
 - **NavigationUtil**: Simplified navigation with `pushPage`, `pushReplacement`, `pop`, and named routes support.
 - **DialogUtil**: Easy access to show adaptive dialogs and sheets.
-- **DateTimeUtil**: Helpers for formatting dates, calculating time differences, and handling timezones.
+- **DateTimeUtil**: Calendar keys (`convertDateTimeYearMonthDay`), period boundaries, day navigation, `getTimeByIntegerMin`, `formatNumber`, and formatting helpers. See [DateTimeUtil](#datetimeutil).
 - **JsonUtils**: Safe JSON parsing and type conversion.
 - **SystemUIUtils**: Manage status bar and navigation bar styles.
 

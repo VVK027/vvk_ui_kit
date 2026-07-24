@@ -72,7 +72,19 @@ class UIGlassSurface extends StatelessWidget {
   Widget build(BuildContext context) {
     final metrics = context.uiGlassMetrics;
     final style = _resolve(context, metrics);
-    final mode = performanceMode ?? metrics.performanceMode;
+    var mode = performanceMode ?? metrics.performanceMode;
+
+    // Enhanced 'auto' logic: Fallback to static tint if directional navigation 
+    // or reduced animations are requested at the OS level.
+    if (mode == UIGlassPerformanceMode.auto) {
+      final mediaQuery = MediaQuery.maybeOf(context);
+      if (mediaQuery != null && (mediaQuery.navigationMode == NavigationMode.directional || mediaQuery.accessibleNavigation)) {
+          mode = UIGlassPerformanceMode.staticTint;
+      } else {
+          mode = UIGlassPerformanceMode.fullBlur;
+      }
+    }
+
     final useBlur = mode != UIGlassPerformanceMode.staticTint;
 
     final tint = style.tintColor ?? Theme.of(context).colorScheme.surface;

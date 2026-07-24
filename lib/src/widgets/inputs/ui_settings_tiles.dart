@@ -478,22 +478,27 @@ Widget settingsIconLeading(
   );
 }
 
-/// Builds a leading icon container from [IconData].
-Widget settingsMaterialIconLeading(
-  BuildContext context, {
-  required IconData icon,
-  Color? iconColor,
-}) {
-  final theme = Theme.of(context);
-  final color = iconColor ?? theme.colorScheme.primary;
-  return Container(
-    width: 40,
-    height: 40,
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.12),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    alignment: Alignment.center,
-    child: Icon(icon, size: 22, color: color),
-  );
+/// Shared helpers for settings tile leading widgets.
+abstract final class UISettingsTiles {
+  UISettingsTiles._();
+
+  /// Builds a leading icon container from [IconData].
+  static Widget materialIconLeading(
+    BuildContext context, {
+    required IconData icon,
+    Color? iconColor,
+  }) {
+    final theme = Theme.of(context);
+    final color = iconColor ?? theme.colorScheme.primary;
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      alignment: Alignment.center,
+      child: Icon(icon, size: 22, color: color),
+    );
+  }
 }
