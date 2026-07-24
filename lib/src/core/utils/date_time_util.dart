@@ -15,6 +15,19 @@ DateFormat _cachedDateFormat(String pattern, [String? locale]) {
 }
 
 /// Utility class for date and time formatting and manipulation.
+/// Date, time, and number helpers for host applications.
+///
+/// Common entry points:
+///
+/// * [convertDateTimeYearMonthDay] / [parseCalenderToDateTime] — compact `yyyyMMdd` keys
+/// * [getTimeByIntegerMin] — minutes → `HH:mm`
+/// * [formatNumber] — locale-aware thousands separators
+/// * [getOneDayBackward] / [getOneDayForward] — calendar day navigation
+/// * [findFirstDateOfTheWeek] / [findLastDateOfTheWeek] — week boundaries
+/// * [findFirstDateOfTheMonth] / [findLastDateOfTheMonth] — month boundaries
+///
+/// Prefer calling these static methods directly instead of re-wrapping them in
+/// app-level utility classes.
 class DateTimeUtil {
   /// Default format for dates: yyyy-MM-dd
   static const String defaultDateFormat = 'yyyy-MM-dd';

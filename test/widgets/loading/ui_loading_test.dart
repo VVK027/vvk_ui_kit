@@ -33,6 +33,22 @@ void main() {
       expect(find.text('Loading Message'), findsNothing);
       expect(find.byType(CircularProgressIndicator), findsNothing);
     });
+
+    testWidgets('scoped factory shows overlay without child content', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: UILoadingOverlay.scoped(
+            visible: true,
+            message: 'Scoped loading',
+          ),
+        ),
+      );
+
+      expect(find.text('Scoped loading'), findsOneWidget);
+      expect(find.byType(UILoadingIndicator), findsOneWidget);
+    });
   });
 
   group('UILoadingIndicator', () {

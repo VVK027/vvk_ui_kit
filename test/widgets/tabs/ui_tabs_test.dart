@@ -97,4 +97,44 @@ void main() {
       expect(find.text('Settings Screen'), findsOneWidget);
     });
   });
+
+  group('DWM tab helpers', () {
+    test('buildDwmTabs returns three labeled tabs', () {
+      final tabs = buildDwmTabs(
+        dayLabel: 'Day',
+        weekLabel: 'Week',
+        monthLabel: 'Month',
+      );
+
+      expect(tabs, hasLength(3));
+    });
+
+    testWidgets('buildDwmTabBar renders tabs in a scaffold', (tester) async {
+      final tabs = buildDwmTabs(
+        dayLabel: 'Day',
+        weekLabel: 'Week',
+        monthLabel: 'Month',
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: UIAppTheme.light,
+          home: DefaultTabController(
+            length: tabs.length,
+            child: Builder(
+              builder: (context) {
+                return Scaffold(
+                  appBar: AppBar(
+                    bottom: buildDwmTabBar(context, tabs: tabs),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(Tab), findsNWidgets(3));
+    });
+  });
 }

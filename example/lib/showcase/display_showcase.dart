@@ -114,7 +114,7 @@ class DisplayShowcase extends StatelessWidget {
               width: 280,
               radius: 4,
               segmentLimit: 100,
-              order: SegmentOrder.none,
+              order: UISegmentOrder.none,
               segments: const [
                 UISegmentValue(size: 40, color: Colors.blue),
                 UISegmentValue(size: 30, color: Colors.green),

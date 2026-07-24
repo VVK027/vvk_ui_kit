@@ -1,3 +1,17 @@
+## 1.4.0
+
+* **DWM tab helpers** — `UIDwmTabLabels`, `buildDwmTabs`, `buildDwmTabsFromLabels`,
+  and `buildDwmTabBar` for Day / Week / Month detail screens. Exported from
+  `vvk_ui_kit.dart` and the new `tabs.dart` entry point.
+* **`UILoadingOverlay.scoped`** — factory for blocking overlays without child content.
+* **Dark theme contrast fix** — `onPrimary` / `onSecondary` are derived from accent
+  luminance instead of reusing `textPrimary` in dark mode.
+* **API naming** — `UISegmentOrder`, `UIBatteryIndicatorStyle`, and
+  `UISettingsTiles.materialIconLeading`; old names deprecated for 2.0.0 removal.
+* **App bar typedefs** — `UIAccentAppBar` and `UIBrandAppBar` for discoverability.
+* **Docs** — `flutter_ui_kit` migration section, host-app adapter guide, and
+  expanded `DateTimeUtil` documentation.
+
 ## 1.3.0
 
 * **`TranslationCache.translationsFor(locale)`** — returns a ready-to-use

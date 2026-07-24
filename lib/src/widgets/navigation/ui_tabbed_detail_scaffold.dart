@@ -1,33 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui_app_bar.dart';
+import '../tabs/ui_dwm_tabs.dart';
 import '../text/ui_text.dart';
-
-TabBar _buildDetailTabBar(
-  BuildContext context, {
-  required List<Tab> tabs,
-  ValueChanged<int>? onTap,
-}) {
-  final theme = Theme.of(context);
-  return TabBar(
-    tabs: tabs,
-    onTap: onTap,
-    indicatorSize: TabBarIndicatorSize.tab,
-    indicator: BoxDecoration(
-      color: theme.cardColor,
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        topRight: Radius.circular(12),
-      ),
-    ),
-    labelColor: theme.colorScheme.onSurface,
-    unselectedLabelColor: Colors.white,
-    labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
-    unselectedLabelStyle: const TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 14,
-    ),
-  );
-}
 
 /// Detail screen scaffold with accent header and tabbed body content.
 class UITabbedDetailScaffold extends StatelessWidget {
@@ -150,7 +124,7 @@ class UITabbedDetailScaffold extends StatelessWidget {
           ),
           backgroundColor: accentColor,
           actions: appBarActions,
-          bottom: _buildDetailTabBar(context, tabs: tabs, onTap: onTabTap),
+          bottom: buildDwmTabBar(context, tabs: tabs, onTap: onTabTap),
         ),
         body: SafeArea(
           top: false,

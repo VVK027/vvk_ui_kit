@@ -357,23 +357,29 @@ TextTheme _baseTextTheme(
   );
 }
 
+Color _onAccentColor(Color accent) {
+  return accent.computeLuminance() > 0.45 ? Colors.black87 : Colors.white;
+}
+
 ColorScheme _colorScheme(Brightness brightness, UIThemeColors colors) {
   final isDark = brightness == Brightness.dark;
+  final onPrimary = _onAccentColor(colors.accent);
+  final onSecondary = _onAccentColor(colors.accentSecondary);
   return isDark
       ? ColorScheme.dark(
           primary: colors.accent,
-          onPrimary: colors.textPrimary,
+          onPrimary: onPrimary,
           secondary: colors.accentSecondary,
-          onSecondary: Colors.white,
+          onSecondary: onSecondary,
           surface: colors.surface,
           onSurface: colors.textSecondary,
           surfaceContainerHighest: colors.chipBackground,
         )
       : ColorScheme.light(
           primary: colors.accent,
-          onPrimary: Colors.white,
+          onPrimary: onPrimary,
           secondary: colors.accentSecondary,
-          onSecondary: Colors.white,
+          onSecondary: onSecondary,
           surface: colors.surface,
           onSurface: colors.textPrimary,
           surfaceContainerHighest: colors.chipBackground,

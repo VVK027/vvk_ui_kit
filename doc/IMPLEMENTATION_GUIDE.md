@@ -93,6 +93,64 @@ dark themes never inherit light surface/chart tokens.
 
 Wrap your app in `UIImageScope` when using `cached_network_image` or `flutter_svg` for production image loading.
 
+## Host-app adapters
+
+`vvk_ui_kit` is a **generic** UI kit. Each host app should compose kit primitives
+into its own domain widgets rather than expecting product-specific components in
+the package.
+
+Recommended layout:
+
+```
+lib/
+  ui_adapters/          # thin wrappers: kit widget + app assets/labels
+  app/theme/            # AppColors, AppTheme aliases, ThemeExtension
+  features/             # screens use adapters or kit widgets directly
+```
+
+Example adapter (host app code, not in the kit):
+
+```dart
+class ProductStatCard extends StatelessWidget {
+  const ProductStatCard({required this.items});
+  final List<StatItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return UIStatSummaryCard(
+      items: items
+          .map((e) => UIStatSummaryItem(label: e.label, value: e.value))
+          .toList(),
+    );
+  }
+}
+```
+
+Keep kit imports on `package:vvk_ui_kit/vvk_ui_kit.dart` (or focused entry
+points). Do **not** import `lib/src/` paths — they are internal.
+
+## DateTimeUtil
+
+Use [DateTimeUtil] static methods directly for calendar keys, period navigation,
+and display formatting:
+
+```dart
+// Compact yyyyMMdd storage key
+final key = DateTimeUtil.convertDateTimeYearMonthDay(DateTime.now());
+final date = DateTimeUtil.parseCalenderToDateTime(key);
+
+// Detail screen day navigation
+final previous = DateTimeUtil.getOneDayBackward(selected);
+final next = DateTimeUtil.getOneDayForward(selected);
+
+// Display helpers
+DateTimeUtil.getTimeByIntegerMin(90); // "01:30"
+DateTimeUtil.formatNumber(8432);        // "8,432"
+```
+
+Avoid re-wrapping these in app utility classes unless you need domain-specific
+naming — that adds maintenance without benefit.
+
 ## Widget composition patterns
 
 ### Buttons
@@ -199,7 +257,7 @@ The package provides a set of extensions and utilities to simplify common tasks.
 - **UIOverlayUtil**: Global non-blocking overlays (toasts, banners).
 - **NavigationUtil**: Simplified navigation with `pushPage`, `pushReplacement`, `pop`, and named routes support.
 - **DialogUtil**: Easy access to show adaptive dialogs and sheets.
-- **DateTimeUtil**: Helpers for formatting dates, calculating time differences, and handling timezones.
+- **DateTimeUtil**: Calendar keys (`convertDateTimeYearMonthDay`), period boundaries, day navigation, `getTimeByIntegerMin`, `formatNumber`, and formatting helpers. See [DateTimeUtil](#datetimeutil).
 - **JsonUtils**: Safe JSON parsing and type conversion.
 - **SystemUIUtils**: Manage status bar and navigation bar styles.
 

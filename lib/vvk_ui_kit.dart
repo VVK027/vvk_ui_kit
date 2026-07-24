@@ -310,6 +310,7 @@ export 'src/widgets/states/ui_error_info.dart';
 
 // Widgets — tabs
 export 'src/widgets/tabs/ui_buttons_tab.dart';
+export 'src/widgets/tabs/ui_dwm_tabs.dart';
 export 'src/widgets/tabs/ui_segmented_tab_bar.dart';
 export 'src/widgets/tabs/ui_tab_bar.dart';
 

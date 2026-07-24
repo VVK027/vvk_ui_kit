@@ -415,7 +415,7 @@ void main() {
               radius: 5,
               segments: segments,
               segmentLimit: 100,
-              order: SegmentOrder.none,
+              order: UISegmentOrder.none,
             ),
           ),
         ),
