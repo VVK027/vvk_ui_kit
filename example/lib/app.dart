@@ -41,6 +41,7 @@ class _FlutterUiComponentsExampleAppState
         theme: UIAppTheme.light,
         darkTheme: UIAppTheme.dark,
         themeMode: _themeMode,
+        debugShowCheckedModeBanner: false,
         home: ShowcaseHome(
           themeMode: _themeMode,
           onThemeModeChanged: _setThemeMode,

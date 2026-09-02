@@ -440,14 +440,14 @@ void main() {
 
   group('UISideMenu', () {
     testWidgets('opens and closes side menu', (tester) async {
-      var opened = false;
+      bool opened = false;
       final menuKey = GlobalKey<UISideMenuState>();
       await tester.pumpWidget(
         MaterialApp(
           home: UISideMenu(
             key: menuKey,
             menu: const Text('Menu Content'),
-            onChange: (val) => opened = val,
+            onChange: (bool val) => opened = val,
             child: const Text('Main Content'),
           ),
         ),

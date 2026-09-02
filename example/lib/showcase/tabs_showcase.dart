@@ -45,21 +45,52 @@ class _TabsShowcaseState extends State<TabsShowcase> {
               onTabPressed: (i) => setState(() => _segmentIndex = i),
               tabs: [
                 UISegmentTabItem(
-                  label: 'Day',
-                  value: 'd',
+                  label: 'Seg',
+                  value: '(1)',
                   isActive: _segmentIndex == 0,
                 ),
                 UISegmentTabItem(
-                  label: 'Week',
-                  value: 'w',
+                  label: 'Seg',
+                  value: '(2)',
                   isActive: _segmentIndex == 1,
                 ),
                 UISegmentTabItem(
-                  label: 'Month',
-                  value: 'm',
+                  label: 'Seg',
+                  value: '(3)',
                   isActive: _segmentIndex == 2,
                 ),
               ],
+            ),
+          ),
+          ShowcaseTile(
+            name: 'buildUITabBar & buildUITabs',
+            child: DefaultTabController(
+              length: 3,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    buildUITabBar(
+                      context,
+                      tabs: buildUITabs(['Day', 'Week', 'Month']),
+                    ),
+                    const SizedBox(
+                      height: 48,
+                      child: TabBarView(
+                        children: [
+                          Center(child: UIText('Day View Data', color: Colors.white)),
+                          Center(child: UIText('Week View Data', color: Colors.white)),
+                          Center(child: UIText('Month View Data', color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           ShowcaseTile(

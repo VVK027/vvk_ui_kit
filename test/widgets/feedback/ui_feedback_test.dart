@@ -129,6 +129,46 @@ void main() {
 
       controller.dispose();
     });
+
+    testWidgets('popover with close button updates without debugNeedsLayout error', (tester) async {
+      final controller = UIAnchoredOverlayController();
+      controller.show();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => setState(() {}),
+                      child: const Text('Rebuild'),
+                    ),
+                    UIPopover(
+                      controller: controller,
+                      showCloseButton: true,
+                      content: const Text('Popover content'),
+                      child: const Text('Anchor'),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text('Popover content'), findsOneWidget);
+
+      await tester.tap(find.text('Rebuild'));
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Popover content'), findsOneWidget);
+      controller.dispose();
+    });
   });
 
   group('UITourProgressIndicator', () {

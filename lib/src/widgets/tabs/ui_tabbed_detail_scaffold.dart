@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ui_app_bar.dart';
-import '../tabs/ui_dwm_tabs.dart';
+import '../navigation/ui_app_bar.dart';
+import 'ui_tab_bar.dart';
 import '../text/ui_text.dart';
 
 /// Detail screen scaffold with accent header and tabbed body content.
@@ -124,7 +124,7 @@ class UITabbedDetailScaffold extends StatelessWidget {
           ),
           backgroundColor: accentColor,
           actions: appBarActions,
-          bottom: buildDwmTabBar(context, tabs: tabs, onTap: onTabTap),
+          bottom: buildUITabBar(context, tabs: tabs, onTap: onTabTap),
         ),
         body: SafeArea(
           top: false,

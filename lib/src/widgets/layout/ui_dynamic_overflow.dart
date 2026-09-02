@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../navigation/ui_context_menu.dart';
+import '../menu/ui_context_menu.dart';
 
 /// Lays out [children] in a horizontal row and moves items that do not fit
 /// into an overflow control built by [overflowBuilder].

@@ -98,23 +98,15 @@ void main() {
     });
   });
 
-  group('DWM tab helpers', () {
-    test('buildDwmTabs returns three labeled tabs', () {
-      final tabs = buildDwmTabs(
-        dayLabel: 'Day',
-        weekLabel: 'Week',
-        monthLabel: 'Month',
-      );
+  group('UI tab helpers', () {
+    test('buildUITabs returns labeled tabs', () {
+      final tabs = buildUITabs(['Day', 'Week', 'Month']);
 
       expect(tabs, hasLength(3));
     });
 
-    testWidgets('buildDwmTabBar renders tabs in a scaffold', (tester) async {
-      final tabs = buildDwmTabs(
-        dayLabel: 'Day',
-        weekLabel: 'Week',
-        monthLabel: 'Month',
-      );
+    testWidgets('buildUITabBar renders tabs in a scaffold', (tester) async {
+      final tabs = buildUITabs(['Day', 'Week', 'Month']);
 
       await tester.pumpWidget(
         MaterialApp(
@@ -125,7 +117,7 @@ void main() {
               builder: (context) {
                 return Scaffold(
                   appBar: AppBar(
-                    bottom: buildDwmTabBar(context, tabs: tabs),
+                    bottom: buildUITabBar(context, tabs: tabs),
                   ),
                 );
               },

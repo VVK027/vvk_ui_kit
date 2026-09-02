@@ -64,6 +64,37 @@ void main() {
 
       expect(tester.takeException(), isA<FlutterError>());
     });
+
+    testWidgets('UIFlipAnimation and UIScaleInAnimation render children', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: UIAnimationConfiguration.synchronized(
+              child: Row(
+                children: [
+                  UIFlipAnimation(
+                    flipAxis: UIFlipAxis.x,
+                    child: Text('Flip X'),
+                  ),
+                  UIFlipAnimation(
+                    flipAxis: UIFlipAxis.y,
+                    child: Text('Flip Y'),
+                  ),
+                  UIScaleInAnimation(
+                    child: Text('Scale In'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text('Flip X'), findsOneWidget);
+      expect(find.text('Flip Y'), findsOneWidget);
+      expect(find.text('Scale In'), findsOneWidget);
+    });
   });
 
   group('UIGradientButton', () {

@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 /// Pulsing glow effect around [child], useful for live status indicators.
-class UIAvatarGlow extends StatefulWidget {
-  const UIAvatarGlow({
+class UIRippleGlow extends StatefulWidget {
+  const UIRippleGlow({
     super.key,
     required this.child,
     this.glowCount = 2,
@@ -35,10 +35,10 @@ class UIAvatarGlow extends StatefulWidget {
   final double glowRadiusFactor;
 
   @override
-  State<UIAvatarGlow> createState() => _UIAvatarGlowState();
+  State<UIRippleGlow> createState() => _UIRippleGlowState();
 }
 
-class _UIAvatarGlowState extends State<UIAvatarGlow>
+class _UIRippleGlowState extends State<UIRippleGlow>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
@@ -50,7 +50,7 @@ class _UIAvatarGlowState extends State<UIAvatarGlow>
   }
 
   @override
-  void didUpdateWidget(covariant UIAvatarGlow oldWidget) {
+  void didUpdateWidget(covariant UIRippleGlow oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.duration != oldWidget.duration) {
       _controller.duration = widget.duration;
@@ -94,7 +94,7 @@ class _UIAvatarGlowState extends State<UIAvatarGlow>
         animation: _controller,
         builder: (context, child) {
           return CustomPaint(
-            painter: _GlowPainter(
+            painter: _RipplePainter(
               progress: _controller.value,
               curve: widget.curve,
               glowCount: widget.glowCount,
@@ -112,8 +112,8 @@ class _UIAvatarGlowState extends State<UIAvatarGlow>
   }
 }
 
-class _GlowPainter extends CustomPainter {
-  _GlowPainter({
+class _RipplePainter extends CustomPainter {
+  _RipplePainter({
     required this.progress,
     required this.curve,
     required this.glowCount,
@@ -160,7 +160,7 @@ class _GlowPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _GlowPainter oldDelegate) {
+  bool shouldRepaint(covariant _RipplePainter oldDelegate) {
     return progress != oldDelegate.progress ||
         glowColor != oldDelegate.glowColor ||
         glowCount != oldDelegate.glowCount;

@@ -6,17 +6,34 @@ class UIMenuBarAction {
   const UIMenuBarAction({
     required this.label,
     this.icon,
+    this.shortcutLabel,
+    this.checked,
     this.onTap,
     this.enabled = true,
     this.destructive = false,
     this.children = const [],
-  });
+  }) : isDivider = false;
+
+  /// Creates a horizontal divider line inside a menu.
+  const UIMenuBarAction.divider()
+      : label = '',
+        icon = null,
+        shortcutLabel = null,
+        checked = null,
+        onTap = null,
+        enabled = false,
+        destructive = false,
+        children = const [],
+        isDivider = true;
 
   final String label;
   final IconData? icon;
+  final String? shortcutLabel;
+  final bool? checked;
   final VoidCallback? onTap;
   final bool enabled;
   final bool destructive;
+  final bool isDivider;
   final List<UIMenuBarAction> children;
 
   bool get hasSubmenu => children.isNotEmpty;
@@ -306,6 +323,11 @@ class _UIMenuBarActionRowState extends State<_UIMenuBarActionRow> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final action = widget.action;
+
+    if (action.isDivider) {
+      return Divider(height: 1, color: scheme.outlineVariant);
+    }
+
     final color = action.destructive
         ? scheme.error
         : action.enabled
@@ -331,11 +353,13 @@ class _UIMenuBarActionRowState extends State<_UIMenuBarActionRow> {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           child: Row(
             children: [
-              if (action.icon != null) ...[
-                Icon(action.icon, size: 18, color: color),
-                const SizedBox(width: 8),
-              ] else
-                const SizedBox(width: 26),
+              if (action.checked == true)
+                Icon(Icons.check, size: 18, color: color)
+              else if (action.icon != null)
+                Icon(action.icon, size: 18, color: color)
+              else
+                const SizedBox(width: 18),
+              const SizedBox(width: 8),
               Expanded(
                 child: UIText(
                   action.label,
@@ -344,8 +368,19 @@ class _UIMenuBarActionRowState extends State<_UIMenuBarActionRow> {
                   ).textTheme.bodyMedium?.copyWith(color: color),
                 ),
               ),
-              if (action.hasSubmenu)
+              if (action.shortcutLabel != null) ...[
+                const SizedBox(width: 16),
+                UIText(
+                  action.shortcutLabel!,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+              if (action.hasSubmenu) ...[
+                const SizedBox(width: 8),
                 Icon(Icons.chevron_right, size: 18, color: color),
+              ],
             ],
           ),
         ),
@@ -363,6 +398,11 @@ class _UIMenuBarLeafRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+
+    if (action.isDivider) {
+      return Divider(height: 1, color: scheme.outlineVariant);
+    }
+
     final color = action.destructive
         ? scheme.error
         : action.enabled
@@ -380,11 +420,13 @@ class _UIMenuBarLeafRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Row(
           children: [
-            if (action.icon != null) ...[
-              Icon(action.icon, size: 18, color: color),
-              const SizedBox(width: 8),
-            ] else
-              const SizedBox(width: 26),
+            if (action.checked == true)
+              Icon(Icons.check, size: 18, color: color)
+            else if (action.icon != null)
+              Icon(action.icon, size: 18, color: color)
+            else
+              const SizedBox(width: 18),
+            const SizedBox(width: 8),
             Expanded(
               child: UIText(
                 action.label,
@@ -393,6 +435,15 @@ class _UIMenuBarLeafRow extends StatelessWidget {
                 ).textTheme.bodyMedium?.copyWith(color: color),
               ),
             ),
+            if (action.shortcutLabel != null) ...[
+              const SizedBox(width: 16),
+              UIText(
+                action.shortcutLabel!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            ],
           ],
         ),
       ),

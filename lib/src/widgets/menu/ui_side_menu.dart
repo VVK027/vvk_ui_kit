@@ -1,4 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart';
+
+/// Controller for imperatively managing [UISideMenu] open/close state.
+class UISideMenuController extends ChangeNotifier {
+  UISideMenuState? _state;
+
+  void _attach(UISideMenuState state) {
+    _state = state;
+  }
+
+  void _detach() {
+    _state = null;
+  }
+
+  /// Whether the side menu is currently open.
+  bool get isOpened => _state?.isOpened ?? false;
+
+  /// Opens the side menu.
+  void open() {
+    _state?.openSideMenu();
+    notifyListeners();
+  }
+
+  /// Closes the side menu.
+  void close() {
+    _state?.closeSideMenu();
+    notifyListeners();
+  }
+
+  /// Toggles the side menu between open and closed states.
+  void toggle() {
+    if (isOpened) {
+      close();
+    } else {
+      open();
+    }
+  }
+}
 
 /// Animation style for [UISideMenu].
 enum UISideMenuType { slide }
@@ -13,6 +51,7 @@ class UISideMenu extends StatefulWidget {
   final double maxMenuWidth;
   final UISideMenuType type;
   final void Function(bool isOpened)? onChange;
+  final UISideMenuController? controller;
 
   const UISideMenu({
     super.key,
@@ -24,6 +63,7 @@ class UISideMenu extends StatefulWidget {
     this.maxMenuWidth = 275.0,
     bool inverse = false,
     this.onChange,
+    this.controller,
   }) : assert(maxMenuWidth > 0),
        _inverse = inverse ? -1 : 1;
 
@@ -37,6 +77,7 @@ class UISideMenu extends StatefulWidget {
     double? maxMenuWidth,
     bool? inverse,
     void Function(bool isOpened)? onChange,
+    UISideMenuController? controller,
   }) {
     return UISideMenu(
       key: key ?? this.key,
@@ -47,6 +88,7 @@ class UISideMenu extends StatefulWidget {
       maxMenuWidth: maxMenuWidth ?? this.maxMenuWidth,
       inverse: inverse ?? this.inverse,
       onChange: onChange ?? this.onChange,
+      controller: controller ?? this.controller,
       child: child ?? this.child,
     );
   }
@@ -82,6 +124,22 @@ class UISideMenuState extends State<UISideMenu> {
   void initState() {
     super.initState();
     _opened = false;
+    widget.controller?._attach(this);
+  }
+
+  @override
+  void didUpdateWidget(UISideMenu oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller?._detach();
+      widget.controller?._attach(this);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller?._detach();
+    super.dispose();
   }
 
   @override
@@ -89,13 +147,18 @@ class UISideMenuState extends State<UISideMenu> {
     final mq = MediaQuery.of(context);
     final size = mq.size;
     final statusBarHeight = mq.padding.top;
+    final theme = Theme.of(context);
+    final backgroundColor =
+        widget.background ?? theme.colorScheme.surfaceContainer;
+
     return Material(
-      color: widget.background ?? const Color(0xFF112473),
+      color: backgroundColor,
       child: Stack(
         fit: StackFit.expand,
         children: [
           Positioned(
             top: statusBarHeight,
+            bottom: 0,
             width: size.width * 0.70 > widget.maxMenuWidth
                 ? widget.maxMenuWidth
                 : size.width * 0.70,
@@ -107,7 +170,13 @@ class UISideMenuState extends State<UISideMenu> {
             curve: Curves.fastLinearToSlowEaseIn,
             alignment: Alignment.topLeft,
             transform: _getMatrix4(size),
-            child: widget.child,
+            child: GestureDetector(
+              onTap: _opened ? closeSideMenu : null,
+              behavior: _opened
+                  ? HitTestBehavior.opaque
+                  : HitTestBehavior.deferToChild,
+              child: widget.child,
+            ),
           ),
         ],
       ),
@@ -120,7 +189,7 @@ class UISideMenuState extends State<UISideMenu> {
           ? widget.maxMenuWidth
           : size.width * 0.70;
       return Matrix4.identity()
-        ..translateByDouble(menuWidth * widget._inverse, 0, 0, 1);
+        ..translateByDouble(menuWidth * widget._inverse, 0.0, 0.0, 1.0);
     }
     return Matrix4.identity();
   }

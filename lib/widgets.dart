@@ -7,7 +7,7 @@ export 'src/widgets/accordion/ui_expansion_tile.dart';
 export 'src/widgets/anim/animated_gesture_detector.dart';
 export 'src/widgets/anim/ui_animation_configuration.dart';
 export 'src/widgets/anim/ui_animation_limiter.dart';
-export 'src/widgets/anim/ui_avatar_glow.dart';
+export 'src/widgets/anim/ui_ripple_glow.dart';
 export 'src/widgets/anim/ui_entrance_animations.dart';
 export 'src/widgets/anim/ui_tap_guard.dart';
 export 'src/widgets/cards/ui_animated_flip_card.dart';

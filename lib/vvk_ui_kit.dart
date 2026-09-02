@@ -8,7 +8,7 @@
 ///
 /// Focused entry points are also available, e.g. `theme.dart`, `buttons.dart`,
 /// `inputs.dart`, `layout.dart`, `dialogs.dart`, `feedback.dart`,
-/// `navigation.dart`, `media.dart`, `widgets.dart`, and `core.dart`.
+/// `navigation.dart`, `menu.dart`, `tabs.dart`, `media.dart`, `widgets.dart`, and `core.dart`.
 ///
 /// ## Getting started
 ///
@@ -105,7 +105,7 @@ export 'src/widgets/anim/animated_gesture_detector.dart';
 export 'src/widgets/anim/ui_animation_configuration.dart';
 export 'src/widgets/anim/ui_animation_limiter.dart';
 export 'src/widgets/anim/ui_animate_wrapper.dart';
-export 'src/widgets/anim/ui_avatar_glow.dart';
+export 'src/widgets/anim/ui_ripple_glow.dart';
 export 'src/widgets/anim/ui_entrance_animations.dart';
 export 'src/widgets/anim/ui_pressable.dart';
 export 'src/widgets/anim/ui_tap_guard.dart';
@@ -290,19 +290,20 @@ export 'src/widgets/media/ui_image.dart';
 export 'src/widgets/media/ui_image_preview_frame.dart';
 export 'src/widgets/media/ui_image_scope.dart';
 
+// Widgets — menu
+export 'src/widgets/menu/ui_context_menu.dart';
+export 'src/widgets/menu/ui_menu_bar.dart';
+export 'src/widgets/menu/ui_side_menu.dart';
+
 // Widgets — navigation
 export 'src/widgets/navigation/ui_app_bar.dart';
 export 'src/widgets/navigation/ui_avatar_with_edit.dart';
 export 'src/widgets/navigation/ui_bottom_navy_bar.dart';
 export 'src/widgets/navigation/ui_floating_bottom_bar.dart';
 export 'src/widgets/navigation/ui_breadcrumb.dart';
-export 'src/widgets/navigation/ui_context_menu.dart';
 export 'src/widgets/navigation/ui_detail_date_navigator.dart';
 export 'src/widgets/navigation/ui_double_back_to_exit.dart';
 export 'src/widgets/navigation/ui_settings_scaffold.dart';
-export 'src/widgets/navigation/ui_menu_bar.dart';
-export 'src/widgets/navigation/ui_side_menu.dart';
-export 'src/widgets/navigation/ui_tabbed_detail_scaffold.dart';
 export 'src/widgets/navigation/ui_tree_view.dart';
 export 'src/widgets/navigation/ui_theme_toggle_button.dart';
 export 'src/widgets/navigation/ui_title_with_bordered_line.dart';
@@ -319,9 +320,9 @@ export 'src/widgets/states/ui_error_info.dart';
 
 // Widgets — tabs
 export 'src/widgets/tabs/ui_buttons_tab.dart';
-export 'src/widgets/tabs/ui_dwm_tabs.dart';
 export 'src/widgets/tabs/ui_segmented_tab_bar.dart';
 export 'src/widgets/tabs/ui_tab_bar.dart';
+export 'src/widgets/tabs/ui_tabbed_detail_scaffold.dart';
 
 // Widgets — text
 export 'src/widgets/text/ui_marquee.dart';

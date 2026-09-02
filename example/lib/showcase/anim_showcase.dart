@@ -4,8 +4,21 @@ import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 import 'common.dart';
 import 'showcase_scaffold.dart';
 
-class AnimShowcase extends StatelessWidget {
+class AnimShowcase extends StatefulWidget {
   const AnimShowcase({super.key});
+
+  @override
+  State<AnimShowcase> createState() => _AnimShowcaseState();
+}
+
+class _AnimShowcaseState extends State<AnimShowcase> {
+  int _animKey = 0;
+
+  void _replay() {
+    setState(() {
+      _animKey++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +36,36 @@ class AnimShowcase extends StatelessWidget {
       title: 'Animation',
       child: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                UIElevatedIconButton(
+                  icon: Icons.replay_rounded,
+                  label: 'Replay',
+                  foregroundColor: Theme.of(context).colorScheme.primary,
+                  onPressed: _replay,
+                ),
+              ],
+            ),
+          ),
           ShowcaseTile(
             name: 'Staggered list entrance',
-            child: UIAnimationLimiter(
-              child: Column(
-                children: UIAnimationConfiguration.toStaggeredList(
-                  childAnimationBuilder: (child) => UIFadeInAnimation(
-                    child: UISlideInAnimation(verticalOffset: 24, child: child),
+            child: KeyedSubtree(
+              key: ValueKey('staggered_$_animKey'),
+              child: UIAnimationLimiter(
+                child: Column(
+                  children: UIAnimationConfiguration.toStaggeredList(
+                    duration: const Duration(milliseconds: 350),
+                    childAnimationBuilder: (child) => UIFadeInAnimation(
+                      child: UISlideInAnimation(
+                        verticalOffset: 24,
+                        child: child,
+                      ),
+                    ),
+                    children: items,
                   ),
-                  children: items,
                 ),
               ),
             ),
@@ -51,9 +85,9 @@ class AnimShowcase extends StatelessWidget {
             ),
           ),
           ShowcaseTile(
-            name: 'UIAvatarGlow',
+            name: 'UIRippleGlow',
             child: Center(
-              child: UIAvatarGlow(
+              child: UIRippleGlow(
                 child: CircleAvatar(
                   radius: 28,
                   backgroundColor: Theme.of(context).colorScheme.primary,
@@ -64,25 +98,78 @@ class AnimShowcase extends StatelessWidget {
           ),
           ShowcaseTile(
             name: 'UIFlipAnimation + UIScaleInAnimation',
-            child: UIAnimationConfiguration.synchronized(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  UIFlipAnimation(
-                    child: Icon(
-                      Icons.credit_card,
-                      size: 48,
-                      color: Theme.of(context).colorScheme.primary,
+            child: InkWell(
+              onTap: _replay,
+              borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    KeyedSubtree(
+                      key: ValueKey('flip_scale_$_animKey'),
+                      child: UIAnimationConfiguration.synchronized(
+                        duration: const Duration(milliseconds: 500),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                UIFlipAnimation(
+                                  duration: const Duration(milliseconds: 500),
+                                  flipAxis: UIFlipAxis.x,
+                                  child: Icon(
+                                    Icons.credit_card_rounded,
+                                    size: 48,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                const UIText('Flip X', size: 12),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                UIFlipAnimation(
+                                  duration: const Duration(milliseconds: 500),
+                                  flipAxis: UIFlipAxis.y,
+                                  child: Icon(
+                                    Icons.style_rounded,
+                                    size: 48,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                const UIText('Flip Y', size: 12),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                UIScaleInAnimation(
+                                  duration: const Duration(milliseconds: 500),
+                                  child: Icon(
+                                    Icons.notifications_active_rounded,
+                                    size: 48,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                const UIText('Scale In', size: 12),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  UIScaleInAnimation(
-                    child: Icon(
-                      Icons.notifications,
-                      size: 48,
-                      color: Theme.of(context).colorScheme.tertiary,
+                    const SizedBox(height: 12),
+                    UIPrimaryTextButton(
+                      text: 'Tap to Replay Animations',
+                      onPressed: _replay,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

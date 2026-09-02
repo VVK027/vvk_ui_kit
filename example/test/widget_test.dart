@@ -6,8 +6,8 @@ void main() {
     await tester.pumpWidget(const FlutterUiComponentsExampleApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('VVK UI Kit'), findsWidgets);
-    expect(find.text('Buttons'), findsOneWidget);
-    expect(find.text('Core utilities'), findsOneWidget);
+    expect(find.text('VVK UI Kit Showcase'), findsOneWidget);
+    expect(find.text('VVK UI Kit Showcase'), findsOneWidget);
+    expect(find.text('Glassmorphism'), findsOneWidget);
   });
 }

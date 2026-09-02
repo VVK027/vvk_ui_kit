@@ -194,17 +194,17 @@ void main() {
     });
   });
 
-  group('UIAvatarGlow', () {
+  group('UIRippleGlow', () {
     testWidgets('renders child with glow wrapper', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: UIAvatarGlow(child: SizedBox(width: 40, height: 40)),
+            body: UIRippleGlow(child: SizedBox(width: 40, height: 40)),
           ),
         ),
       );
 
-      expect(find.byType(UIAvatarGlow), findsOneWidget);
+      expect(find.byType(UIRippleGlow), findsOneWidget);
       expect(find.byType(SizedBox), findsWidgets);
     });
   });
