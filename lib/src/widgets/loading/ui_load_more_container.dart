@@ -70,10 +70,10 @@ class UILoadMoreContainer<T> extends StatefulWidget {
   final ScrollController? scrollController;
 
   /// Callback triggered when the loading state changes.
-  final Function(bool)? onLoadingChanged;
+  final void Function(bool)? onLoadingChanged;
 
   /// Callback triggered when an error occurs.
-  final Function(dynamic)? onError;
+  final void Function(dynamic)? onError;
 
   /// Whether to display as a list or a grid.
   final UILoadMoreViewType viewType;
@@ -134,8 +134,8 @@ class UILoadMoreContainer<T> extends StatefulWidget {
     double? loadMoreOffset,
     Widget? separatorWidget,
     ScrollController? scrollController,
-    Function(bool)? onLoadingChanged,
-    Function(dynamic)? onError,
+    void Function(bool)? onLoadingChanged,
+    void Function(dynamic)? onError,
     UILoadMoreViewType? viewType,
     SliverGridDelegate? gridDelegate,
     Color? progressColor,

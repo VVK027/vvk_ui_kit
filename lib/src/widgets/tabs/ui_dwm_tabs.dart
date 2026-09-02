@@ -70,7 +70,7 @@ List<Tab> buildDwmTabsFromLabels(
 
 /// Builds a [TabBar] styled for Day / Week / Month detail screens.
 ///
-/// Used by [UITabbedDetailScaffold] and any custom period-selector layout.
+/// Used by tabbed detail scaffolds and any custom period-selector layout.
 TabBar buildDwmTabBar(
   BuildContext context, {
   required List<Tab> tabs,

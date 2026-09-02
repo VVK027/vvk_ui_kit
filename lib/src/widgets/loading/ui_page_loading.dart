@@ -90,7 +90,7 @@ class UIListViewShimmerLoading extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (p1, p0) => const Divider(thickness: 2, height: 1),
       itemCount: 20,
-      itemBuilder: (_, _) {
+      itemBuilder: (context, index) {
         if (item != null) return item!;
         return Padding(
           padding: const EdgeInsets.all(16).copyWith(top: 4, bottom: 4),

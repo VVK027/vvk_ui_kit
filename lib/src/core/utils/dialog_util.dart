@@ -28,7 +28,7 @@ class DialogUtil {
       barrierLabel: 'Dismiss',
       barrierColor: barrierColor,
       transitionDuration: transitionDuration,
-      pageBuilder: (ctx, _, _) {
+      pageBuilder: (ctx, animation, secondaryAnimation) {
         return Stack(
           children: [
             Positioned(
@@ -232,7 +232,7 @@ class DialogUtil {
   /// Shows a simple full-screen loader.
   static void showLoader(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    showWidgetAsDialog(
+    showWidgetAsDialog<void>(
       context,
       Center(
         child: Container(
@@ -275,7 +275,7 @@ class DialogUtil {
     double? posBottom,
     double? headingTextSize,
   }) {
-    showWidgetAsDialog(
+    showWidgetAsDialog<void>(
       context,
       UIListDialog<T>(
         items: items,

@@ -241,7 +241,7 @@ class UIImage extends StatelessWidget {
       color: color,
       cacheWidth: _cacheDimension(width, dpr),
       cacheHeight: _cacheDimension(height, dpr),
-      errorBuilder: (_, _, _) => _buildPlaceholder(path: path),
+      errorBuilder: (context, error, stackTrace) => _buildPlaceholder(path: path),
     );
   }
 
@@ -303,7 +303,7 @@ class UIImage extends StatelessWidget {
         if (progress == null) return child;
         return _loadingPlaceholder();
       },
-      errorBuilder: (_, _, _) => params.errorWidget(),
+      errorBuilder: (context, error, stackTrace) => params.errorWidget(),
     );
   }
 
@@ -316,7 +316,7 @@ class UIImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        errorBuilder: (_, _, _) => _fallbackWidget(),
+        errorBuilder: (context, error, stackTrace) => _fallbackWidget(),
       );
     } catch (_) {
       return _fallbackWidget();

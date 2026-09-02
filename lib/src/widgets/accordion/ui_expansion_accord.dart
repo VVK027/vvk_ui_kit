@@ -72,7 +72,7 @@ class _UIExpansionAccordState extends State<UIExpansionAccord> {
           trailingIcon: item.trailingIcon,
         );
       },
-      separatorBuilder: (_, _) => const SizedBox(height: 6),
+      separatorBuilder: (context, index) => const SizedBox(height: 6),
     );
   }
 }

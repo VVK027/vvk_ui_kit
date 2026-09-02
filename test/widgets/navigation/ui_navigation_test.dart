@@ -295,6 +295,40 @@ void main() {
     });
   });
 
+  group('UISideMenuController', () {
+    testWidgets('allows opening and closing side menu imperatively', (
+      tester,
+    ) async {
+      final controller = UISideMenuController();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: UISideMenu(
+              controller: controller,
+              menu: const Text('Menu Content'),
+              child: const Text('Main Content'),
+            ),
+          ),
+        ),
+      );
+
+      expect(controller.isOpened, isFalse);
+
+      controller.open();
+      await tester.pumpAndSettle();
+      expect(controller.isOpened, isTrue);
+
+      controller.close();
+      await tester.pumpAndSettle();
+      expect(controller.isOpened, isFalse);
+
+      controller.toggle();
+      await tester.pumpAndSettle();
+      expect(controller.isOpened, isTrue);
+    });
+  });
+
   group('UIBreadcrumb', () {
     testWidgets('renders items with separators', (tester) async {
       await tester.pumpWidget(

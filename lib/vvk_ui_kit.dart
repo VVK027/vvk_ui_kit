@@ -118,6 +118,7 @@ export 'src/widgets/accordion/ui_expansion_accord_item.dart';
 export 'src/widgets/accordion/ui_expansion_tile.dart';
 
 // Widgets — buttons
+export 'src/widgets/buttons/ui_button_base.dart';
 export 'src/widgets/buttons/ui_button_props.dart';
 export 'src/widgets/buttons/ui_cupertino_text_button.dart';
 export 'src/widgets/buttons/ui_custom_outlined_button.dart';
@@ -235,6 +236,7 @@ export 'src/widgets/inputs/ui_form.dart';
 export 'src/widgets/inputs/ui_form_fields.dart';
 export 'src/widgets/inputs/ui_hierarchy_searchable_dropdown.dart';
 export 'src/widgets/inputs/ui_input_otp.dart';
+export 'src/widgets/inputs/ui_input_wrapper.dart';
 export 'src/widgets/inputs/ui_labeled_field.dart';
 export 'src/widgets/inputs/ui_labeled_text_form_field.dart';
 export 'src/widgets/inputs/ui_overlay_dropdown.dart';

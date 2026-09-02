@@ -99,7 +99,7 @@ void main() {
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
-                onPressed: () => DialogUtil.showWidgetAsBottomSheet(
+                onPressed: () => DialogUtil.showWidgetAsBottomSheet<void>(
                   context,
                   widget: const Text('Sheet Content'),
                 ),

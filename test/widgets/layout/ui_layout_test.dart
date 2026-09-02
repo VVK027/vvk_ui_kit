@@ -165,7 +165,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: UISeparatedColumn(
-              separatorBuilder: (_, _) => const Divider(height: 1),
+              separatorBuilder: (context, index) => const Divider(height: 1),
               children: const [Text('One'), Text('Two'), Text('Three')],
             ),
           ),
@@ -304,7 +304,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: UISeparatedRow(
-              separatorBuilder: (_, _) => const VerticalDivider(width: 1),
+              separatorBuilder: (context, index) => const VerticalDivider(width: 1),
               children: const [Text('One'), Text('Two'), Text('Three')],
             ),
           ),
@@ -327,7 +327,7 @@ void main() {
               direction: Axis.vertical,
               includeFirstSeparator: true,
               includeLastSeparator: true,
-              separatorBuilder: (_, _) => const Divider(height: 1),
+              separatorBuilder: (context, index) => const Divider(height: 1),
               children: const [Text('Alpha'), Text('Beta')],
             ),
           ),

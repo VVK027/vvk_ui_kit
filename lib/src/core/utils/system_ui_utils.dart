@@ -21,7 +21,7 @@ class SystemUiUtils {
     int delayInMilliSeconds = 0,
   }) async {
     if (delayInMilliSeconds > 0) {
-      await Future.delayed(Duration(milliseconds: delayInMilliSeconds));
+      await Future<void>.delayed(Duration(milliseconds: delayInMilliSeconds));
     }
 
     final iconBrightness =

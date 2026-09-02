@@ -1,6 +1,7 @@
 /// Button widgets and shared button styling.
 library;
 
+export 'src/widgets/buttons/ui_button_base.dart';
 export 'src/widgets/buttons/ui_button_props.dart';
 export 'src/widgets/buttons/ui_cupertino_text_button.dart';
 export 'src/widgets/buttons/ui_custom_outlined_button.dart';

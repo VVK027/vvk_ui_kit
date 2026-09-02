@@ -3,6 +3,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vvk_ui_kit/vvk_ui_kit.dart';
 
 void main() {
+  group('UIInputWrapper', () {
+    testWidgets('renders label, child, and error text', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: UIInputWrapper(
+              label: 'Input Label',
+              errorText: 'Invalid input',
+              child: Text('Inner Field'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Input Label'), findsOneWidget);
+      expect(find.text('Inner Field'), findsOneWidget);
+      expect(find.text('Invalid input'), findsOneWidget);
+    });
+  });
+
   group('UITextFormField', () {
     testWidgets('renders label and hint, and accepts input', (tester) async {
       String? changedValue;
@@ -589,7 +609,7 @@ void main() {
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
-                onPressed: () => showPickerBottomSheet(
+                onPressed: () => showPickerBottomSheet<void>(
                   context: context,
                   builder: (_) => const Text('Picker Content'),
                 ),

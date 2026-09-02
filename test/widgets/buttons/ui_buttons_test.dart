@@ -17,6 +17,43 @@ void main() {
     outlineBorderColor: Colors.blue,
   );
 
+  group('UIButtonBase', () {
+    testWidgets('renders child and fires onPressed', (tester) async {
+      bool pressed = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: UIButtonBase(
+              onPressed: () => pressed = true,
+              child: const Text('Base Button'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Base Button'), findsOneWidget);
+      await tester.tap(find.text('Base Button'));
+      expect(pressed, isTrue);
+    });
+
+    testWidgets('displays CircularProgressIndicator when isLoading is true', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: UIButtonBase(
+              isLoading: true,
+              child: Text('Base Button'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+  });
+
   group('UIStyledButton', () {
     testWidgets('renders child and responds to tap', (tester) async {
       bool pressed = false;

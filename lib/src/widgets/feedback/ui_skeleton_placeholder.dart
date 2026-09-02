@@ -84,8 +84,8 @@ class UISkeletonList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       padding: padding,
       itemCount: itemCount,
-      separatorBuilder: (_, _) => const SizedBox(height: 16),
-      itemBuilder: (_, _) => Row(
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
+      itemBuilder: (context, index) => Row(
         children: [
           UISkeletonPlaceholder.circle(size: 48),
           const SizedBox(width: 16),

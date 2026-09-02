@@ -10,7 +10,7 @@ void main() {
           home: Builder(
             builder: (context) => Scaffold(
               body: ElevatedButton(
-                onPressed: () => NavigationUtil.pushPage(
+                onPressed: () => NavigationUtil.pushPage<void>(
                   context,
                   const Scaffold(body: Text('New Page')),
                 ),
@@ -33,12 +33,12 @@ void main() {
           home: Builder(
             builder: (context) => Scaffold(
               body: ElevatedButton(
-                onPressed: () => NavigationUtil.pushPage(
+                onPressed: () => NavigationUtil.pushPage<void>(
                   context,
                   Scaffold(
                     body: Builder(
                       builder: (ctx) => ElevatedButton(
-                        onPressed: () => NavigationUtil.pop(ctx),
+                        onPressed: () => NavigationUtil.pop<void>(ctx),
                         child: const Text('Back'),
                       ),
                     ),
@@ -68,7 +68,7 @@ void main() {
           home: Builder(
             builder: (context) => Scaffold(
               body: ElevatedButton(
-                onPressed: () => NavigationUtil.pushPageWithEntrance(
+                onPressed: () => NavigationUtil.pushPageWithEntrance<void>(
                   context,
                   const Scaffold(body: Text('Entrance Page')),
                 ),
@@ -95,7 +95,7 @@ void main() {
           home: Builder(
             builder: (context) => Scaffold(
               body: ElevatedButton(
-                onPressed: () => NavigationUtil.pushPageWithDrillIn(
+                onPressed: () => NavigationUtil.pushPageWithDrillIn<void>(
                   context,
                   const Scaffold(body: Text('Drill Page')),
                 ),

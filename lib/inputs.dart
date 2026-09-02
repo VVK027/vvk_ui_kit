@@ -9,6 +9,7 @@ export 'src/widgets/inputs/ui_form.dart';
 export 'src/widgets/inputs/ui_form_fields.dart';
 export 'src/widgets/inputs/ui_hierarchy_searchable_dropdown.dart';
 export 'src/widgets/inputs/ui_input_otp.dart';
+export 'src/widgets/inputs/ui_input_wrapper.dart';
 export 'src/widgets/inputs/ui_labeled_field.dart';
 export 'src/widgets/inputs/ui_labeled_text_form_field.dart';
 export 'src/widgets/inputs/ui_number_field.dart';
