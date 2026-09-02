@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/ui_component_themes.dart';
-import 'ui_button_props.dart';
 import '../ui_button_helpers.dart';
+import 'ui_button_base.dart';
+import 'ui_button_props.dart';
 
 /// Visual configuration for [UIStyledButton].
 ///
@@ -294,109 +295,71 @@ class UIStyledButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isButtonDisabled = isDisabled || isLoading;
-    final content = _buildButtonContent(isButtonDisabled);
-    final buttonWidget = _buildButtonWidget(context, content, isButtonDisabled);
-
-    Widget result = SizedBox(
-      height: style.height,
-      width: width,
-      child: buttonWidget,
-    );
-
-    if (semanticsLabel != null || semanticsHint != null) {
-      result = Semantics(
-        button: true,
-        enabled: !isButtonDisabled,
-        label: semanticsLabel,
-        hint: semanticsHint,
-        child: result,
-      );
-    }
-
-    return result;
-  }
-
-  Widget _buildButtonContent(bool isButtonDisabled) {
     final styledChild = applyButtonLabelStyle(child, style, isButtonDisabled);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(child: styledChild),
-        if (isLoading)
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: SizedBox(
-              height: style.loadingIndicatorSize,
-              width: style.loadingIndicatorSize,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: style.loadingIndicatorColor,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildButtonWidget(
-    BuildContext context,
-    Widget content,
-    bool isButtonDisabled,
-  ) {
-    final VoidCallback? finalOnPressed = isButtonDisabled
-        ? null
-        : (onPressed ?? () {});
-
-    final childContent = buildButtonChildRow(label: content, icon: icon);
-
+    final childContent = buildButtonChildRow(label: styledChild, icon: icon);
+    final VoidCallback? finalOnPressed =
+        isButtonDisabled ? null : (onPressed ?? () {});
     final shape = buttonShape(style);
 
     if (variant == UIStyledButtonVariant.text) {
-      return material.text(
-        onPressed: finalOnPressed,
-        baseStyle: material.mergeStyle(buttonStyle),
-        child: childContent,
+      return SizedBox(
+        height: style.height,
+        width: width,
+        child: Semantics(
+          button: true,
+          enabled: !isButtonDisabled,
+          label: semanticsLabel,
+          hint: semanticsHint,
+          child: material.text(
+            onPressed: finalOnPressed,
+            baseStyle: material.mergeStyle(buttonStyle),
+            child: childContent,
+          ),
+        ),
       );
     }
 
     if (variant == UIStyledButtonVariant.outline) {
-      return material.outlined(
-        onPressed: finalOnPressed,
-        baseStyle: OutlinedButton.styleFrom(
-          foregroundColor: style.foregroundColor,
-          side: BorderSide(color: style.outlineBorderColor),
-          padding: width != null
-              ? EdgeInsets.zero
-              : EdgeInsets.symmetric(
-                horizontal: context.uiButtonMetrics.horizontalPadding,
-              ),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          shape: shape,
-          overlayColor: Colors.transparent,
-          disabledForegroundColor: style.disabledForegroundColor,
+      return SizedBox(
+        height: style.height,
+        width: width,
+        child: Semantics(
+          button: true,
+          enabled: !isButtonDisabled,
+          label: semanticsLabel,
+          hint: semanticsHint,
+          child: material.outlined(
+            onPressed: finalOnPressed,
+            baseStyle: OutlinedButton.styleFrom(
+              foregroundColor: style.foregroundColor,
+              side: BorderSide(color: style.outlineBorderColor),
+              padding: width != null
+                  ? EdgeInsets.zero
+                  : EdgeInsets.symmetric(
+                      horizontal: context.uiButtonMetrics.horizontalPadding,
+                    ),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: shape,
+              overlayColor: Colors.transparent,
+              disabledForegroundColor: style.disabledForegroundColor,
+            ),
+            child: childContent,
+          ),
         ),
-        child: childContent,
       );
     }
 
-    return material.elevated(
-      onPressed: finalOnPressed,
-      baseStyle: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? style.backgroundColor,
-        foregroundColor: style.foregroundColor,
-        padding: width != null
-            ? EdgeInsets.zero
-            : EdgeInsets.symmetric(
-              horizontal: context.uiButtonMetrics.horizontalPadding,
-            ),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: shape,
-        disabledBackgroundColor: style.disabledBackgroundColor,
-        disabledForegroundColor: style.disabledForegroundColor,
-        elevation: 0,
-        overlayColor: Colors.transparent,
-      ),
+    return UIButtonBase(
+      width: width,
+      height: style.height,
+      backgroundColor: backgroundColor ?? style.backgroundColor,
+      foregroundColor: style.foregroundColor,
+      borderRadius: style.borderRadius,
+      isLoading: isLoading,
+      isDisabled: isDisabled,
+      onPressed: onPressed,
+      semanticLabel: semanticsLabel,
+      semanticHint: semanticsHint,
       child: childContent,
     );
   }

@@ -2,6 +2,7 @@
 library;
 
 export 'src/widgets/inputs/ui_calendar.dart';
+export 'src/widgets/inputs/ui_async_text_form_field.dart';
 export 'src/widgets/inputs/ui_color_picker.dart';
 export 'src/widgets/inputs/ui_date_picker.dart';
 export 'src/widgets/inputs/ui_dropdown.dart';

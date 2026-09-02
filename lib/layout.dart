@@ -1,6 +1,7 @@
 /// Layout, responsive helpers, spacing, and screen scaffolds.
 library;
 
+export 'src/widgets/layout/ui_adaptive_scaffold.dart';
 export 'src/widgets/layout/ui_centered_text_divider.dart';
 export 'src/widgets/layout/ui_dashed_divider.dart';
 export 'src/widgets/layout/ui_divider.dart';
